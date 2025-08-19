@@ -31,7 +31,7 @@ export default defineConfig({
     // https://github.com/posva/unplugin-vue-router
     VueRouter({
       extensions: ['.vue', '.md'],
-      dts: 'src/typed-router.d.ts',
+      dts: 'src/types/typed-router.d.ts',
     }),
 
     Components({
@@ -44,7 +44,8 @@ export default defineConfig({
           importStyle: 'sass',
         }),
       ],
-      dts: 'src/components.d.ts',
+      dts: 'src/types/components.d.ts',
+
     }),
 
     // https://github.com/antfu/unocss
