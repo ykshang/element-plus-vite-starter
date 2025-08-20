@@ -1,23 +1,62 @@
 <script lang="ts" setup>
-import { repository } from '~/../package.json'
-
+import { ArrowDown } from '@element-plus/icons-vue'
 import { toggleDark } from '~/composables'
+
+function loginout() { }
 </script>
 
 <template>
-  <el-menu class="el-menu-demo" mode="horizontal" :ellipsis="false" router>
-    <el-menu-item h="full" @click="toggleDark()">
-      <button class="w-full cursor-pointer border-none bg-transparent" style="height: var(--ep-menu-item-height)">
-        <i inline-flex i="dark:ep-moon ep-sunny" />
-      </button>
-    </el-menu-item>
-  </el-menu>
+  <div class="header">
+    <div flex-1>
+      some code
+    </div>
+    <div class="mr-15px flex items-center">
+      <IconAvatar mr-10px h-30px w-30px />
+      <el-dropdown>
+        <span class="el-dropdown-link">
+          <span class="username">
+            用户名
+            <el-icon>
+              <ArrowDown />
+            </el-icon>
+          </span>
+        </span>
+        <template #dropdown>
+          <el-dropdown-menu>
+            <el-dropdown-item>
+              <span @click="toggleDark()">切换主题</span>
+            </el-dropdown-item>
+            <el-dropdown-item>
+              <span @click="loginout">退出登录</span>
+            </el-dropdown-item>
+          </el-dropdown-menu>
+        </template>
+      </el-dropdown>
+    </div>
+  </div>
 </template>
 
 <style lang="scss">
-.el-menu-demo {
-  &.ep-menu--horizontal > .ep-menu-item:nth-child(1) {
-    margin-right: auto;
+.header {
+  display: flex;
+  height: 60px;
+  border-bottom: solid 1px var(--ep-menu-border-color);
+  align-items: center;
+
+  .el-dropdown-link {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+
+    // color: #fff;
+    .username {
+      font-size: 14px;
+
+      &:hover {
+        color: var(--el-color-primary);
+      }
+    }
   }
 }
 </style>

@@ -15,7 +15,7 @@ export default [
     icon: HomeFilled,
     subMenu: [
       {
-        index: '1-1',
+        index: 'Home',
         title: '首页',
         icon: HomeFilled,
       },
