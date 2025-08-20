@@ -11,7 +11,7 @@ const isCollapse = ref(false)
       <IconVue mr-10px h-a w-35px />
       <span v-show="!isCollapse">Vue Admin</span>
     </div>
-    <el-menu router class="flex-1" default-active="Home" :collapse="isCollapse">
+    <el-menu router class="flex-1" default-active="/Home/HomePage" :collapse="isCollapse">
       <el-sub-menu v-for="menu1 in menuData" :key="menu1.index" :index="menu1.index">
         <template #title>
           <component :is="menu1.icon" class="menu_icon" />
