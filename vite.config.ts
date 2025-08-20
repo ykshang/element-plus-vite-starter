@@ -52,9 +52,13 @@ export default defineConfig({
     // see uno.config.ts for config
     Unocss(),
   ],
-
-  ssr: {
-    // TODO: workaround until they support native ESM
-    noExternal: ['element-plus'],
+  server: {
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3000/',
+        changeOrigin: true,
+        rewrite: path => path.replace(/^\/api/, ''),
+      },
+    },
   },
 })
