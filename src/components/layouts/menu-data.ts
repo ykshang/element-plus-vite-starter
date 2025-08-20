@@ -10,44 +10,44 @@ import {
 
 export default [
   {
-    index: 'Home',
+    index: '/Home',
     title: '首页',
     icon: HomeFilled,
     subMenu: [
       {
-        index: 'Home/HomePage',
+        index: '/Home/HomePage',
         title: '首页',
         icon: HomeFilled,
       },
       {
-        index: '1-2',
+        index: '/Home/DashBoard',
         title: '看板',
         icon: DataAnalysis,
       },
     ],
   },
   {
-    index: '2',
+    index: '/Setting',
     title: '配置',
     icon: Setting,
     subMenu: [
       {
-        index: '2-1',
+        index: '/Setting/Profile',
         title: '个人中心',
         icon: UserFilled,
       },
       {
-        index: '2-2',
+        index: '/Setting/DepartmentMangement',
         title: '部门管理',
         icon: OfficeBuilding,
       },
       {
-        index: '2-3',
+        index: '/Setting/MenuMangement',
         title: '菜单管理',
         icon: Menu,
       },
       {
-        index: '2-4',
+        index: '/Setting/TaskMangement',
         title: '任务管理',
         icon: Checked,
       },

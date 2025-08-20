@@ -6,7 +6,7 @@ const isCollapse = ref(false)
 </script>
 
 <template>
-  <div h="full" flex flex-col>
+  <div h="full" w-250px flex flex-col>
     <div h-60px flex items-center justify-center>
       <IconVue mr-10px h-a w-35px />
       <span v-show="!isCollapse">Vue Admin</span>

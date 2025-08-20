@@ -10,5 +10,5 @@ onMounted(() => {
 </script>
 
 <template>
-  <div>1</div>
+  <div>HomePage</div>
 </template>
