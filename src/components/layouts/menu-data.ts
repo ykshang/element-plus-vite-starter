@@ -10,12 +10,12 @@ import {
 
 export default [
   {
-    index: '1',
+    index: 'Home',
     title: '首页',
     icon: HomeFilled,
     subMenu: [
       {
-        index: 'Home',
+        index: 'Home/HomePage',
         title: '首页',
         icon: HomeFilled,
       },

@@ -6,18 +6,24 @@ const isCollapse = ref(false)
 </script>
 
 <template>
-  <el-menu router class="main_menu" default-active="2-1" :collapse="isCollapse">
-    <el-sub-menu v-for="menu1 in menuData" :key="menu1.index" :index="menu1.index">
-      <template #title>
-        <component :is="menu1.icon" class="menu_icon" />
-        <span class="menu_title">{{ menu1.title }}</span>
-      </template>
-      <el-menu-item v-for="menu2 in menu1.subMenu" :key="menu2.index" :index="menu2.index">
-        <component :is="menu2.icon" class="menu_icon" />
-        <span class="menu_title w-40 text-align-left">{{ menu2.title }}</span>
-      </el-menu-item>
-    </el-sub-menu>
-  </el-menu>
+  <div h="full" flex flex-col>
+    <div h-60px flex items-center justify-center>
+      <IconVue mr-10px h-a w-35px />
+      <span v-show="!isCollapse">Vue Admin</span>
+    </div>
+    <el-menu router class="flex-1" default-active="Home" :collapse="isCollapse">
+      <el-sub-menu v-for="menu1 in menuData" :key="menu1.index" :index="menu1.index">
+        <template #title>
+          <component :is="menu1.icon" class="menu_icon" />
+          <span class="menu_title">{{ menu1.title }}</span>
+        </template>
+        <el-menu-item v-for="menu2 in menu1.subMenu" :key="menu2.index" :index="menu2.index">
+          <component :is="menu2.icon" class="menu_icon" />
+          <span class="menu_title w-40 text-align-left">{{ menu2.title }}</span>
+        </el-menu-item>
+      </el-sub-menu>
+    </el-menu>
+  </div>
 </template>
 
 <style lang="scss" scoped>
