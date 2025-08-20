@@ -1,7 +1,11 @@
 <script lang="ts" setup>
 import { Lock, User } from '@element-plus/icons-vue'
+import { ElMessage } from 'element-plus'
 import { nextTick, reactive, ref } from 'vue'
+import { useRouter } from 'vue-router'
+import { login } from '~/composables/services/login'
 
+const router = useRouter()
 const showRegisterFlg = ref(false)
 const formData = reactive({
   userName: '',
@@ -10,9 +14,19 @@ const formData = reactive({
 function handleSubmit() {
   // eslint-disable-next-line no-console
   console.log(formData)
+  login(formData).then((res: any) => {
+    if (res?.status === 'success') {
+      ElMessage.success('登录成功')
+      router.push('/Home')
+    }
+    else {
+      ElMessage.error('用户名或密码错误')
+    }
+  })
 }
 
 const registerRef = ref()
+
 function onOpenRegister() {
   showRegisterFlg.value = true
   nextTick(() => {
@@ -78,10 +92,12 @@ function onOpenRegister() {
     );
     background-size: 200% 200%;
     animation: gradient-bg 20s linear infinite;
+
     @keyframes gradient-bg {
       0% {
         background-position: 0% 0%;
       }
+
       100% {
         background-position: 100% 100%;
       }
