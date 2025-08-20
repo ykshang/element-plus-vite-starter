@@ -20,7 +20,8 @@ import 'element-plus/theme-chalk/src/message.scss'
 import 'element-plus/theme-chalk/src/message-box.scss'
 import 'element-plus/theme-chalk/src/notification.scss'
 
-// console.log(routes)
+// eslint-disable-next-line no-console
+console.log(routes)
 
 // 引入 element-plus 的全量 css
 // import 'element-plus/theme-chalk/src/index.scss'

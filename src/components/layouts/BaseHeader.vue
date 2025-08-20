@@ -1,8 +1,13 @@
 <script lang="ts" setup>
 import { ArrowDown } from '@element-plus/icons-vue'
+import { useRouter } from 'vue-router'
 import { toggleDark } from '~/composables/util'
 
-function loginout() { }
+const router = useRouter()
+
+function loginout() {
+  router.push('/Login')
+}
 </script>
 
 <template>
