@@ -1,15 +1,15 @@
 import ElementPlus from 'element-plus'
-
-// 引入 pinia
-import { createPinia } from 'pinia'
+/* 引入 pinia */
+import { createPinia } from 'pinia' // pinia
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate' // pinia 持久化
 
 import { createApp } from 'vue'
+/* 引入路由 */
 import { createRouter, createWebHistory } from 'vue-router'
-
 import { routes } from 'vue-router/auto-routes'
 
 import App from './App.vue'
-// import all element css, uncommented next line
+// 自定义样式 + element-plus 的主题系统
 import '~/styles/index.scss'
 
 import 'uno.css'
@@ -18,8 +18,9 @@ import 'uno.css'
 // 这几个无法自动导入，单独引入
 import 'element-plus/theme-chalk/src/message.scss'
 import 'element-plus/theme-chalk/src/message-box.scss'
-
 import 'element-plus/theme-chalk/src/notification.scss'
+
+// console.log(routes)
 
 // 引入 element-plus 的全量 css
 // import 'element-plus/theme-chalk/src/index.scss'
@@ -27,6 +28,8 @@ import 'element-plus/theme-chalk/src/notification.scss'
 const app = createApp(App)
 // 引入 pinia
 const pinia = createPinia()
+pinia.use(piniaPluginPersistedstate)
+
 app.use(pinia)
 
 // 引入 element-plus
