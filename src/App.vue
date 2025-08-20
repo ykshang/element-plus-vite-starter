@@ -3,9 +3,9 @@
 
 <template>
   <el-config-provider namespace="ep">
-    <BaseHeader />
-    <div class="main-container flex">
-      <BaseSide />
+    <BaseSide />
+    <div class="main-container flex flex-1 flex-col">
+      <BaseHeader />
       <div w="full" py="4">
         <RouterView />
       </div>
@@ -17,9 +17,7 @@
 #app {
   text-align: center;
   color: var(--ep-text-color-primary);
-}
-
-.main-container {
-  height: calc(100vh - var(--ep-menu-item-height) - 4px);
+  display: flex;
+  height: 100vh;
 }
 </style>
