@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { ArrowDown } from '@element-plus/icons-vue'
-import { toggleDark } from '~/composables'
+import { toggleDark } from '~/composables/util'
 
 function loginout() { }
 </script>
