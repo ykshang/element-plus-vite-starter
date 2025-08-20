@@ -36,10 +36,10 @@ function onOpenRegister() {
             <el-input v-model="formData.password" :prefix-icon="Lock" placeholder="密码" show-password type="password" />
           </el-form-item>
           <div class="flex items-center justify-center">
-            <el-button class="ml-5 mr-5" type="primary" @click="handleSubmit">
+            <el-button class="ml-5 mr-5" type="info" @click="handleSubmit">
               登录
             </el-button>
-            <el-button class="ml-5 mr-5" type="primary" @click="onOpenRegister">
+            <el-button class="ml-5 mr-5" type="info" @click="onOpenRegister">
               注册
             </el-button>
           </div>
