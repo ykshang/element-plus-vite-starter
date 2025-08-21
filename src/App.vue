@@ -4,7 +4,7 @@ import { useRouter } from 'vue-router'
 
 const router = useRouter()
 onMounted(() => {
-  router.push('/Home')
+  // router.push('Home/HomePage')
 })
 </script>
 

@@ -3,7 +3,7 @@
     <BaseSide />
     <div class="main-container flex flex-1 flex-col">
       <BaseHeader />
-      <router-view />
+      <RouterView />
     </div>
   </el-config-provider>
 </template>
