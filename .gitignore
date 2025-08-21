@@ -11,3 +11,5 @@ yarn.lock
 package-lock.json
 
 *.log
+src/types/typed-router.d.ts
+src/types/components.d.ts
