@@ -3,7 +3,7 @@
 
 <template>
   <el-config-provider namespace="ep">
-    <BaseHeader />
+    <base-layout-header />
     <div class="main-container flex">
       <BaseSide />
       <div w="full" py="4">
