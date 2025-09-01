@@ -2,6 +2,8 @@ import path from 'node:path'
 import Vue from '@vitejs/plugin-vue'
 
 import Unocss from 'unocss/vite'
+import IconsResolver from 'unplugin-icons/resolver'
+import Icons from 'unplugin-icons/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import Components from 'unplugin-vue-components/vite'
 import VueRouter from 'unplugin-vue-router/vite'
@@ -44,10 +46,17 @@ export default defineConfig({
         ElementPlusResolver({
           importStyle: 'sass',
         }),
+        IconsResolver({
+          prefix: 'Iconify', // 图标组件前缀
+          enabledCollections: ['ep', 'ri'], // 启用ep、ri图标集
+        }),
       ],
       dts: 'src/types/components.d.ts',
     }),
-
+    Icons({
+      autoInstall: true, // 自动安装图标集
+      compiler: 'vue3', // 指定编译器
+    }),
     // https://github.com/antfu/unocss
     // see uno.config.ts for config
     Unocss(),
