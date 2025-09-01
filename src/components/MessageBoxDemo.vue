@@ -1,8 +1,12 @@
 <script lang="ts" setup>
 import type { Action } from 'element-plus'
-import { ElMessage, ElMessageBox } from 'element-plus'
+import { ElMessage, ElMessageBox, ElNotification } from 'element-plus'
 
 function open() {
+  ElNotification({
+    title: 'Notification',
+    message: '1221131as',
+  })
   ElMessageBox.alert('This is a message', 'Title', {
     // if you want to disable its autofocus
     // autofocus: false,
