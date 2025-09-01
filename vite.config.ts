@@ -28,8 +28,10 @@ export default defineConfig({
     Vue(),
 
     // https://github.com/posva/unplugin-vue-router
+    // 自动解析并生成路由
     VueRouter({
       extensions: ['.vue', '.md'],
+      routesFolder: 'src/pages/', // 匹配pages目录作为路由
       dts: 'src/types/typed-router.d.ts',
     }),
 
