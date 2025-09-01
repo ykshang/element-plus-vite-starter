@@ -1,7 +1,7 @@
 import path from 'node:path'
 import Vue from '@vitejs/plugin-vue'
 
-import Unocss from 'unocss/vite'
+import UnoCSS from 'unocss/vite'
 import IconsResolver from 'unplugin-icons/resolver'
 import Icons from 'unplugin-icons/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
@@ -59,7 +59,7 @@ export default defineConfig({
     }),
     // https://github.com/antfu/unocss
     // see uno.config.ts for config
-    Unocss(),
+    UnoCSS(),
   ],
   server: {
     proxy: {
