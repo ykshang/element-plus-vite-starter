@@ -40,3 +40,8 @@ $--colors: (
 
 // custom dark variables
 @use './dark.scss';
+
+// 引入 element-plus 的 message、message-box、notification 样式
+@use 'element-plus/theme-chalk/src/message.scss';
+@use 'element-plus/theme-chalk/src/message-box.scss';
+@use 'element-plus/theme-chalk/src/notification.scss';
