@@ -32,5 +32,13 @@
     "scss",
     "pcss",
     "postcss"
+  ],
+  "cSpell.words": [
+    "Attributify",
+    "iconify",
+    "taze",
+    "unocss",
+    "unplugin",
+    "vueuse"
   ]
 }
