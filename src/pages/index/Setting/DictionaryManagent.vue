@@ -35,10 +35,13 @@ function onClickSearch() {
 // 字典列表
 const tableData = ref<Dictionary[]>([])
 
+const tableLoading = ref(false)
 // 获取查询结果
 function initTableData() {
+  tableLoading.value = true
   const requestParam = getRequestParam()
   dictionaryService.getDictionaryListByPage(requestParam).then((res: any) => {
+    tableLoading.value = false
     // console.log('字典列表', res)
     if (res.status === 'success') {
       tableData.value = res.result.list
@@ -86,7 +89,7 @@ function getRequestParam() {
         </el-form-item>
       </el-form>
     </div>
-    <div class="page-container-content flex flex-1 flex-col">
+    <div v-loading="tableLoading" class="page-container-content flex flex-1 flex-col">
       <el-table :data="tableData" style="width: 100%; height: 100%;">
         <el-table-column type="index" width="50" />
         <el-table-column prop="dictionaryKey" label="关键字" width="200" />
