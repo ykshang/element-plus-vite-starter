@@ -9,7 +9,7 @@ const refreshKey = ref(0)
 emitter.on('refreshPage', () => {
   ElNotification.success({
     title: '通知',
-    message: '登录成功',
+    message: '刷新成功',
   })
   NProgress.start() // 手动启动进度条
   refreshKey.value++
