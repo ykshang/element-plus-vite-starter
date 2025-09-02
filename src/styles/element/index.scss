@@ -45,4 +45,5 @@ $--colors: (
 @use 'element-plus/theme-chalk/src/message.scss';
 @use 'element-plus/theme-chalk/src/message-box.scss';
 @use 'element-plus/theme-chalk/src/notification.scss';
+// 解决 message-box 弹窗背景问题，以及缺少 position 属性，导致的z-index异常问题
 @use 'element-plus/theme-chalk/src/overlay.scss';
