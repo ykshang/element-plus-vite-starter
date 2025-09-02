@@ -104,6 +104,16 @@ function getRequestParam() {
         <el-table-column prop="desc" label="描述" />
         <el-table-column prop="createdAtLabel" label="创建时间" width="200" />
         <el-table-column prop="updatedAtLabel" label="更新时间" width="200" />
+        <el-table-column prop="operation" label="操作" width="200">
+          <template #default>
+            <el-button link type="primary">
+              编辑
+            </el-button>
+            <el-button link type="danger">
+              删除
+            </el-button>
+          </template>
+        </el-table-column>
       </el-table>
       <table-pagenation class="mt-20px" :pagenation="pagenation" @change="handlePagenationChange" />
     </div>
