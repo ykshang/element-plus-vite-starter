@@ -125,7 +125,7 @@ function deleteDictionary(row: any) {
       <el-table :data="tableData" style="width: 100%; height: 100%;">
         <el-table-column type="index" width="50" />
         <el-table-column prop="dictionaryKey" label="关键字" width="200" />
-        <el-table-column prop="name" label="字典名称" width="200" />
+        <el-table-column prop="dictionaryName" label="字典名称" width="200" />
         <el-table-column prop="desc" label="描述" />
         <el-table-column prop="createdAtLabel" label="创建时间" width="200" />
         <el-table-column prop="updatedAtLabel" label="更新时间" width="200" />
