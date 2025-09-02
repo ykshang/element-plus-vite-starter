@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { ElNotification } from 'element-plus'
+import zhCn from 'element-plus/es/locale/lang/zh-cn'
 import NProgress from 'nprogress'
 import { ref } from 'vue'
 import emitter from '~/config/emitter'
@@ -18,7 +19,7 @@ emitter.on('refreshPage', () => {
 </script>
 
 <template>
-  <el-config-provider namespace="ep">
+  <el-config-provider namespace="ep" :locale="zhCn">
     <base-layout-side />
     <div class="main-container flex flex-1 flex-col overflow-hidden bg-[--ep-bg-color-page]">
       <base-layout-header />
