@@ -80,22 +80,24 @@ function getRequestParam() {
 function deleteDictionary(row: any) {
   // eslint-disable-next-line no-console
   console.log('删除', row)
-  ElMessageBox.confirm('确定删除这条数据？', '请确认', {
+  ElMessageBox.confirm('确定删除这条数据？', '提示', {
     confirmButtonText: '确定',
     cancelButtonText: '取消',
     type: 'warning',
     draggable: true,
     appendTo: 'body',
   }).then(() => {
-    ElMessage({
-      type: 'info',
-      message: '删除成功',
+    const requestParam = { _id: row._id }
+    dictionaryService.removeDictionary(requestParam).then((res: any) => {
+      if (res.status === 'success') {
+        ElMessage.success('删除成功')
+        initTableData()
+      } else {
+        ElMessage.error('删除失败')
+      }
     })
   }).catch(() => {
-    ElMessage({
-      type: 'info',
-      message: '取消删除',
-    })
+    ElMessage.info('取消操作')
   })
 }
 </script>

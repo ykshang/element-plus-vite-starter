@@ -16,7 +16,15 @@ export function createDictionary(params: any) {
     return Promise.resolve(res)
   })
 }
+export function removeDictionary(params: any) {
+  // console.log('创建字典参数', params)
+  return post('/api/dictionary/removeDictionary', params).then((res) => {
+    // console.log('创建字典成功', res)
+    return Promise.resolve(res)
+  })
+}
 export default {
   getDictionaryListByPage,
   createDictionary,
+  removeDictionary,
 }
