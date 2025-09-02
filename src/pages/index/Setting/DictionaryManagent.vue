@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import dayjs from 'dayjs'
+import { ElMessage, ElMessageBox } from 'element-plus'
 import { onMounted, reactive, ref } from 'vue'
 import dictionaryService from '~/composables/services/dictionaryService'
 // const request = {
@@ -75,6 +76,28 @@ function getRequestParam() {
     pageSize: pagenation.pageSize,
   }
 }
+// 删除选中的列
+function deleteDictionary(row: any) {
+  // eslint-disable-next-line no-console
+  console.log('删除', row)
+  ElMessageBox.confirm('确定删除这条数据？', '请确认', {
+    confirmButtonText: '确定',
+    cancelButtonText: '取消',
+    type: 'warning',
+    draggable: true,
+    appendTo: 'body',
+  }).then(() => {
+    ElMessage({
+      type: 'info',
+      message: '删除成功',
+    })
+  }).catch(() => {
+    ElMessage({
+      type: 'info',
+      message: '取消删除',
+    })
+  })
+}
 </script>
 
 <template>
@@ -105,11 +128,11 @@ function getRequestParam() {
         <el-table-column prop="createdAtLabel" label="创建时间" width="200" />
         <el-table-column prop="updatedAtLabel" label="更新时间" width="200" />
         <el-table-column prop="operation" label="操作" width="200">
-          <template #default>
+          <template #default="scope">
             <el-button link type="primary">
               编辑
             </el-button>
-            <el-button link type="danger">
+            <el-button link type="danger" @click="deleteDictionary(scope.row)">
               删除
             </el-button>
           </template>
