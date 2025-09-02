@@ -48,8 +48,8 @@ function initTableData() {
     // console.log('字典列表', res)
     if (res.status === 'success') {
       res.result.list.forEach((item: any) => {
-        item.createdAt = dayjs(item.createdAt).format('YYYY-MM-DD HH:mm:ss')
-        item.updatedAt = dayjs(item.updatedAt).format('YYYY-MM-DD HH:mm:ss')
+        item.createdAtLabel = dayjs(item.createdAt).format('YYYY-MM-DD HH:mm:ss')
+        item.updatedAtLabel = dayjs(item.updatedAt).format('YYYY-MM-DD HH:mm:ss')
       })
       tableData.value = res.result.list
       pagenation.total = res.result.total
@@ -102,8 +102,8 @@ function getRequestParam() {
         <el-table-column prop="dictionaryKey" label="关键字" width="200" />
         <el-table-column prop="name" label="字典名称" width="200" />
         <el-table-column prop="desc" label="描述" />
-        <el-table-column prop="createdAt" label="创建时间" width="200" />
-        <el-table-column prop="updatedAt" label="更新时间" width="200" />
+        <el-table-column prop="createdAtLabel" label="创建时间" width="200" />
+        <el-table-column prop="updatedAtLabel" label="更新时间" width="200" />
       </el-table>
       <table-pagenation class="mt-20px" :pagenation="pagenation" @change="handlePagenationChange" />
     </div>
