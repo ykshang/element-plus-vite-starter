@@ -1,7 +1,7 @@
 <script setup lang="ts">
+import dayjs from 'dayjs'
 import { onMounted, reactive, ref } from 'vue'
 import dictionaryService from '~/composables/services/dictionaryService'
-
 // const request = {
 //   dictionaryKey: 'test-31112311',
 //   name: '测试字典1131214',
@@ -47,6 +47,10 @@ function initTableData() {
     btnDisabled.value = false
     // console.log('字典列表', res)
     if (res.status === 'success') {
+      res.result.list.forEach((item: any) => {
+        item.createdAt = dayjs(item.createdAt).format('YYYY-MM-DD HH:mm:ss')
+        item.updatedAt = dayjs(item.updatedAt).format('YYYY-MM-DD HH:mm:ss')
+      })
       tableData.value = res.result.list
       pagenation.total = res.result.total
     }
