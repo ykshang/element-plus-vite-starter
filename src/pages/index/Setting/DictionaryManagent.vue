@@ -34,14 +34,17 @@ function onClickSearch() {
 }
 // 字典列表
 const tableData = ref<Dictionary[]>([])
-
+// 表格加载状态
 const tableLoading = ref(false)
+const btnDisabled = ref(false)
 // 获取查询结果
 function initTableData() {
+  btnDisabled.value = true
   tableLoading.value = true
   const requestParam = getRequestParam()
   dictionaryService.getDictionaryListByPage(requestParam).then((res: any) => {
     tableLoading.value = false
+    btnDisabled.value = false
     // console.log('字典列表', res)
     if (res.status === 'success') {
       tableData.value = res.result.list
@@ -83,7 +86,7 @@ function getRequestParam() {
           <el-input v-model="formInline.dictionaryKey" placeholder="请输入字典关键词" clearable />
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="onClickSearch">
+          <el-button :disabled="btnDisabled" type="primary" @click="onClickSearch">
             查询
           </el-button>
         </el-form-item>
