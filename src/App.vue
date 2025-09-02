@@ -1,20 +1,32 @@
 <script setup lang="ts">
+import { onMounted } from 'vue'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+onMounted(() => {
+  forrbidenContextMenu()
+  router.push('/Home/HomePage')
+})
+// 禁用右键菜单
+function forrbidenContextMenu() {
+  document.addEventListener('contextmenu', (e) => {
+    e.preventDefault()
+  })
+}
 </script>
 
 <template>
-  <el-config-provider namespace="ep">
-    <base-layout-header />
-    <div class="main-container flex">
-      <base-layout-aside />
-      <div w="full" py="4">
-        <RouterView />
-      </div>
-    </div>
-  </el-config-provider>
+  <RouterView />
 </template>
 
 <style>
-.main-container {
-  height: calc(100vh - var(--ep-menu-item-height) - 4px);
+#app {
+  text-align: center;
+  color: var(--ep-text-color-primary);
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  background-color: var(--ep-bg-color);
 }
 </style>

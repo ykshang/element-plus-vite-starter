@@ -1,5 +1,5 @@
 <template>
   <div>
-    Navigation 2
+    <h1>员工管理</h1>
   </div>
 </template>
