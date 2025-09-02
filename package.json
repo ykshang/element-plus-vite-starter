@@ -21,6 +21,7 @@
     "@element-plus/icons-vue": "^2.3.1",
     "@vueuse/core": "^13.6.0",
     "element-plus": "^2.10.5",
+    "nprogress": "^0.2.0",
     "vue": "^3.5.18",
     "vue-router": "^4.5.1"
   },
@@ -31,6 +32,7 @@
     "@iconify-json/ep": "^1.2.2",
     "@iconify-json/ri": "^1.2.5",
     "@types/node": "^24.1.0",
+    "@types/nprogress": "^0.2.3",
     "@unocss/eslint-plugin": "^66.4.0",
     "@vitejs/plugin-vue": "^6.0.1",
     "eslint": "^9.32.0",
