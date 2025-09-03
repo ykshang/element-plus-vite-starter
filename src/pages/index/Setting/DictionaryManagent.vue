@@ -129,7 +129,7 @@ function openDictionaryItem(row: any) {
   showDictionaryItemFlg.value = true
   nextTick(() => {
     // console.log('AddDictionaryRef', addDictionaryRef.value)
-    dictionaryItemRef.value.handleOpen(row)
+    dictionaryItemRef.value.handleOpen(row.dictionaryKey)
   })
 }
 function closeDictionaryItem() {
