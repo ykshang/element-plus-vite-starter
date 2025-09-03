@@ -90,6 +90,9 @@ const showAddDictionaryFlg = ref(false)
 const addDictionaryRef = ref()
 const showEditDictionaryFlg = ref(false)
 const editDictionaryRef = ref()
+const showDictionaryItemFlg = ref(false)
+const dictionaryItemRef = ref()
+
 function openAddDictionary() {
   showAddDictionaryFlg.value = true
   nextTick(() => {
@@ -109,6 +112,7 @@ function closeEditDictionary(type: string) {
     initTableData()
   }
 }
+
 function openEditDictionary(row: any) {
   showEditDictionaryFlg.value = true
   nextTick(() => {
@@ -118,6 +122,16 @@ function openEditDictionary(row: any) {
     editDictionaryRef.value.formData.desc = row.desc
     editDictionaryRef.value.handleOpen()
   })
+}
+function openDictionaryItem(row: any) {
+  showDictionaryItemFlg.value = true
+  nextTick(() => {
+    // console.log('AddDictionaryRef', addDictionaryRef.value)
+    dictionaryItemRef.value.handleOpen(row)
+  })
+}
+function closeDictionaryItem() {
+  showDictionaryItemFlg.value = false
 }
 </script>
 
@@ -148,8 +162,11 @@ function openEditDictionary(row: any) {
         <el-table-column prop="desc" label="描述" />
         <el-table-column prop="createdAtLabel" label="创建时间" width="200" />
         <el-table-column prop="updatedAtLabel" label="更新时间" width="200" />
-        <el-table-column prop="operation" label="操作" width="200">
+        <el-table-column prop="operation" label="操作" width="250">
           <template #default="scope">
+            <el-button link type="primary" @click="openDictionaryItem(scope.row)">
+              字典项
+            </el-button>
             <el-button link type="primary" @click="openEditDictionary(scope.row)">
               编辑
             </el-button>
@@ -162,6 +179,7 @@ function openEditDictionary(row: any) {
       <table-pagenation class="mt-20px" :pagenation="pagenation" @change="handlePagenationChange" />
       <dictionary-managent-add-dictionary v-if="showAddDictionaryFlg" ref="addDictionaryRef" @close="closeAddDictionary" />
       <dictionary-managent-edit-dictionary v-if="showEditDictionaryFlg" ref="editDictionaryRef" @close="closeEditDictionary" />
+      <dictionary-managent-dictionary-item v-if="showDictionaryItemFlg" ref="dictionaryItemRef" @close="closeDictionaryItem" />
     </div>
   </div>
 </template>
