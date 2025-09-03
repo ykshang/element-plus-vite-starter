@@ -76,7 +76,7 @@ defineExpose({
         <el-button type="primary" :icon="Plus" @click="showAddDictionaryItem">
           新增
         </el-button>
-        <el-button type="primary" :icon="Refresh">
+        <el-button type="primary" :icon="Refresh" @click="initTableData">
           刷新
         </el-button>
       </div>
