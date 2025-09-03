@@ -33,5 +33,6 @@ export function removeDictionary(params: any) {
 export default {
   getDictionaryListByPage,
   createDictionary,
+  updateDictionary,
   removeDictionary,
 }

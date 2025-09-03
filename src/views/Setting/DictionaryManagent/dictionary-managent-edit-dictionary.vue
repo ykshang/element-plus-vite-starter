@@ -37,7 +37,7 @@ async function onSubmit(formEl: FormInstance | undefined) {
   await formEl.validate((valid) => {
     if (valid) {
       loading.value = true
-      dictionaryService.createDictionary(toRaw(formData)).then((res: any) => {
+      dictionaryService.updateDictionary(toRaw(formData)).then((res: any) => {
         loading.value = false
         if (res.status === 'success') {
           ElNotification.success('操作成功')
