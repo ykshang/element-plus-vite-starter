@@ -38,15 +38,15 @@ async function onSubmit(formEl: FormInstance | undefined) {
     if (valid) {
       // console.log('formData', formData)
       loading.value = true
-      // dictionaryService.createDictionary(toRaw(formData)).then((res: any) => {
-      //   loading.value = false
-      //   if (res.status === 'success') {
-      //     ElNotification.success('操作成功')
-      //     handleClose()
-      //   } else {
-      //     ElNotification.error(`操作失败：${res.msg}`)
-      //   }
-      // })
+      dictionaryService.createDictionaryItem(toRaw(formData)).then((res: any) => {
+        loading.value = false
+        if (res.status === 'success') {
+          ElNotification.success('操作成功')
+          handleClose()
+        } else {
+          ElNotification.error(`操作失败：${res.msg}`)
+        }
+      })
     }
   })
 }
