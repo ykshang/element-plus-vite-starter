@@ -3,20 +3,6 @@ import dayjs from 'dayjs'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { nextTick, onMounted, reactive, ref } from 'vue'
 import dictionaryService from '~/composables/services/dictionaryService'
-// const request = {
-//   dictionaryKey: 'test-31112311',
-//   name: '测试字典1131214',
-//   desc: '这是一个测试字典131',
-// }
-
-// dictionaryService.createDictionary(request).then((res) => {
-//   console.log('字典列表', res)
-//   if (res.status === 'success') {
-//     console.log('字典列表', res.data)
-//   } else {
-//     console.log('获取字典列表失败', res.msg)
-//   }
-// })
 
 // 分页组件初始化数据
 const pagenation: Pagenation = reactive({
@@ -110,8 +96,11 @@ function openAddDictionary() {
     addDictionaryRef.value.handleOpen()
   })
 }
-function closeAddDictionary() {
+function closeAddDictionary(type: string) {
   showAddDictionaryFlg.value = false
+  if (type === 'init') {
+    initTableData()
+  }
 }
 </script>
 
