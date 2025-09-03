@@ -17,7 +17,9 @@ defineExpose({
 </script>
 
 <template>
-  <el-dialog v-model="dialogVisible" v-loading="loading" width="60%" title="字典项管理" draggable @closed="handleClose">
-    1
+  <el-dialog v-model="dialogVisible" width="60%" title="字典项管理" draggable @closed="handleClose">
+    <div v-loading="loading">
+      1
+    </div>
   </el-dialog>
 </template>
