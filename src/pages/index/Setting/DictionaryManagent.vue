@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { Plus, Search } from '@element-plus/icons-vue'
 import dayjs from 'dayjs'
 import { ElMessageBox, ElNotification } from 'element-plus'
 import { nextTick, onMounted, reactive, ref } from 'vue'
@@ -123,6 +124,7 @@ function openEditDictionary(row: any) {
     editDictionaryRef.value.handleOpen()
   })
 }
+
 function openDictionaryItem(row: any) {
   showDictionaryItemFlg.value = true
   nextTick(() => {
@@ -139,7 +141,7 @@ function closeDictionaryItem() {
   <div class="page-container overflow-hidden">
     <div class="page-container-header">
       <div flex flex-1>
-        <el-button type="primary" @click="openAddDictionary">
+        <el-button type="primary" :icon="Plus" @click="openAddDictionary">
           新增
         </el-button>
       </div>
@@ -148,14 +150,14 @@ function closeDictionaryItem() {
           <el-input v-model="formInline.dictionaryKey" placeholder="请输入字典关键词" clearable />
         </el-form-item>
         <el-form-item>
-          <el-button :disabled="btnDisabled" type="primary" @click="onClickSearch">
-            查询
+          <el-button :disabled="btnDisabled" :icon="Search" type="primary" @click="onClickSearch">
+            搜索
           </el-button>
         </el-form-item>
       </el-form>
     </div>
     <div v-loading="tableLoading" class="page-container-content flex flex-1 flex-col">
-      <el-table :data="tableData" style="width: 100%; height: 100%;">
+      <el-table stripe :data="tableData" style="width: 100%; height: 100%;">
         <el-table-column type="index" width="50" />
         <el-table-column prop="dictionaryKey" label="关键字" width="200" />
         <el-table-column prop="dictionaryName" label="字典名称" width="200" />
@@ -175,6 +177,9 @@ function closeDictionaryItem() {
             </el-button>
           </template>
         </el-table-column>
+        <template #empty>
+          <el-empty description="暂无数据" />
+        </template>
       </el-table>
       <table-pagenation class="mt-20px" :pagenation="pagenation" @change="handlePagenationChange" />
       <dictionary-managent-add-dictionary v-if="showAddDictionaryFlg" ref="addDictionaryRef" @close="closeAddDictionary" />
