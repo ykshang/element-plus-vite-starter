@@ -88,7 +88,8 @@ function deleteDictionary(row: any) {
 }
 const showAddDictionaryFlg = ref(false)
 const addDictionaryRef = ref()
-
+const showEditDictionaryFlg = ref(false)
+const editDictionaryRef = ref()
 function openAddDictionary() {
   showAddDictionaryFlg.value = true
   nextTick(() => {
@@ -101,6 +102,22 @@ function closeAddDictionary(type: string) {
   if (type === 'init') {
     initTableData()
   }
+}
+function closeEditDictionary(type: string) {
+  showEditDictionaryFlg.value = false
+  if (type === 'init') {
+    initTableData()
+  }
+}
+function openEditDictionary(row: any) {
+  showEditDictionaryFlg.value = true
+  nextTick(() => {
+    editDictionaryRef.value.formData.id = row._id
+    editDictionaryRef.value.formData.dictionaryKey = row.dictionaryKey
+    editDictionaryRef.value.formData.dictionaryName = row.dictionaryName
+    editDictionaryRef.value.formData.desc = row.desc
+    editDictionaryRef.value.handleOpen()
+  })
 }
 </script>
 
@@ -133,7 +150,7 @@ function closeAddDictionary(type: string) {
         <el-table-column prop="updatedAtLabel" label="更新时间" width="200" />
         <el-table-column prop="operation" label="操作" width="200">
           <template #default="scope">
-            <el-button link type="primary">
+            <el-button link type="primary" @click="openEditDictionary(scope.row)">
               编辑
             </el-button>
             <el-button link type="danger" @click="deleteDictionary(scope.row)">
@@ -144,6 +161,7 @@ function closeAddDictionary(type: string) {
       </el-table>
       <table-pagenation class="mt-20px" :pagenation="pagenation" @change="handlePagenationChange" />
       <dictionary-managent-add-dictionary v-if="showAddDictionaryFlg" ref="addDictionaryRef" @close="closeAddDictionary" />
+      <dictionary-managent-edit-dictionary v-if="showEditDictionaryFlg" ref="editDictionaryRef" @close="closeEditDictionary" />
     </div>
   </div>
 </template>
