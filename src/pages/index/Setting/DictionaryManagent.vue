@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import dayjs from 'dayjs'
-import { ElMessage, ElMessageBox } from 'element-plus'
+import { ElMessageBox, ElNotification } from 'element-plus'
 import { nextTick, onMounted, reactive, ref } from 'vue'
 import dictionaryService from '~/composables/services/dictionaryService'
 
 // 分页组件初始化数据
 const pagenation: Pagenation = reactive({
   pageNum: 1,
-  pageSize: 10,
+  pageSize: 20,
   total: 1000,
 })
 
@@ -76,14 +76,14 @@ function deleteDictionary(row: any) {
     const requestParam = { _id: row._id }
     dictionaryService.removeDictionary(requestParam).then((res: any) => {
       if (res.status === 'success') {
-        ElMessage.success('删除成功')
+        ElNotification.success('删除成功')
         initTableData()
       } else {
-        ElMessage.error('删除失败')
+        ElNotification.error('删除失败')
       }
     })
   }).catch(() => {
-    ElMessage.info('取消操作')
+    ElNotification.info('取消操作')
   })
 }
 const showAddDictionaryFlg = ref(false)

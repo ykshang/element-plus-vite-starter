@@ -16,20 +16,14 @@ const formData = reactive({
 function onSubmit() {
   loading.value = true
   dictionaryService.createDictionary(toRaw(formData)).then((res: any) => {
+    loading.value = false
     if (res.status === 'success') {
-      ElNotification.success({
-        title: '通知',
-        message: '操作成功',
-      })
+      ElNotification.success('操作成功')
       handleClose()
     } else {
-      ElNotification.success({
-        title: '通知',
-        message: '操作失败',
-      })
+      ElNotification.error(`操作失败：${res.msg}`)
     }
   })
-  // 注册成功后可关闭弹窗
 }
 function handleOpen() {
   // console.log('注册弹窗2233')
