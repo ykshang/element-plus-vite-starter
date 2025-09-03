@@ -5,7 +5,7 @@ import { reactive, ref, toRaw } from 'vue'
 import dictionaryService from '~/composables/services/dictionaryService'
 
 interface RuleForm {
-  id: string
+  _id: string
   dictionaryKey: string
   dictionaryName: string
   desc?: string
@@ -16,7 +16,7 @@ const loading = ref(false)
 const dialogVisible = ref(false)
 // 初始化注册表单
 const formData = reactive<RuleForm>({
-  id: '',
+  _id: '',
   dictionaryKey: '',
   dictionaryName: '',
   desc: '',

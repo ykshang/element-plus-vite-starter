@@ -112,7 +112,7 @@ function closeEditDictionary(type: string) {
 function openEditDictionary(row: any) {
   showEditDictionaryFlg.value = true
   nextTick(() => {
-    editDictionaryRef.value.formData.id = row._id
+    editDictionaryRef.value.formData._id = row._id
     editDictionaryRef.value.formData.dictionaryKey = row.dictionaryKey
     editDictionaryRef.value.formData.dictionaryName = row.dictionaryName
     editDictionaryRef.value.formData.desc = row.desc
