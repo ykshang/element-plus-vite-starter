@@ -66,9 +66,10 @@ defineExpose({
 </script>
 
 <template>
-  <el-dialog v-model="dialogVisible" v-loading="loading" width="550px" title="编辑字典" draggable @closed="handleClose">
+  <el-dialog v-model="dialogVisible" width="550px" title="编辑字典" draggable @closed="handleClose">
     <el-form
       ref="ruleFormRef"
+      v-loading="loading"
       :model="formData"
       :rules="rules"
       label-suffix="："
