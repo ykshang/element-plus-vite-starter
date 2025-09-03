@@ -17,3 +17,24 @@
 .table-header-cell {
   background-color: var(--ep-bg-color-page) !important;
 }
+.ep-dialog {
+  // padding: 0 !important;
+  .ep-dialog__header {
+    text-align: left;
+    // background: var(--ep-color-primary);
+    // padding: 12px;
+    // .ep-dialog__title {
+    //   color: var(--ep-bg-color);
+    // }
+    // .ep-dialog__headerbtn .ep-dialog__close {
+    //   color: var(--ep-bg-color);
+    //   font-size: 18px;
+    // }
+  }
+  // .ep-dialog__body {
+  //   padding: 20px;
+  // }
+  // .ep-dialog__footer {
+  //   padding: 20px;
+  // }
+}
