@@ -12,7 +12,6 @@ declare module 'vue' {
     BaseLayoutHeader: typeof import('./../components/layouts/Header/base-layout-header.vue')['default']
     BaseLayoutSide: typeof import('./../components/layouts/Aside/base-layout-side.vue')['default']
     BaseUiCard: typeof import('./../components/base/base-ui-card.vue')['default']
-    copy: typeof import('./../views/Setting/DictionaryManagent/dictionary-managent-add-dictionary copy.vue')['default']
     DictionaryManagent: typeof import('./../components/business/Setting/DictionaryManagent.vue')['default']
     DictionaryManagentAddDictionary: typeof import('./../views/Setting/DictionaryManagent/dictionary-managent-add-dictionary.vue')['default']
     DictionaryManagentEditDictionary: typeof import('./../views/Setting/DictionaryManagent/dictionary-managent-edit-dictionary.vue')['default']
