@@ -84,7 +84,7 @@ defineExpose({
         <el-input v-model="formData.dictionaryName" />
       </el-form-item>
       <el-form-item label="描述" prop="desc">
-        <el-input v-model="formData.desc" />
+        <el-input v-model="formData.desc" type="textarea" :autosize="{ minRows: 2, maxRows: 4 }" />
       </el-form-item>
     </el-form>
     <template #footer>
