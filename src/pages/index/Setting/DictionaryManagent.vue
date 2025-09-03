@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import dayjs from 'dayjs'
 import { ElMessage, ElMessageBox } from 'element-plus'
-import { onMounted, reactive, ref } from 'vue'
+import { nextTick, onMounted, reactive, ref } from 'vue'
 import dictionaryService from '~/composables/services/dictionaryService'
 // const request = {
 //   dictionaryKey: 'test-31112311',
@@ -100,13 +100,26 @@ function deleteDictionary(row: any) {
     ElMessage.info('取消操作')
   })
 }
+const showAddDictionaryFlg = ref(false)
+const addDictionaryRef = ref()
+
+function openAddDictionary() {
+  showAddDictionaryFlg.value = true
+  nextTick(() => {
+    // console.log('AddDictionaryRef', addDictionaryRef.value)
+    addDictionaryRef.value.handleOpen()
+  })
+}
+function closeAddDictionary() {
+  showAddDictionaryFlg.value = false
+}
 </script>
 
 <template>
   <div class="page-container overflow-hidden">
     <div class="page-container-header">
       <div flex flex-1>
-        <el-button type="primary">
+        <el-button type="primary" @click="openAddDictionary">
           新增
         </el-button>
       </div>
@@ -141,6 +154,7 @@ function deleteDictionary(row: any) {
         </el-table-column>
       </el-table>
       <table-pagenation class="mt-20px" :pagenation="pagenation" @change="handlePagenationChange" />
+      <dictionary-managent-add-dictionary v-if="showAddDictionaryFlg" ref="addDictionaryRef" @close="closeAddDictionary" />
     </div>
   </div>
 </template>
