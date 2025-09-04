@@ -16,6 +16,7 @@ declare module 'vue' {
     DictionaryManagentAddDictionary: typeof import('./../views/Setting/DictionaryManagent/dictionary-managent-add-dictionary.vue')['default']
     DictionaryManagentDictionaryItem: typeof import('./../views/Setting/DictionaryManagent/dictionary-managent-dictionary-item.vue')['default']
     DictionaryManagentDictionaryItemAdd: typeof import('./../views/Setting/DictionaryManagent/dictionary-managent-dictionary-item-add.vue')['default']
+    DictionaryManagentDictionaryItemEdit: typeof import('./../views/Setting/DictionaryManagent/dictionary-managent-dictionary-item-edit.vue')['default']
     DictionaryManagentEditDictionary: typeof import('./../views/Setting/DictionaryManagent/dictionary-managent-edit-dictionary.vue')['default']
     ElAvatar: typeof import('element-plus/es')['ElAvatar']
     ElBadge: typeof import('element-plus/es')['ElBadge']
