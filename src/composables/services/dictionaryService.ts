@@ -44,6 +44,13 @@ export function getDictionaryItemList(params: any) {
     return Promise.resolve(res)
   })
 }
+export function removeDictionaryItem(params: any) {
+  // console.log('获取字典项列表参数', params)
+  return post('/api/dictionary/removeDictionaryItem', params).then((res) => {
+    // console.log('获取字典项列表成功', res)
+    return Promise.resolve(res)
+  })
+}
 export default {
   getDictionaryListByPage,
   createDictionary,
@@ -51,4 +58,5 @@ export default {
   removeDictionary,
   createDictionaryItem,
   getDictionaryItemList,
+  removeDictionaryItem,
 }
