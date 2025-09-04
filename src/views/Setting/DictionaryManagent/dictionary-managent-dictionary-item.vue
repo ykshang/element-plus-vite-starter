@@ -74,8 +74,8 @@ defineExpose({
 
 <template>
   <div>
-    <el-dialog v-model="dialogVisible" width="70%" title="字典项管理" draggable @closed="handleClose">
-      <div class="my-10px flex">
+    <el-dialog v-model="dialogVisible" width="70%" title="字典项管理" draggable class="mx-10px" @closed="handleClose">
+      <div class="my-20px flex">
         <el-button type="primary" :icon="Plus" @click="showAddDictionaryItem">
           新增
         </el-button>
@@ -104,6 +104,11 @@ defineExpose({
           <el-empty description="暂无数据" />
         </template>
       </el-table>
+      <div class="mt-20px flex justify-end">
+        <el-button type="primary" @click="handleClose">
+          关闭页面
+        </el-button>
+      </div>
     </el-dialog>
     <dictionary-managent-dictionary-item-add v-if="showAddDictionaryItemFlg" ref="addDictionaryItemRef" @close="closeAddDictionaryItem" />
   </div>
