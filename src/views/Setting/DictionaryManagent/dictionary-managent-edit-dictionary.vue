@@ -41,7 +41,7 @@ async function onSubmit(formEl: FormInstance | undefined) {
         loading.value = false
         if (res.status === 'success') {
           ElNotification.success('操作成功')
-          handleClose()
+          handleCloseAndRefresh()
         } else {
           ElNotification.error(`操作失败：${res.msg}`)
         }
@@ -53,10 +53,14 @@ function handleOpen() {
   // console.log('注册弹窗2233')
   dialogVisible.value = true
 }
+function handleCloseAndRefresh() {
+  dialogVisible.value = false
+  emit('close', 'refresh')
+}
 function handleClose() {
   dialogVisible.value = false
   // console.log('关闭弹窗')
-  emit('close', 'init')
+  emit('close')
 }
 defineExpose({
   handleOpen,

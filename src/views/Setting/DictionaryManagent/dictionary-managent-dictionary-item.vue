@@ -60,8 +60,11 @@ function showAddDictionaryItem() {
   })
 }
 // 关闭新增弹窗
-function closeAddDictionaryItem() {
+function closeAddDictionaryItem(refreshFlg: string) {
   showAddDictionaryItemFlg.value = false
+  if (refreshFlg === 'refresh') {
+    initTableData()
+  }
 }
 defineExpose({
   handleOpen,

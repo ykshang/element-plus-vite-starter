@@ -101,15 +101,15 @@ function openAddDictionary() {
     addDictionaryRef.value.handleOpen()
   })
 }
-function closeAddDictionary(type: string) {
+function closeAddDictionary(refreshFlg: string) {
   showAddDictionaryFlg.value = false
-  if (type === 'init') {
+  if (refreshFlg === 'refresh') {
     initTableData()
   }
 }
-function closeEditDictionary(type: string) {
+function closeEditDictionary(refreshFlg: string) {
   showEditDictionaryFlg.value = false
-  if (type === 'init') {
+  if (refreshFlg === 'refresh') {
     initTableData()
   }
 }
