@@ -45,9 +45,9 @@ export function getDictionaryItemList(params: any) {
   })
 }
 export function removeDictionaryItem(params: any) {
-  // console.log('获取字典项列表参数', params)
+  // console.log('请求体', params)
   return post('/api/dictionary/removeDictionaryItem', params).then((res) => {
-    // console.log('获取字典项列表成功', res)
+    // console.log('删除字典项成功', res)
     return Promise.resolve(res)
   })
 }

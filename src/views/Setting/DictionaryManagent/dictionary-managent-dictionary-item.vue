@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { Plus, Refresh } from '@element-plus/icons-vue'
 import dayjs from 'dayjs'
+import { ElMessageBox, ElNotification } from 'element-plus'
 import { nextTick, ref } from 'vue'
 import dictionaryService from '~/composables/services/dictionaryService'
 
@@ -49,8 +50,25 @@ function initTableData() {
 }
 // 删除按钮
 function deleteDictionaryItem(row: any) {
-  // eslint-disable-next-line no-console
-  console.log('删除', row)
+  ElMessageBox.confirm('确定删除这条数据？', '提示', {
+    confirmButtonText: '确定',
+    cancelButtonText: '取消',
+    type: 'warning',
+    draggable: true,
+    appendTo: 'body',
+  }).then(() => {
+    const requestParam = { _id: row._id }
+    dictionaryService.removeDictionaryItem(requestParam).then((res: any) => {
+      if (res.status === 'success') {
+        ElNotification.success('删除成功')
+        initTableData()
+      } else {
+        ElNotification.error('删除失败')
+      }
+    })
+  }).catch(() => {
+    ElNotification.info('取消操作')
+  })
 }
 // 打开新增弹窗
 function showAddDictionaryItem() {

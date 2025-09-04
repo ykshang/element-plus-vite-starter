@@ -65,8 +65,7 @@ function getRequestParam() {
 }
 // 删除选中的列
 function deleteDictionary(row: any) {
-  // eslint-disable-next-line no-console
-  console.log('删除', row)
+  // console.log('删除', row)
   ElMessageBox.confirm('确定删除这条数据？', '提示', {
     confirmButtonText: '确定',
     cancelButtonText: '取消',
