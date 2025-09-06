@@ -84,6 +84,26 @@ function closeAddDictionaryItem(refreshFlg: string) {
     initTableData()
   }
 }
+// 编辑弹窗引用
+const editDictionaryItemRef = ref()
+// 控制弹窗显示隐藏
+const showEditDictionaryItemFlg = ref(false)
+// 关闭编辑弹窗
+function closeEditDictionaryItem(refreshFlg: string) {
+  showEditDictionaryItemFlg.value = false
+  if (refreshFlg === 'refresh') {
+    initTableData()
+  }
+}
+// 打开编辑弹窗
+function showEditDictionaryItem(row: any) {
+  console.log(row)
+  showEditDictionaryItemFlg.value = true
+  nextTick(() => {
+    editDictionaryItemRef.value.handleOpen(dictionaryKey.value)
+  })
+}
+
 defineExpose({
   handleOpen,
   handleClose,
@@ -108,9 +128,9 @@ defineExpose({
         <el-table-column prop="desc" label="描述" />
         <el-table-column prop="createdAtLabel" label="创建时间" width="180" />
         <el-table-column prop="updatedAtLabel" label="更新时间" width="180" />
-        <el-table-column prop="operation" label="操作" width="200">
+        <el-table-column prop="operation" label="操作" width="150">
           <template #default="scope">
-            <el-button link type="primary" @click="editDictionaryItem(scope.row)">
+            <el-button link type="primary" @click="showEditDictionaryItem(scope.row)">
               编辑
             </el-button>
             <el-button link type="danger" @click="deleteDictionaryItem(scope.row)">
@@ -129,5 +149,6 @@ defineExpose({
       </div>
     </el-dialog>
     <dictionary-managent-dictionary-item-add v-if="showAddDictionaryItemFlg" ref="addDictionaryItemRef" @close="closeAddDictionaryItem" />
+    <dictionary-managent-dictionary-item-edit v-if="showEditDictionaryItemFlg" ref="editDictionaryItemRef" @close="closeEditDictionaryItem" />
   </div>
 </template>
