@@ -40,9 +40,13 @@ async function onSubmit(formEl: FormInstance | undefined) {
         if (res.success) {
           ElNotification.success('操作成功')
           handleCloseAndRefresh()
-        } else {
-          ElNotification.error(`操作失败：${res.msg}`)
         }
+      }).catch(({ error }) => {
+        ElNotification.error({
+          title: error.errTitle,
+          message: error.errMsg,
+        })
+        loading.value = false
       })
     }
   })

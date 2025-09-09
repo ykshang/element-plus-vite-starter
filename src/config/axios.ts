@@ -69,12 +69,14 @@ request.interceptors.response.use(
     if (error && error.response) {
       const status = error.response.status as keyof typeof responseStatusText
       if (responseStatusText[status]) {
-        errorInfo.errTitle = responseStatusText[status]
+        error.message = responseStatusText[status]
       } else {
-        errorInfo.errTitle = `未知错误${error.response.status}`
+        error.message = `未知错误${error.response.status}`
       }
+      // 后端返回的报错信息
+      errorInfo.errMsg = error.response.data?.message
     } else {
-      errorInfo.errTitle = '连接到服务器失败'
+      error.message = '连接到服务器失败'
     }
     error.error = errorInfo
     return Promise.reject(error)
