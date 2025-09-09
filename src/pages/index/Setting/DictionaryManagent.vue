@@ -34,13 +34,14 @@ function initTableData() {
     tableLoading.value = false
     btnDisabled.value = false
     // console.log('字典列表', res)
-    if (res.status === 'success') {
-      res.result.list.forEach((item: any) => {
+    if (res.success) {
+      const { data, total } = res.data
+      data.forEach((item: any) => {
         item.createdAtLabel = dayjs(item.createdAt).format('YYYY-MM-DD HH:mm:ss')
         item.updatedAtLabel = dayjs(item.updatedAt).format('YYYY-MM-DD HH:mm:ss')
       })
-      tableData.value = res.result.list
-      pagenation.total = res.result.total
+      tableData.value = data
+      pagenation.total = total
     }
   })
 }
