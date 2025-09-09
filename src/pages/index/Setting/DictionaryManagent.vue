@@ -119,7 +119,7 @@ function openEditDictionary(row: any) {
     editDictionaryRef.value.formData._id = row._id
     editDictionaryRef.value.formData.dictionaryKey = row.dictionaryKey
     editDictionaryRef.value.formData.dictionaryName = row.dictionaryName
-    editDictionaryRef.value.formData.desc = row.desc
+    editDictionaryRef.value.formData.description = row.description
     editDictionaryRef.value.handleOpen()
   })
 }
@@ -160,7 +160,7 @@ function closeDictionaryItem() {
         <el-table-column type="index" width="50" />
         <el-table-column prop="dictionaryKey" label="关键字" width="200" />
         <el-table-column prop="dictionaryName" label="字典名称" width="200" />
-        <el-table-column prop="desc" label="描述" />
+        <el-table-column prop="description" label="描述" />
         <el-table-column prop="createdAtLabel" label="创建时间" width="200" />
         <el-table-column prop="updatedAtLabel" label="更新时间" width="200" />
         <el-table-column prop="operation" label="操作" width="250">
