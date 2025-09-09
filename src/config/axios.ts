@@ -3,6 +3,21 @@ import axios from 'axios'
 
 import NProgress from 'nprogress'
 
+const responseStatusText = {
+  400: '错误请求',
+  401: '未授权，请重新登录',
+  403: '拒绝访问',
+  404: '请求错误,未找到该资源',
+  405: '请求方法未允许',
+  408: '请求超时',
+  409: '请求冲突，资源已存在',
+  500: '服务器端出错',
+  501: '网络未实现',
+  502: '网络错误',
+  503: '服务不可用',
+  504: '网络超时',
+  505: 'http版本不支持该请求',
+}
 // 创建一个axios实例
 const request = axios.create({
   baseURL: '',
@@ -46,51 +61,22 @@ request.interceptors.response.use(
     }
   },
   (error) => {
+    const errorInfo = {
+      errTitle: '请求失败',
+      errMsg: '请联系你的管理员',
+    }
     // 对响应错误做点什么
     if (error && error.response) {
-      switch (error.response.status) {
-        case 400:
-          error.message = '错误请求'
-          break
-        case 401:
-          error.message = '未授权，请重新登录'
-          break
-        case 403:
-          error.message = '拒绝访问'
-          break
-        case 404:
-          error.message = '请求错误,未找到该资源'
-          break
-        case 405:
-          error.message = '请求方法未允许'
-          break
-        case 408:
-          error.message = '请求超时'
-          break
-        case 500:
-          error.message = '服务器端出错'
-          break
-        case 501:
-          error.message = '网络未实现'
-          break
-        case 502:
-          error.message = '网络错误'
-          break
-        case 503:
-          error.message = '服务不可用'
-          break
-        case 504:
-          error.message = '网络超时'
-          break
-        case 505:
-          error.message = 'http版本不支持该请求'
-          break
-        default:
-          error.message = `未知错误${error.response.status}`
+      const status = error.response.status as keyof typeof responseStatusText
+      if (responseStatusText[status]) {
+        errorInfo.errTitle = responseStatusText[status]
+      } else {
+        errorInfo.errTitle = `未知错误${error.response.status}`
       }
     } else {
-      error.message = '连接到服务器失败'
+      errorInfo.errTitle = '连接到服务器失败'
     }
+    error.error = errorInfo
     return Promise.reject(error)
   },
 )
