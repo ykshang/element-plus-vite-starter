@@ -8,7 +8,7 @@ interface RuleForm {
   _id: string
   dictionaryKey: string
   dictionaryName: string
-  desc?: string
+  description?: string
 }
 const emit = defineEmits(['close'])
 const loading = ref(false)
@@ -19,7 +19,7 @@ const formData = reactive<RuleForm>({
   _id: '',
   dictionaryKey: '',
   dictionaryName: '',
-  desc: '',
+  description: '',
 })
 const ruleFormRef = ref<FormInstance>()
 
@@ -39,12 +39,16 @@ async function onSubmit(formEl: FormInstance | undefined) {
       loading.value = true
       dictionaryService.updateDictionary(toRaw(formData)).then((res: any) => {
         loading.value = false
-        if (res.status === 'success') {
+        if (res.success) {
           ElNotification.success('操作成功')
           handleCloseAndRefresh()
-        } else {
-          ElNotification.error(`操作失败：${res.msg}`)
         }
+      }).catch(({ error }) => {
+        loading.value = false
+        ElNotification.error({
+          title: '操作失败',
+          message: error.errMsg,
+        })
       })
     }
   })
@@ -87,8 +91,8 @@ defineExpose({
       <el-form-item label="字典名称" prop="dictionaryName" required>
         <el-input v-model="formData.dictionaryName" />
       </el-form-item>
-      <el-form-item label="描述" prop="desc">
-        <el-input v-model="formData.desc" type="textarea" :autosize="{ minRows: 2, maxRows: 4 }" />
+      <el-form-item label="描述" prop="description">
+        <el-input v-model="formData.description" type="textarea" :autosize="{ minRows: 2, maxRows: 4 }" />
       </el-form-item>
     </el-form>
     <template #footer>

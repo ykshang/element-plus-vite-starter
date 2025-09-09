@@ -42,12 +42,16 @@ async function onSubmit(formEl: FormInstance | undefined) {
       loading.value = true
       dictionaryService.createDictionaryItem(toRaw(formData)).then((res: any) => {
         loading.value = false
-        if (res.status === 'success') {
+        if (res.success) {
           ElNotification.success('操作成功')
           handleCloseAndRefresh()
-        } else {
-          ElNotification.error(`操作失败：${res.msg}`)
         }
+      }).catch(({ error }) => {
+        loading.value = false
+        ElNotification.error({
+          title: '操作失败',
+          message: error.errMsg,
+        })
       })
     }
   })
