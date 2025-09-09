@@ -35,7 +35,7 @@ function initTableData() {
     btnDisabled.value = false
     // console.log('字典列表', res)
     if (res.success) {
-      const { data, total } = res.data
+      const { data, total } = res.result
       data.forEach((item: any) => {
         item.createdAtLabel = dayjs(item.createdAt).format('YYYY-MM-DD HH:mm:ss')
         item.updatedAtLabel = dayjs(item.updatedAt).format('YYYY-MM-DD HH:mm:ss')
