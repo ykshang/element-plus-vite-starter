@@ -9,7 +9,7 @@ interface RuleForm {
   dictionaryItemkey: string
   dictionaryItemName: string
   dictionaryKey: string
-  desc?: string
+  description?: string
 }
 const emit = defineEmits(['close'])
 const loading = ref(false)
@@ -21,7 +21,7 @@ const formData = reactive<RuleForm>({
   dictionaryItemkey: '',
   dictionaryItemName: '',
   dictionaryKey: '',
-  desc: '',
+  description: '',
 })
 const ruleFormRef = ref<FormInstance>()
 
@@ -94,8 +94,8 @@ defineExpose({
       <el-form-item label="字典项名称" prop="dictionaryItemName" required>
         <el-input v-model="formData.dictionaryItemName" />
       </el-form-item>
-      <el-form-item label="描述" prop="desc">
-        <el-input v-model="formData.desc" type="textarea" :autosize="{ minRows: 2, maxRows: 4 }" />
+      <el-form-item label="描述" prop="description">
+        <el-input v-model="formData.description" type="textarea" :autosize="{ minRows: 2, maxRows: 4 }" />
       </el-form-item>
     </el-form>
     <template #footer>

@@ -26,6 +26,7 @@ function handleOpen(params: string) {
   initTableData()
 }
 // 编辑按钮
+// eslint-disable-next-line unused-imports/no-unused-vars
 function editDictionaryItem(row: any) {
   // eslint-disable-next-line no-console
   console.log('编辑', row)
@@ -96,8 +97,9 @@ function closeEditDictionaryItem(refreshFlg: string) {
   }
 }
 // 打开编辑弹窗
+// eslint-disable-next-line unused-imports/no-unused-vars
 function showEditDictionaryItem(row: any) {
-  console.log(row)
+  // console.log(row)
   showEditDictionaryItemFlg.value = true
   nextTick(() => {
     editDictionaryItemRef.value.handleOpen(dictionaryKey.value)
@@ -125,7 +127,7 @@ defineExpose({
         <el-table-column type="index" width="50" />
         <el-table-column prop="dictionaryItemkey" label="字典项关键字" width="200" />
         <el-table-column prop="dictionaryItemName" label="字典项名称" width="200" />
-        <el-table-column prop="desc" label="描述" />
+        <el-table-column prop="description" label="描述" />
         <el-table-column prop="createdAtLabel" label="创建时间" width="180" />
         <el-table-column prop="updatedAtLabel" label="更新时间" width="180" />
         <el-table-column prop="operation" label="操作" width="150">
