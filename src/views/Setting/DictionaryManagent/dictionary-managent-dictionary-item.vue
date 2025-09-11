@@ -2,7 +2,7 @@
 import { Plus, Refresh } from '@element-plus/icons-vue'
 import dayjs from 'dayjs'
 import { ElMessageBox, ElNotification } from 'element-plus'
-import { nextTick, ref } from 'vue'
+import { nextTick, reactive, ref } from 'vue'
 import dictionaryService from '~/composables/services/dictionaryService'
 
 // 控制弹窗显示
@@ -105,7 +105,17 @@ function showEditDictionaryItem(row: any) {
     editDictionaryItemRef.value.handleOpen(dictionaryKey.value)
   })
 }
-
+const pagenation: Pagenation = reactive({
+  pageNum: 1,
+  pageSize: 20,
+  total: 1000,
+})
+// 分页变化时，重新组装分页数据
+function handlePagenationChange(params: any) {
+  pagenation.pageNum = params.pageNum
+  pagenation.pageSize = params.pageSize
+  initTableData()
+}
 defineExpose({
   handleOpen,
   handleClose,
@@ -144,6 +154,7 @@ defineExpose({
           <el-empty description="暂无数据" />
         </template>
       </el-table>
+      <table-pagenation class="mt-20px" :pagenation="pagenation" @change="handlePagenationChange" />
       <div class="mt-20px flex justify-end">
         <el-button type="primary" @click="handleClose">
           关闭页面
