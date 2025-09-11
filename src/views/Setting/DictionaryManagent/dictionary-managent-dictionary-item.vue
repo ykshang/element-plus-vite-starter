@@ -81,12 +81,15 @@ function deleteDictionaryItem(row: any) {
   }).then(() => {
     const requestParam = { _id: row._id }
     dictionaryService.removeDictionaryItem(requestParam).then((res: any) => {
-      if (res.status === 'success') {
+      if (res.success) {
         ElNotification.success('删除成功')
         initTableData()
-      } else {
-        ElNotification.error('删除失败')
       }
+    }).catch(({ error }) => {
+      ElNotification.error({
+        title: '操作失败',
+        message: error.errMsg,
+      })
     })
   }).catch(() => {
     ElNotification.info('取消操作')
