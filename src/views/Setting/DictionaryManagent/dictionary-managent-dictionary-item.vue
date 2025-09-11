@@ -9,6 +9,13 @@ import dictionaryService from '~/composables/services/dictionaryService'
 const dialogVisible = ref(false)
 const tableLoading = ref(false)
 const tableData = ref([])
+// 分页数据
+const pagenation: Pagenation = reactive({
+  pageNum: 1,
+  pageSize: 20,
+  total: 1000,
+})
+
 // 新增弹窗引用
 const addDictionaryItemRef = ref()
 // 控制弹窗显示隐藏
@@ -31,22 +38,36 @@ function editDictionaryItem(row: any) {
   // eslint-disable-next-line no-console
   console.log('编辑', row)
 }
+function getRequestParam() {
+  return {
+    dictionaryKey: dictionaryKey.value,
+    pageNum: pagenation.pageNum,
+    pageSize: pagenation.pageSize,
+  }
+}
 // 获取查询结果
 function initTableData() {
   // btnDisabled.value = true
   tableLoading.value = true
-  dictionaryService.getDictionaryItemList({
-    dictionaryKey: dictionaryKey.value,
-  }).then((res: any) => {
+  const requestParam = getRequestParam()
+  dictionaryService.getDictionaryItemListByDictionaryKeyByPage(requestParam).then((res: any) => {
     tableLoading.value = false
     // btnDisabled.value = false
-    if (res.status === 'success') {
-      res.result.forEach((item: any) => {
+    if (res.success) {
+      const { data, total } = res.result
+      data.forEach((item: any) => {
         item.createdAtLabel = dayjs(item.createdAt).format('YYYY-MM-DD HH:mm:ss')
         item.updatedAtLabel = dayjs(item.updatedAt).format('YYYY-MM-DD HH:mm:ss')
       })
-      tableData.value = res.result
+      tableData.value = data
+      pagenation.total = total
     }
+  }).catch(({ error }) => {
+    tableLoading.value = false
+    ElNotification.error({
+      title: error.errTitle,
+      message: error.errMsg,
+    })
   })
 }
 // 删除按钮
@@ -105,11 +126,7 @@ function showEditDictionaryItem(row: any) {
     editDictionaryItemRef.value.handleOpen(dictionaryKey.value)
   })
 }
-const pagenation: Pagenation = reactive({
-  pageNum: 1,
-  pageSize: 20,
-  total: 1000,
-})
+
 // 分页变化时，重新组装分页数据
 function handlePagenationChange(params: any) {
   pagenation.pageNum = params.pageNum
