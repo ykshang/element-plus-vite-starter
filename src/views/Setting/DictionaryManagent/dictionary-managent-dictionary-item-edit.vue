@@ -5,7 +5,7 @@ import { reactive, ref, toRaw } from 'vue'
 import dictionaryService from '~/composables/services/dictionaryService'
 
 interface RuleForm {
-  _id?: string
+  _id: string
   dictionaryItemkey: string
   dictionaryItemName: string
   dictionaryKey: string
@@ -40,7 +40,7 @@ async function onSubmit(formEl: FormInstance | undefined) {
     if (valid) {
       // console.log('formData', formData)
       loading.value = true
-      dictionaryService.createDictionaryItem(toRaw(formData)).then((res: any) => {
+      dictionaryService.updateDictionaryItem(toRaw(formData)).then((res: any) => {
         loading.value = false
         if (res.success) {
           ElNotification.success('操作成功')
@@ -56,9 +56,13 @@ async function onSubmit(formEl: FormInstance | undefined) {
     }
   })
 }
-function handleOpen(params: string) {
+function handleOpen(params: RuleForm) {
   // console.log('params', params)
-  formData.dictionaryKey = params
+  formData._id = params._id
+  formData.dictionaryItemkey = params.dictionaryItemkey
+  formData.dictionaryItemName = params.dictionaryItemName
+  formData.dictionaryKey = params.dictionaryKey
+  formData.description = params.description
   dialogVisible.value = true
 }
 function handleCloseAndRefresh() {

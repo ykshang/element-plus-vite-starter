@@ -32,12 +32,7 @@ function handleOpen(params: string) {
   dialogVisible.value = true
   initTableData()
 }
-// 编辑按钮
-// eslint-disable-next-line unused-imports/no-unused-vars
-function editDictionaryItem(row: any) {
-  // eslint-disable-next-line no-console
-  console.log('编辑', row)
-}
+// 组装表格查询参数
 function getRequestParam() {
   return {
     dictionaryKey: dictionaryKey.value,
@@ -121,12 +116,12 @@ function closeEditDictionaryItem(refreshFlg: string) {
   }
 }
 // 打开编辑弹窗
-// eslint-disable-next-line unused-imports/no-unused-vars
+
 function showEditDictionaryItem(row: any) {
   // console.log(row)
   showEditDictionaryItemFlg.value = true
   nextTick(() => {
-    editDictionaryItemRef.value.handleOpen(dictionaryKey.value)
+    editDictionaryItemRef.value.handleOpen(row)
   })
 }
 
