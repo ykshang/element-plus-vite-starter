@@ -9,9 +9,7 @@ const dataSource: DateSource = {
   totalOpened: 0,
   totalNegativeNum: 0,
   totalSlaNum: 0,
-}
-function getSpecifiedNum() {
-  return Math.floor(Math.random() * 10) > 2 ? 0 : Math.floor(Math.random() * 5)
+  totalSatisfaction: 0,
 }
 function generateNum() {
   return {
@@ -26,8 +24,8 @@ let totalSlaNum = 0
 while (dataSource.data.length < 30) {
   const length = dataSource.data.length
   const dateString = dayjs().subtract(30 - length, 'day').format('YYYY-MM-DD')
-  const slaNums = getSpecifiedNum()
-  const negativeNums = getSpecifiedNum()
+  const slaNums = Math.floor(Math.random() * 10) > 2 ? 0 : Math.floor(Math.random() * 5)
+  const negativeNums = Math.floor(Math.random() * 10) > 5 ? 0 : Math.floor(Math.random() * 10)
   let breakFlag = true
   // 保证只塞入一次
   while (breakFlag) {
@@ -38,7 +36,7 @@ while (dataSource.data.length < 30) {
       totalClosed += closeNums
       totalNegativeNum += negativeNums
       totalSlaNum += slaNums
-      const satisfaction = Math.floor((1 - negativeNums / closeNums) * 100)
+      const satisfaction = (1 - totalNegativeNum / totalClosed)
       dataSource.data.push({
         date: dateString,
         createNum: createNums,
@@ -55,6 +53,7 @@ dataSource.totalNum = totalNum
 dataSource.totalClosed = totalClosed
 dataSource.totalOpened = totalNum - totalClosed
 dataSource.totalNegativeNum = totalNegativeNum
+dataSource.totalSatisfaction = (1 - totalNegativeNum / totalClosed)
 dataSource.totalSlaNum = totalSlaNum
 
 // console.log(dataSource)
@@ -73,7 +72,7 @@ dataSource.totalSlaNum = totalSlaNum
       <!-- <dash-board-card-2 :data-source="dataSource" /> -->
       <!-- <dash-board-card-3 :data-source="dataSource" /> -->
       <dash-board-card-4 :data-source="dataSource" />
-      <!-- <dash-board-card-5 :data-source="dataSource" /> -->
+      <dash-board-card-5 :data-source="dataSource" />
       <dash-board-card-6 :data-source="dataSource" />
     </div>
   </div>
