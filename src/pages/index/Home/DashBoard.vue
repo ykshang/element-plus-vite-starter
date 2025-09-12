@@ -5,13 +5,15 @@ interface dataSourceType1 {
   date: string
   createNum: number
   closeNum: number
+  totalNum: number
+  totalClosed: number
 }
 const dataSource4Card1: dataSourceType1[] = []
 
 function generateNum() {
   return {
-    createNums: 50 + Math.floor(Math.random() * 100),
-    closeNums: 50 + Math.floor(Math.random() * 100),
+    createNums: 50 + Math.floor(Math.random() * 50),
+    closeNums: 50 + Math.floor(Math.random() * 50),
   }
 }
 let totalNum = 0
@@ -31,6 +33,8 @@ while (dataSource4Card1.length < 30) {
         date: dateString,
         createNum: createNums,
         closeNum: closeNums,
+        totalNum,
+        totalClosed,
       })
       breakFlag = false
     }
