@@ -109,12 +109,12 @@ onMounted(() => {
     flex-direction: column;
     color: var(--ep-text-color-regular);
     .card-item-title {
-      font-size: 18px;
+      font-size: 16px;
       font-weight: 600;
       margin-bottom: 10px;
     }
     .card-item-num1 {
-      font-size: 26px;
+      font-size: 24px;
       flex: 1;
       display: flex;
       align-items: center;

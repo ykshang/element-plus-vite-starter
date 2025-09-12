@@ -30,17 +30,15 @@ const optionData = ref({
   series: [
     {
       data: [120, 200, 150, 80, 70, 110, 130],
-      type: 'line',
-      showSymbol: false,
-      lineStyle: {
-        normal: {
-          color: 'rgb(144, 221, 162)',
-          width: 3,
-          type: 'dashed',
-        },
+      type: 'bar',
+      showBackground: true,
+      backgroundStyle: {
+        color: 'rgba(180, 180, 180, 0.1)',
       },
       itemStyle: {
         color: 'rgb(144, 221, 162)',
+        barBorderRadius: 5,
+        barWidth: '50%',
       },
     },
   ],
@@ -55,15 +53,15 @@ onMounted(() => {
   const seriesData: number[] = []
   dataSource.data.forEach((item) => {
     xAxisData.push(item.date)
-    seriesData.push(item.totalNum - item.totalClosed)
+    seriesData.push(item.closeNum)
   })
   // 较昨日
   const [lastDay, today] = seriesData.slice(-2)
-  compareLastShowUp.value = today > lastDay
+  compareLastShowUp.value = today >= lastDay
   compareLastDay.value = Math.abs(today - lastDay)
-  compareLastClass.value = compareLastShowUp.value ? 'color-red font-bold' : 'color-green font-bold'
+  compareLastClass.value = compareLastShowUp.value ? 'color-green font-bold' : 'color-red font-bold'
   // 总数
-  totalNum.value = dataSource.totalNum - dataSource.totalClosed
+  totalNum.value = dataSource.totalClosed
   // 渲染图表
   optionData.value.xAxis.data = xAxisData
   optionData.value.series[0].data = seriesData
@@ -107,13 +105,13 @@ onMounted(() => {
     color: var(--ep-text-color-regular);
 
     .card-item-title {
-      font-size: 18px;
+      font-size: 16px;
       font-weight: 600;
       margin-bottom: 10px;
     }
 
     .card-item-num1 {
-      font-size: 26px;
+      font-size: 24px;
       flex: 1;
       display: flex;
       align-items: center;
