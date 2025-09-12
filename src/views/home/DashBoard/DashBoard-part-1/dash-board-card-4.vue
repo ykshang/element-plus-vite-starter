@@ -61,7 +61,7 @@ onMounted(() => {
   })
   // 较昨日
   const [lastDay, today] = seriesData.slice(-2)
-  compareLastShowUp.value = today >= lastDay
+  compareLastShowUp.value = today > lastDay
   compareLastDay.value = Math.abs(today - lastDay)
   compareLastClass.value = compareLastShowUp.value ? 'color-red font-bold' : 'color-green font-bold'
   // 总数
