@@ -7,6 +7,10 @@ interface tickerType {
   negativeNum: number // 当日不满意问题单
   satisfaction: number // 当日满意度
   totalSatisfaction: number // 满意度
+  totalNum: number // 问题单总数
+  totalClosed: number // 关闭问题单总数
+  totalNegativeNum: number // 不满意问题单总数
+  totalSlaNum: number // SLA超时问题单总数
 }
 export default interface DateSource {
   data: tickerType[]

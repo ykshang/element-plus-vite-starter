@@ -46,6 +46,10 @@ while (dataSource.data.length < 30) {
         negativeNum: negativeNums,
         satisfaction,
         totalSatisfaction,
+        totalNum,
+        totalClosed,
+        totalNegativeNum,
+        totalSlaNum,
       })
       breakFlag = false
     }
@@ -71,7 +75,7 @@ dataSource.totalSlaNum = totalSlaNum
     </div>
     <div class="card-content">
       <dash-board-card-1 :data-source="dataSource" />
-      <!-- <dash-board-card-2 :data-source="dataSource" /> -->
+      <dash-board-card-2 :data-source="dataSource" />
       <!-- <dash-board-card-3 :data-source="dataSource" /> -->
       <dash-board-card-4 :data-source="dataSource" />
       <dash-board-card-5 :data-source="dataSource" />
