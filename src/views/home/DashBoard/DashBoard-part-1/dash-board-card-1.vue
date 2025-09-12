@@ -29,11 +29,16 @@ const optionData = ref({
   },
   yAxis: {
     show: false,
+    max: 110,
   },
   series: [
     {
       data: [120, 200, 150, 80, 70, 110, 130],
       type: 'bar',
+      showBackground: true,
+      backgroundStyle: {
+        color: 'rgba(180, 180, 180, 0.1)',
+      },
       itemStyle: {
         color: 'rgb(121, 187, 255)',
         barBorderRadius: 5,
