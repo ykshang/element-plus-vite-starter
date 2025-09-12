@@ -69,9 +69,9 @@ onMounted(() => {
     totalNum.value = dataSource.totalNum
     // 较昨日
     const [lastDay, today] = dataSource.data.slice(-2)
-    compareLastShowUp.value = today.createNum > lastDay.createNum
+    compareLastShowUp.value = today.createNum >= lastDay.createNum
     compareLastDay.value = Math.abs(today.createNum - lastDay.createNum)
-    compareLastClass.value = compareLastShowUp.value ? 'color-red font-bold' : 'color-green font-bold'
+    compareLastClass.value = compareLastShowUp.value ? 'color-green font-bold' : 'color-red font-bold'
   })
 })
 </script>
