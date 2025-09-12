@@ -25,7 +25,7 @@ while (dataSource.data.length < 30) {
   const length = dataSource.data.length
   const dateString = dayjs().subtract(30 - length, 'day').format('YYYY-MM-DD')
   const slaNums = Math.floor(Math.random() * 10) > 2 ? 0 : Math.floor(Math.random() * 5)
-  const negativeNums = Math.floor(Math.random() * 10) > 5 ? 0 : Math.floor(Math.random() * 10)
+  const negativeNums = Math.floor(Math.random() * 10) > 5 ? 0 : Math.floor(Math.random() * 6)
   let breakFlag = true
   // 保证只塞入一次
   while (breakFlag) {
@@ -36,7 +36,8 @@ while (dataSource.data.length < 30) {
       totalClosed += closeNums
       totalNegativeNum += negativeNums
       totalSlaNum += slaNums
-      const satisfaction = (1 - totalNegativeNum / totalClosed)
+      const totalSatisfaction = (1 - totalNegativeNum / totalClosed)
+      const satisfaction = (1 - negativeNums / closeNums)
       dataSource.data.push({
         date: dateString,
         createNum: createNums,
@@ -44,6 +45,7 @@ while (dataSource.data.length < 30) {
         slaNum: slaNums,
         negativeNum: negativeNums,
         satisfaction,
+        totalSatisfaction,
       })
       breakFlag = false
     }

@@ -13,13 +13,14 @@ const optionData = ref({
   tooltip: {
     trigger: 'axis',
     formatter: (params: any) => {
-      const date = params[0].name
-      const value = params[0].value
-      return `${date}<br/>满意度: ${(value * 100).toFixed(2)}%`
+      const date1 = params[0].name
+      const value1 = params[0].value
+      const value2 = params[1].value
+      return `${date1}<br/>满意度: ${(value1 * 100).toFixed(2)}% <br/>差评单据数: ${value2}`
     },
   },
   grid: {
-    top: 20,
+    top: 0,
     bottom: 0,
     left: 0,
     right: 0,
@@ -29,15 +30,37 @@ const optionData = ref({
     type: 'category',
     data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
   },
-  yAxis: {
-    show: false,
-    max: 1,
-    min: 0.6,
-  },
+  yAxis: [
+    { show: false, type: 'value', name: '折线图数值', min: 0.5, max: 1.1 }, // 折线图轴
+    { show: false, type: 'value', name: '柱状图数值', min: 0, max: 10 }, // 柱状图轴
+  ],
   series: [
     {
-      data: [120, 200, 150, 80, 70, 110, 130],
       type: 'line',
+      yAxisIndex: 0,
+      showSymbol: false,
+      lineStyle: {
+        normal: {
+          color: 'rgb(121, 187, 255)',
+          width: 3,
+          type: 'dashed',
+        },
+      },
+      data: [120, 200, 150, 80, 70, 110, 130],
+    },
+    {
+      type: 'bar',
+      yAxisIndex: 1,
+      showBackground: true,
+      backgroundStyle: {
+        color: 'rgba(180, 180, 180, 0.1)',
+      },
+      itemStyle: {
+        color: 'rgb(249, 184, 142)',
+        barBorderRadius: 5,
+        barWidth: '50%',
+      },
+      data: [120, 200, 150, 80, 70, 110, 130],
     },
   ],
 })
@@ -49,20 +72,23 @@ onMounted(() => {
   const dataSource = props.dataSource
   const xAxisData: string[] = []
   const seriesData: number[] = []
+  const seriesData1: number[] = []
   dataSource.data.forEach((item) => {
     xAxisData.push(item.date)
     seriesData.push(item.satisfaction)
+    seriesData1.push(item.negativeNum)
   })
   // 较昨日
   const [lastDay, today] = seriesData.slice(-2)
   compareLastShowUp.value = today >= lastDay
-  compareLastDay.value = `${Math.abs(today - lastDay).toFixed(2)}%`
+  compareLastDay.value = `${Math.abs((today - lastDay) * 100).toFixed(2)}%`
   compareLastClass.value = compareLastShowUp.value ? 'color-green font-bold' : 'color-red font-bold'
   // 满意度
   satisfaction.value = `${(dataSource.totalSatisfaction * 100).toFixed(2)}%`
   // 渲染图表
   optionData.value.xAxis.data = xAxisData
   optionData.value.series[0].data = seriesData
+  optionData.value.series[1].data = seriesData1
   const mychart = echarts.init(myChart.value)
   mychart.setOption(optionData.value)
 })
