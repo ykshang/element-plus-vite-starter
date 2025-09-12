@@ -12,6 +12,11 @@ const myChart = ref()
 const optionData = ref({
   tooltip: {
     trigger: 'axis',
+    formatter: (params: any) => {
+      const date = params[0].name
+      const value = params[0].value
+      return `${date}<br/>满意度: ${(value * 100).toFixed(2)}%`
+    },
   },
   grid: {
     top: 20,
