@@ -34,9 +34,9 @@ const optionData = ref({
       },
       data: [
         { value: 484, name: '办公设备' },
-        { value: 735, name: '办公网络、权限' },
+        { value: 735, name: '权限相关' },
         { value: 1048, name: '会议支持' },
-        { value: 484, name: '办公用品' },
+        { value: 484, name: '办公网络' },
         { value: 300, name: '其他' },
       ],
     },
