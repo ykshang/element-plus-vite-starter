@@ -76,7 +76,7 @@ onMounted(() => {
   <div class="card-item card-info">
     <div class="left">
       <div class="card-item-title">
-        待处理工单
+        待处理
       </div>
       <div class="card-item-num1">
         {{ totalNum }}
@@ -96,7 +96,7 @@ onMounted(() => {
 
 <style scoped lang="scss">
 .card-item {
-  height: 100px;
+  height: 150px;
   padding: 15px;
   display: flex;
 

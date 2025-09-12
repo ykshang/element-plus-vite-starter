@@ -78,7 +78,7 @@ onMounted(() => {
   <div class="card-item card-error">
     <div class="left">
       <div class="card-item-title">
-        超时工单
+        超时未处理
       </div>
       <div class="card-item-num1">
         {{ totalSlaNum }}
@@ -98,7 +98,7 @@ onMounted(() => {
 
 <style scoped lang="scss">
 .card-item {
-  height: 100px;
+  height: 150px;
   padding: 15px;
   display: flex;
 

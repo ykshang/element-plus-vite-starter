@@ -100,7 +100,7 @@ onMounted(() => {
 
 <style scoped lang="scss">
 .card-item {
-  height: 100px;
+  height: 150px;
   padding: 15px;
   display: flex;
   .left {
