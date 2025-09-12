@@ -56,8 +56,8 @@ dataSource.totalClosed = totalClosed
 dataSource.totalOpened = totalNum - totalClosed
 dataSource.totalNegativeNum = totalNegativeNum
 dataSource.totalSlaNum = totalSlaNum
-// eslint-disable-next-line no-console
-console.log(dataSource)
+
+// console.log(dataSource)
 </script>
 
 <template>

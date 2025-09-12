@@ -23,13 +23,11 @@ const optionData = ref({
     {
       name: '问题单数量',
       type: 'pie',
-      radius: ['50%', '100%'],
-      center: ['50%', '50%'],
+      radius: ['70%', '100%'],
+      center: ['50%', '60%'],
       width: '100%',
-      height: '200%',
+      height: '80%',
       // adjust the start and end angle
-      startAngle: 180,
-      endAngle: 360,
       itemStyle: {
         borderRadius: '10%',
         borderWidth: 2,
@@ -50,6 +48,20 @@ const compareLastShowUp = ref(true)
 
 onMounted(() => {
   const mychart = echarts.init(myChart.value)
+  const seriesData: number[] = []
+  let tempNum = props.dataSource.totalNum
+  // 将总单数随机分配给五种类型
+  let count = 1
+  while (count < 5) {
+    const val = Math.floor(Math.random() * tempNum)
+    seriesData.push(val)
+    tempNum = tempNum - val
+    count++
+  }
+  seriesData.push(tempNum)
+  optionData.value.series[0].data.forEach((item, index) => {
+    item.value = seriesData[index]
+  })
   mychart.setOption(optionData.value)
   watchEffect(() => {
     const dataSource = props.dataSource
