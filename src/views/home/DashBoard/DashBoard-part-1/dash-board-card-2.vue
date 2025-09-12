@@ -34,13 +34,13 @@ const optionData = ref({
       showSymbol: false,
       lineStyle: {
         normal: {
-          color: 'rgb(121, 187, 255)',
+          color: 'rgb(144, 221, 162)',
           width: 3,
           type: 'dashed',
         },
       },
       itemStyle: {
-        color: 'rgb(121, 187, 255)',
+        color: 'rgb(144, 221, 162)',
       },
     },
   ],
@@ -73,10 +73,10 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="card-item card-info">
+  <div class="card-item card-success">
     <div class="left">
       <div class="card-item-title">
-        待处理
+        已关闭
       </div>
       <div class="card-item-num1">
         {{ totalNum }}
@@ -126,7 +126,7 @@ onMounted(() => {
   }
 }
 
-.card-info {
-  background: linear-gradient(var(--ep-color-info-light-9), var(--ep-color-info-light-8));
+.card-success {
+  background: linear-gradient(var(--ep-color-success-light-9), var(--ep-color-success-light-8));
 }
 </style>
