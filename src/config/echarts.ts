@@ -4,6 +4,7 @@ import { BarChart, PieChart } from 'echarts/charts'
 import {
   DatasetComponent,
   GridComponent,
+  LegendComponent,
   TitleComponent,
   TooltipComponent,
   TransformComponent,
@@ -27,6 +28,7 @@ echarts.use([
   LabelLayout,
   UniversalTransition,
   SVGRenderer,
+  LegendComponent,
 ])
 
 export default echarts
