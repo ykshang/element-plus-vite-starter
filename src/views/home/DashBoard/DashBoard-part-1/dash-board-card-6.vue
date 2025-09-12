@@ -1,18 +1,13 @@
 <script setup lang="ts">
+import type DateSource from '~/types/dash-board-part-1'
 import { onMounted, ref, watchEffect } from 'vue'
 import echarts from '~/config/echarts'
 
-interface dataSourceType1 {
-  date: string
-  createNum: number
-  closeNum: number
-}
 interface Props {
-  dataSource: dataSourceType1[]
+  dataSource: DateSource
 }
 const props = defineProps<Props>()
 const totalNum = ref(0)
-const createdNum = ref(0)
 const myChart = ref()
 const optionData = ref({
   tooltip: {
@@ -23,10 +18,6 @@ const optionData = ref({
     bottom: 0,
     left: 0,
     right: 0,
-  },
-  legend: {
-    top: '5%',
-    left: 'center',
   },
   series: [
     {
@@ -53,15 +44,22 @@ const optionData = ref({
     },
   ],
 })
+const compareLastDay = ref(0)
+const compareLastClass = ref('')
+const compareLastShowUp = ref(true)
+
 onMounted(() => {
   const mychart = echarts.init(myChart.value)
+  mychart.setOption(optionData.value)
   watchEffect(() => {
     const dataSource = props.dataSource
-    dataSource.forEach((item) => {
-      totalNum.value += item.createNum
-    })
-    createdNum.value = dataSource[dataSource.length - 1].createNum
-    mychart.setOption(optionData.value)
+    // 总数
+    totalNum.value = dataSource.totalNum
+    // 较昨日
+    const [lastDay, today] = dataSource.data.slice(-2)
+    compareLastShowUp.value = today.createNum > lastDay.createNum
+    compareLastDay.value = Math.abs(today.createNum - lastDay.createNum)
+    compareLastClass.value = compareLastShowUp.value ? 'color-red font-bold' : 'color-green font-bold'
   })
 })
 </script>
@@ -76,7 +74,10 @@ onMounted(() => {
         {{ totalNum }}
       </div>
       <div class="card-item-num2">
-        较昨日 <span class="color-red font-bold">{{ createdNum }}<div inline-flex font-size-10px class="i-ri:arrow-up-long-line" /></span>
+        较昨日 <span :class="compareLastClass">{{ compareLastDay }}
+          <div v-if="compareLastShowUp" inline-flex font-size-10px class="i-ri:arrow-up-long-line" />
+          <div v-else inline-flex font-size-10px class="i-ri:arrow-down-long-line" />
+        </span>
       </div>
     </div>
     <div class="mx-10px mt-10px flex flex-1">
