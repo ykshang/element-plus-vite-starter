@@ -8,10 +8,19 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    2: typeof import('./../views/home/DashBoard/dash-board-card-4 copy 2.vue')['default']
     BaseLayoutFooter: typeof import('./../components/layouts/Footer/base-layout-footer.vue')['default']
     BaseLayoutHeader: typeof import('./../components/layouts/Header/base-layout-header.vue')['default']
     BaseLayoutSide: typeof import('./../components/layouts/Aside/base-layout-side.vue')['default']
     BaseUiCard: typeof import('./../components/base/base-ui-card.vue')['default']
+    copy: typeof import('./../views/home/DashBoard/dash-board-card-4 copy.vue')['default']
+    DashBoardCard1: typeof import('./../views/home/DashBoard/dash-board-card-1.vue')['default']
+    DashBoardCard2: typeof import('./../views/home/DashBoard/dash-board-card-2.vue')['default']
+    DashBoardCard3: typeof import('./../views/home/DashBoard/dash-board-card-3.vue')['default']
+    DashBoardCard4: typeof import('./../views/home/DashBoard/dash-board-card-4.vue')['default']
+    DashBoardCard5: typeof import('./../views/home/DashBoard/dash-board-card-5.vue')['default']
+    DashBoardCard6: typeof import('./../views/home/DashBoard/dash-board-card-6.vue')['default']
+    DashBoardCard7: typeof import('./../views/home/DashBoard/dash-board-card-7.vue')['default']
     DictionaryManagent: typeof import('./../components/business/Setting/DictionaryManagent.vue')['default']
     DictionaryManagentAddDictionary: typeof import('./../views/Setting/DictionaryManagent/dictionary-managent-add-dictionary.vue')['default']
     DictionaryManagentDictionaryItem: typeof import('./../views/Setting/DictionaryManagent/dictionary-managent-dictionary-item.vue')['default']
