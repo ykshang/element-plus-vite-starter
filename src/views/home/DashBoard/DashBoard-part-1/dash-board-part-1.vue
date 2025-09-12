@@ -72,7 +72,7 @@ dataSource.totalSlaNum = totalSlaNum
       <dash-board-card-1 :data-source="dataSource" />
       <!-- <dash-board-card-2 :data-source="dataSource" /> -->
       <!-- <dash-board-card-3 :data-source="dataSource" /> -->
-      <!-- <dash-board-card-4 :data-source="dataSource" /> -->
+      <dash-board-card-4 :data-source="dataSource" />
       <!-- <dash-board-card-5 :data-source="dataSource" /> -->
       <dash-board-card-6 :data-source="dataSource" />
     </div>
