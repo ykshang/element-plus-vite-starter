@@ -14,4 +14,5 @@ export default interface DateSource {
   totalOpened: number // 打开问题单总数
   totalNegativeNum: number // 不满意问题单总数
   totalSlaNum: number // SLA超时问题单总数
+  totalSatisfaction: number // 满意度
 }
