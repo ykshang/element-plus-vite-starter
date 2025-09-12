@@ -1,15 +1,34 @@
 <script setup lang="ts">
 import dayjs from 'dayjs'
 // 组装 card1 模块测试数据
-interface dataSourceType1 {
-  date: string
-  createNum: number
-  closeNum: number
-  totalNum: number
-  totalClosed: number
+interface tickerType {
+  date: string // 日期
+  createNum: number // 当日新增问题单
+  closeNum: number // 当日关闭问题单
+  slaNum: number // 当日SLA超时问题单
+  negativeNum: number // 当日不满意问题单
+  satisfaction: number // 当日满意度
 }
-const dataSource4Card1: dataSourceType1[] = []
+interface DateSource {
+  data: tickerType[]
+  totalNum: number // 问题单总数
+  totalClosed: number // 关闭问题单总数
+  totalOpened: number // 打开问题单总数
+  totalNegativeNum: number // 不满意问题单总数
+  totalSlaNum: number // SLA超时问题单总数
+}
 
+const dataSource: DateSource = {
+  data: [],
+  totalNum: 0,
+  totalClosed: 0,
+  totalOpened: 0,
+  totalNegativeNum: 0,
+  totalSlaNum: 0,
+}
+function getSpecifiedNum() {
+  return Math.floor(Math.random() * 10) > 2 ? 0 : Math.floor(Math.random() * 5)
+}
 function generateNum() {
   return {
     createNums: 50 + Math.floor(Math.random() * 50),
@@ -18,9 +37,13 @@ function generateNum() {
 }
 let totalNum = 0
 let totalClosed = 0
-while (dataSource4Card1.length < 30) {
-  const length = dataSource4Card1.length
+let totalNegativeNum = 0
+let totalSlaNum = 0
+while (dataSource.data.length < 30) {
+  const length = dataSource.data.length
   const dateString = dayjs().subtract(30 - length, 'day').format('YYYY-MM-DD')
+  const slaNums = getSpecifiedNum()
+  const negativeNums = getSpecifiedNum()
   let breakFlag = true
   // 保证只塞入一次
   while (breakFlag) {
@@ -29,17 +52,28 @@ while (dataSource4Card1.length < 30) {
     if ((totalNum + createNums) >= (totalClosed + closeNums)) {
       totalNum += createNums
       totalClosed += closeNums
-      dataSource4Card1.push({
+      totalNegativeNum += negativeNums
+      totalSlaNum += slaNums
+      const satisfaction = Math.floor((1 - negativeNums / closeNums) * 100)
+      dataSource.data.push({
         date: dateString,
         createNum: createNums,
         closeNum: closeNums,
-        totalNum,
-        totalClosed,
+        slaNum: slaNums,
+        negativeNum: negativeNums,
+        satisfaction,
       })
       breakFlag = false
     }
   }
 }
+dataSource.totalNum = totalNum
+dataSource.totalClosed = totalClosed
+dataSource.totalOpened = totalNum - totalClosed
+dataSource.totalNegativeNum = totalNegativeNum
+dataSource.totalSlaNum = totalSlaNum
+// eslint-disable-next-line no-console
+console.log(dataSource)
 </script>
 
 <template>
@@ -51,12 +85,12 @@ while (dataSource4Card1.length < 30) {
       </div>
     </div>
     <div class="card-content">
-      <dash-board-card-1 :data-source="dataSource4Card1" />
-      <dash-board-card-2 :data-source="dataSource4Card1" />
-      <dash-board-card-3 :data-source="dataSource4Card1" />
-      <dash-board-card-4 :data-source="dataSource4Card1" />
-      <dash-board-card-5 :data-source="dataSource4Card1" />
-      <dash-board-card-6 :data-source="dataSource4Card1" />
+      <dash-board-card-1 :data-source="dataSource" />
+      <!-- <dash-board-card-2 :data-source="dataSource" /> -->
+      <!-- <dash-board-card-3 :data-source="dataSource" /> -->
+      <!-- <dash-board-card-4 :data-source="dataSource" /> -->
+      <!-- <dash-board-card-5 :data-source="dataSource" /> -->
+      <!-- <dash-board-card-6 :data-source="dataSource" /> -->
     </div>
   </div>
 </template>

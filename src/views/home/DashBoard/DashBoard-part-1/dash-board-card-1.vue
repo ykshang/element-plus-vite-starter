@@ -2,17 +2,29 @@
 import { onMounted, ref } from 'vue'
 import echarts from '~/config/echarts'
 
-interface dataSourceType1 {
-  date: string
-  createNum: number
-  closeNum: number
+// 组装 card1 模块测试数据
+interface tickerType {
+  date: string // 日期
+  createNum: number // 当日新增问题单
+  closeNum: number // 当日关闭问题单
+  slaNum: number // 当日SLA超时问题单
+  negativeNum: number // 当日不满意问题单
+  satisfaction: number // 当日满意度
 }
+interface DateSource {
+  data: tickerType[]
+  totalNum: number // 问题单总数
+  totalClosed: number // 关闭问题单总数
+  totalOpened: number // 打开问题单总数
+  totalNegativeNum: number // 不满意问题单总数
+  totalSlaNum: number // SLA超时问题单总数
+}
+
 interface Props {
-  dataSource: dataSourceType1[]
+  dataSource: DateSource
 }
 const props = defineProps<Props>()
 const totalNum = ref(0)
-const createdNum = ref(0)
 const myChart = ref()
 const optionData = ref({
   tooltip: {
@@ -47,18 +59,26 @@ const optionData = ref({
     },
   ],
 })
+const compareLastDay = ref(0)
+const compareLastClass = ref('')
+const compareLastShowUp = ref(true)
+
 onMounted(() => {
-  // console.log(myChart.value)
   const dataSource = props.dataSource
   const xAxisData: string[] = []
   const seriesData: number[] = []
-  dataSource.forEach((item) => {
-    totalNum.value += item.createNum
+  dataSource.data.forEach((item) => {
     xAxisData.push(item.date)
     seriesData.push(item.createNum)
   })
-  createdNum.value = dataSource[dataSource.length - 1].createNum
-
+  // 较昨日
+  const [lastDay, today] = seriesData.slice(-2)
+  compareLastShowUp.value = today > lastDay
+  compareLastDay.value = Math.abs(today - lastDay)
+  compareLastClass.value = today - lastDay > 0 ? 'color-red font-bold' : 'color-green font-bold'
+  // 总数
+  totalNum.value = dataSource.totalNum
+  // 渲染图表
   optionData.value.xAxis.data = xAxisData
   optionData.value.series[0].data = seriesData
   const mychart = echarts.init(myChart.value)
@@ -76,8 +96,9 @@ onMounted(() => {
         {{ totalNum }}
       </div>
       <div class="card-item-num2">
-        较昨日 <span class="color-red font-bold">{{ createdNum }}
-          <div inline-flex font-size-10px class="i-ri:arrow-up-long-line" />
+        较昨日 <span :class="compareLastClass">{{ compareLastDay }}
+          <div v-if="compareLastShowUp" inline-flex font-size-10px class="i-ri:arrow-up-long-line" />
+          <div v-else inline-flex font-size-10px class="i-ri:arrow-down-long-line" />
         </span>
       </div>
     </div>
