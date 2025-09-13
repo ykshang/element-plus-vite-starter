@@ -50,7 +50,14 @@ function formateDate(date: number) {
 <template>
   <el-card shadow="never" overflow-hidden>
     <template #header>
-      新闻动态
+      <div flex>
+        <div flex-1>
+          新闻动态
+        </div>
+        <el-link type="primary">
+          更多
+        </el-link>
+      </div>
     </template>
     <el-table :data="tableData" :show-header="false" :border="false" height="230" :scrollbar-always-on="true" :stripe="true">
       <el-table-column prop="date" label="Date" width="120">
