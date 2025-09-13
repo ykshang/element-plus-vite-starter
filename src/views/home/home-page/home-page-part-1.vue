@@ -26,7 +26,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <el-card class="m-20px">
+  <el-card shadow="never">
     <div class="mb-8px mt-5px flex justify-center">
       <el-avatar
         size="large"

@@ -72,6 +72,8 @@ declare module 'vue' {
     HeaderTabs: typeof import('./../components/layouts/Header/header-tabs.vue')['default']
     HeaderToolBar: typeof import('./../components/layouts/Header/header-tool-bar.vue')['default']
     HeaderUserOperationBar: typeof import('./../components/layouts/Header/header-user-operation-bar.vue')['default']
+    HomePagePart1: typeof import('./../views/home/home-page/home-page-part-1.vue')['default']
+    HomePagePart2: typeof import('./../views/home/home-page/home-page-part-2.vue')['default']
     IcomDemoDemo: typeof import('./../components/icons/IcomDemoDemo.vue')['default']
     IconAvatar: typeof import('./../components/icons/IconAvatar.vue')['default']
     IconCommunity: typeof import('./../components/icons/IconCommunity.vue')['default']
