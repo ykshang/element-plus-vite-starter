@@ -4,9 +4,7 @@
 
 <template>
   <dash-board-part-1 />
-  <div class="dash-board-card-1">
-    卡片1
-  </div>
+  <dash-board-part-2 class="my-10px" />
 </template>
 
 <style lang="scss" scoped>
