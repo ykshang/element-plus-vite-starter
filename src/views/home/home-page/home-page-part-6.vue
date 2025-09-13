@@ -6,7 +6,9 @@
     <template #header>
       工时看板
     </template>
-    <home-page-part-4-scroll />
+    <div h-300px flex>
+      1
+    </div>
   </el-card>
 </template>
 

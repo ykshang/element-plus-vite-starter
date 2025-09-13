@@ -2,10 +2,13 @@
 </script>
 
 <template>
-  <el-card shadow="never" h-400px>
+  <el-card shadow="never">
     <template #header>
       员工心声
     </template>
+    <div h-300px flex>
+      1
+    </div>
   </el-card>
 </template>
 

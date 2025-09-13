@@ -23,11 +23,11 @@ const optionData = ref({
     {
       name: '问题单数量',
       type: 'pie',
-      radius: ['70%', '100%'],
-      center: ['50%', '60%'],
+      radius: ['50%', '75%'],
+      center: ['50%', '50%'],
       width: '100%',
-      height: '80%',
-      // adjust the start and end angle
+      height: '100%',
+      padAngle: 2,
       itemStyle: {
         borderRadius: '10%',
         borderWidth: 2,
