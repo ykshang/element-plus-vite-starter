@@ -92,6 +92,7 @@ const optionData = ref({
       barWidth: '50%',
       label: {
         show: true,
+        color: '#444',
       },
       emphasis: {
         focus: 'series',
@@ -108,6 +109,7 @@ const optionData = ref({
       barWidth: '50%',
       label: {
         show: true,
+        color: '#444',
       },
       emphasis: {
         focus: 'series',
