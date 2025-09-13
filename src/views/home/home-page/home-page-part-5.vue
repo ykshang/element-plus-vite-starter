@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+// import { ref } from 'vue'
 </script>
 
 <template>
@@ -6,9 +7,13 @@
     <template #header>
       工作日历
     </template>
-    <div h-300px flex>
-      1
-    </div>
+    <el-scrollbar>
+      <el-calendar h-300px class="calendar-card">
+        <template #date-cell="{ data }">
+          <div>{{ data.date.getDate() }}</div>
+        </template>
+      </el-calendar>
+    </el-scrollbar>
   </el-card>
 </template>
 
