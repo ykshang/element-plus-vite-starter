@@ -42,6 +42,9 @@ tableData.value = originData.value.map((item) => {
   item.dateLabel = dayjs(item.date).format('MM-DD')
   return item
 })
+function formateDate(date: number) {
+  return dayjs(date).format('YYYY-MM-DD')
+}
 </script>
 
 <template>
@@ -50,11 +53,15 @@ tableData.value = originData.value.map((item) => {
       新闻动态
     </template>
     <el-table :data="tableData" :show-header="false" :border="false" height="230" :scrollbar-always-on="true" :stripe="true">
-      <el-table-column prop="date" label="Date" width="170" />
+      <el-table-column prop="date" label="Date" width="120">
+        <template #default="{ row }">
+          {{ formateDate(row.date) }}
+        </template>
+      </el-table-column>
       <el-table-column prop="title" show-overflow-tooltip label="Title">
-        <template #default="scope">
+        <template #default="{ row }">
           <el-link type="primary" class="news-link" title="查看">
-            {{ scope.row.title }}
+            {{ row.title }}
           </el-link>
         </template>
       </el-table-column>

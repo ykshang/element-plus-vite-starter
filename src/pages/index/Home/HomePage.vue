@@ -15,6 +15,11 @@
       <home-page-part-3 />
     </el-col>
   </el-row>
+  <el-row :gutter="10" mb-10px>
+    <el-col :span="24" flex>
+      <home-page-part-4 />
+    </el-col>
+  </el-row>
 </template>
 
 <style lang="scss" scoped>
