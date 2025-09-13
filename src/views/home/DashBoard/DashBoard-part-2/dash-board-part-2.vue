@@ -72,6 +72,12 @@ const optionData = ref({
   xAxis: {
     type: 'category',
     data: xAxisData,
+    axisLine: {
+      show: false,
+    },
+    axisLabel: {
+      color: '#888',
+    },
   },
   yAxis: {
     show: false,
