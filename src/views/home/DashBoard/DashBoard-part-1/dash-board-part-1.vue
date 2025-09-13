@@ -68,18 +68,18 @@ dataSource.totalSlaNum = totalSlaNum
 <template>
   <div class="card card1">
     <div class="card-title">
-      工单分析
+      工单数据
       <div class="card-title-sub">
         最近30天数据
       </div>
     </div>
     <div class="card-content">
-      <dash-board-card-1 :data-source="dataSource" />
-      <dash-board-card-2 :data-source="dataSource" />
-      <dash-board-card-3 :data-source="dataSource" />
-      <dash-board-card-4 :data-source="dataSource" />
-      <dash-board-card-5 :data-source="dataSource" />
-      <dash-board-card-6 :data-source="dataSource" />
+      <dash-board-part-1-card-1 :data-source="dataSource" />
+      <dash-board-part-1-card-2 :data-source="dataSource" />
+      <dash-board-part-1-card-3 :data-source="dataSource" />
+      <dash-board-part-1-card-4 :data-source="dataSource" />
+      <dash-board-part-1-card-5 :data-source="dataSource" />
+      <dash-board-part-1-card-6 :data-source="dataSource" />
     </div>
   </div>
 </template>
