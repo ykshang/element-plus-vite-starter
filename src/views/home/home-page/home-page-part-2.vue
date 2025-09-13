@@ -60,15 +60,30 @@ tableData.value = originData.value.map((item) => {
           </el-tag>
         </template>
       </el-table-column>
-      <el-table-column prop="detail" show-overflow-tooltip label="详情" />
+      <el-table-column prop="detail" show-overflow-tooltip label="详情">
+        <template #default="scope">
+          <el-link type="primary" class="news-link" title="处理">
+            {{ scope.row.detail }}
+          </el-link>
+        </template>
+      </el-table-column>
       <el-table-column prop="dateLabel" label="日期" width="180" />
       <el-table-column prop="operation" show-overflow-tooltip label="操作" width="80">
         <template #default>
           <el-button type="text" width="60">
-            查看
+            处理
           </el-button>
         </template>
       </el-table-column>
     </el-table>
   </el-card>
 </template>
+
+<style lang="scss" scoped>
+.news-link {
+  color: var(--ep-text-color-regular);
+  &:hover {
+    color: var(--ep-color-primary);
+  }
+}
+</style>

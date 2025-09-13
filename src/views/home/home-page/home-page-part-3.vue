@@ -1,36 +1,47 @@
 <script lang="ts" setup>
+import dayjs from 'dayjs'
 import { ref } from 'vue'
 
-const tableData = ref([
+interface IOriginData {
+  title: string
+  date: number
+  dateLabel?: string
+}
+const originData = ref<IOriginData[]>([
   {
-    date: '2016-05-04 12:10:00',
-    address: '上海市普陀区金沙江路 1517 弄',
+    date: 1757764435124,
+    title: '瑞金医院联合华为开源RuiPath病理模型，加速行业智能化落地',
   },
   {
-    date: '2016-05-03 13:00:00',
-    address: '上海市普陀区金沙江路 1516 弄',
+    date: 1757764435124,
+    title: '华为携手云南交投正式发布“绿美通道·交通大模型',
   },
   {
-    date: '2016-05-02 10:00:00',
-    address: '上海市普陀区金沙江路 1518 弄',
+    date: 1757764435124,
+    title: '华为携手产业达成移动AI基础网共识，加速5G-A体验变现',
   },
   {
-    date: '2016-05-01 13:30:00',
-    address: '上海市普陀区金沙江路 1519 弄',
+    date: 1757764435124,
+    title: '激发体验经营心动时刻，加速5G-A商业成功',
   },
   {
-    date: '2016-05-01 13:30:00',
-    address: '上海市普陀区金沙江路 1519 弄',
+    date: 1757764435124,
+    title: '北京联通携手华为拥抱AI技术革命，加速迈入智能时代',
   },
   {
-    date: '2016-05-01 13:30:00',
-    address: '上海市普陀区金沙江路 1519 弄',
+    date: 1757764435124,
+    title: '共筑F5G-A全光网产业繁荣，共赢AI时代新增长',
   },
   {
-    date: '2016-05-01 13:30:00',
-    address: '上海市普陀区金沙江路 1519 弄',
+    date: 1757764435124,
+    title: '5G-A与AI深度融合，共绘通信产业新图景',
   },
 ])
+const tableData = ref<IOriginData[]>([])
+tableData.value = originData.value.map((item) => {
+  item.dateLabel = dayjs(item.date).format('MM-DD')
+  return item
+})
 </script>
 
 <template>
@@ -39,8 +50,23 @@ const tableData = ref([
       新闻动态
     </template>
     <el-table :data="tableData" :show-header="false" :border="false" height="230" :scrollbar-always-on="true" :stripe="true">
-      <el-table-column prop="date" label="Date" width="180" />
-      <el-table-column prop="address" show-overflow-tooltip label="Address" />
+      <el-table-column prop="date" label="Date" width="170" />
+      <el-table-column prop="title" show-overflow-tooltip label="Title">
+        <template #default="scope">
+          <el-link type="primary" class="news-link" title="查看">
+            {{ scope.row.title }}
+          </el-link>
+        </template>
+      </el-table-column>
     </el-table>
   </el-card>
 </template>
+
+<style lang="scss" scoped>
+.news-link {
+  color: var(--ep-text-color-regular);
+  &:hover {
+    color: var(--ep-color-primary);
+  }
+}
+</style>
