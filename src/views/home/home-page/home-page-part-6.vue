@@ -4,7 +4,7 @@
 <template>
   <el-card shadow="never">
     <template #header>
-      工时看板
+      员工心声
     </template>
     <div h-300px flex>
       1

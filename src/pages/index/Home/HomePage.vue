@@ -9,10 +9,10 @@
       </el-col>
     </el-row>
     <el-row :gutter="10" mb-10px>
-      <el-col :span="15" flex>
+      <el-col :span="16" flex>
         <home-page-part-2 />
       </el-col>
-      <el-col :span="9" flex>
+      <el-col :span="8" flex>
         <home-page-part-3 />
       </el-col>
     </el-row>
