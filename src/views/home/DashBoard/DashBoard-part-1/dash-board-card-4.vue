@@ -75,7 +75,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="card-item card-error">
+  <div class="card-item card-warning">
     <div class="left">
       <div class="card-item-title">
         超时未处理
@@ -128,7 +128,7 @@ onMounted(() => {
   }
 }
 
-.card-error {
-  background: linear-gradient(var(--ep-color-error-light-9), var(--ep-color-error-light-8));
+.card-warning {
+  background: linear-gradient(var(--ep-color-warning-light-9), var(--ep-color-warning-light-8));
 }
 </style>

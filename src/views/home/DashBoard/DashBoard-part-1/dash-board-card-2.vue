@@ -29,17 +29,19 @@ const optionData = ref({
   },
   series: [
     {
-      data: [120, 200, 150, 80, 70, 110, 130],
-      type: 'bar',
-      showBackground: true,
-      backgroundStyle: {
-        color: 'rgba(180, 180, 180, 0.1)',
+      type: 'line',
+      showSymbol: false,
+      lineStyle: {
+        normal: {
+          color: 'rgb(144, 221, 162)',
+          width: 3,
+          type: 'dashed',
+        },
       },
       itemStyle: {
         color: 'rgb(144, 221, 162)',
-        barBorderRadius: 5,
-        barWidth: '50%',
       },
+      data: [120, 200, 150, 80, 70, 110, 130],
     },
   ],
 })
