@@ -2,11 +2,10 @@
 </script>
 
 <template>
-  <el-card shadow="never">
+  <el-card shadow="never" h-400px>
     <template #header>
-      工时看板
+      员工心声
     </template>
-    <home-page-part-4-scroll />
   </el-card>
 </template>
 

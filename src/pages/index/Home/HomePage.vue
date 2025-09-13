@@ -21,10 +21,10 @@
         <home-page-part-4 flex-1 />
       </el-col>
       <el-col :span="8" flex>
-        <home-page-part-4 />
+        <home-page-part-5 />
       </el-col>
       <el-col :span="8" flex>
-        <home-page-part-4 />
+        <home-page-part-6 />
       </el-col>
     </el-row>
   </div>
