@@ -66,13 +66,15 @@ dataSource.totalSlaNum = totalSlaNum
 </script>
 
 <template>
-  <div class="card card1">
-    <div class="card-title">
-      工单数据
-      <div class="card-title-sub">
-        最近30天数据
+  <el-card shadow="never">
+    <template #header>
+      <div class="flex">
+        工单数据
+        <div class="flex-1 text-right font-size-12px color-[--ep-text-color-secondary]">
+          最近30天数据
+        </div>
       </div>
-    </div>
+    </template>
     <div class="card-content">
       <dash-board-part-1-card-1 :data-source="dataSource" />
       <dash-board-part-1-card-2 :data-source="dataSource" />
@@ -81,33 +83,13 @@ dataSource.totalSlaNum = totalSlaNum
       <dash-board-part-1-card-5 :data-source="dataSource" />
       <dash-board-part-1-card-6 :data-source="dataSource" />
     </div>
-  </div>
+  </el-card>
 </template>
 
 <style scoped lang="scss">
-.card {
-  width: 100%;
-  background: var(--ep-bg-color);
-  padding: 15px;
-  text-align: left;
-  box-sizing: border-box;
-  .card-title {
-    display: flex;
-    font-size: 18px;
-    font-weight: 500;
-    margin-bottom: 25px;
-    .card-title-sub {
-      flex: 1;
-      text-align: right;
-      font-size: 12px;
-      font-weight: 400;
-      color: var(--ep-text-color-placeholder);
-    }
-  }
-  .card-content {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-gap: 15px;
-  }
+.card-content {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 15px;
 }
 </style>

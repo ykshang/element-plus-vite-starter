@@ -77,6 +77,7 @@ const optionData = ref({
     },
     axisLabel: {
       color: '#888',
+      rotate: 45,
     },
   },
   yAxis: {
@@ -127,93 +128,64 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="card card1">
-    <div class="card-title">
-      巡检数据
-      <div class="card-title-sub">
-        数据来源：{{ dattitl }}
-      </div>
-    </div>
-    <div class="card-content">
-      <div class="card-item card-primary">
-        <div class="left">
-          <div class="card-item-title">
-            巡检覆盖
-          </div>
-          <div class="card-item-num1">
-            {{ totalNum }}
-          </div>
-        </div>
-        <div class="mx-10px mt-10px flex flex-1">
-          <div ref="myChart" class="flex-1" />
+  <el-card shadow="never">
+    <template #header>
+      <div class="flex">
+        巡检数据
+        <div class="flex-1 text-right font-size-12px color-[--ep-text-color-secondary]">
+          更新日期：{{ dattitl }}
         </div>
       </div>
+    </template>
+    <div class="card-item card-primary">
+      <div class="left">
+        <div class="card-item-title">
+          巡检覆盖
+        </div>
+        <div class="card-item-num1">
+          {{ totalNum }}
+        </div>
+      </div>
+      <div class="mx-10px mt-10px flex flex-1">
+        <div ref="myChart" class="flex-1" />
+      </div>
     </div>
-  </div>
+  </el-card>
 </template>
 
-<style scoped lang="scss">
-.card {
-  width: 100%;
-  background: var(--ep-bg-color);
+<style lang="scss" scoped>
+  .card-item {
+  height: 250px;
   padding: 15px;
-  text-align: left;
-  box-sizing: border-box;
+  display: flex;
 
-  .card-title {
+  .left {
+    width: 110px;
     display: flex;
-    font-size: 18px;
-    font-weight: 500;
-    margin-bottom: 25px;
+    flex-direction: column;
+    color: var(--ep-text-color-regular);
 
-    .card-title-sub {
+    .card-item-title {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .card-item-num1 {
+      font-size: 24px;
       flex: 1;
-      text-align: right;
-      font-size: 12px;
-      font-weight: 400;
-      color: var(--ep-text-color-placeholder);
-    }
-  }
-
-  .card-content {
-    display: grid;
-    grid-template-columns: repeat(1, 1fr);
-    grid-gap: 15px;
-
-    .card-item {
-      height: 250px;
-      padding: 15px;
       display: flex;
-
-      .left {
-        width: 110px;
-        display: flex;
-        flex-direction: column;
-        color: var(--ep-text-color-regular);
-
-        .card-item-title {
-          font-size: 16px;
-          font-weight: 600;
-          margin-bottom: 10px;
-        }
-
-        .card-item-num1 {
-          font-size: 24px;
-          flex: 1;
-          display: flex;
-          align-items: center;
-        }
-
-        .card-item-num2 {
-          font-size: 12px;
-          color: var(--ep-text-color-regular);
-        }
-      }
+      align-items: center;
     }
 
-    .card-primary {
-      background: linear-gradient(var(--ep-color-primary-light-9), var(--ep-color-primary-light-8));
+    .card-item-num2 {
+      font-size: 12px;
+      color: var(--ep-text-color-regular);
     }
   }
+}
+
+.card-primary {
+  background: linear-gradient(var(--ep-color-primary-light-9), var(--ep-color-primary-light-8));
 }
 </style>
