@@ -45,7 +45,7 @@ tableData.value = originData.value.map((item) => {
 </script>
 
 <template>
-  <el-card shadow="never" flex-1>
+  <el-card shadow="never">
     <template #header>
       待办事项
     </template>

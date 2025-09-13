@@ -8,7 +8,6 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
-    2: typeof import('./../views/home/DashBoard/dash-board-card-4 copy 2.vue')['default']
     BaseLayoutFooter: typeof import('./../components/layouts/Footer/base-layout-footer.vue')['default']
     BaseLayoutHeader: typeof import('./../components/layouts/Header/base-layout-header.vue')['default']
     BaseLayoutSide: typeof import('./../components/layouts/Aside/base-layout-side.vue')['default']
@@ -77,6 +76,8 @@ declare module 'vue' {
     HomePagePart2: typeof import('./../views/home/home-page/home-page-part-2.vue')['default']
     HomePagePart3: typeof import('./../views/home/home-page/home-page-part-3.vue')['default']
     HomePagePart4: typeof import('./../views/home/home-page/home-page-part-4.vue')['default']
+    HomePagePart5: typeof import('./../views/home/home-page/home-page-part-5.vue')['default']
+    HomePagePart6: typeof import('./../views/home/home-page/home-page-part-6.vue')['default']
     IcomDemoDemo: typeof import('./../components/icons/IcomDemoDemo.vue')['default']
     IconAvatar: typeof import('./../components/icons/IconAvatar.vue')['default']
     IconCommunity: typeof import('./../components/icons/IconCommunity.vue')['default']

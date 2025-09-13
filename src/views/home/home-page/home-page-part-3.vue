@@ -48,7 +48,7 @@ function formateDate(date: number) {
 </script>
 
 <template>
-  <el-card shadow="never" overflow-hidden>
+  <el-card shadow="never">
     <template #header>
       <div flex>
         <div flex-1>
