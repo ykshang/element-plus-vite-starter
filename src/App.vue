@@ -20,13 +20,5 @@ function forrbidenContextMenu() {
 </template>
 
 <style>
-#app {
-  text-align: center;
-  color: var(--ep-text-color-primary);
-  display: flex;
-  height: 100vh;
-  width: 100vw;
-  overflow: hidden;
-  background-color: var(--ep-bg-color);
-}
+
 </style>
