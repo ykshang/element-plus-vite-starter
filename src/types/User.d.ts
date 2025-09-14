@@ -11,7 +11,7 @@ export interface UserInfoStore {
   lastName: string
   fullName: string
   brief: string
-  office: string[]
+  offices: string[]
   dept: string[]
   skills: string[]
   tags: string[]
