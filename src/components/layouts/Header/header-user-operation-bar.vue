@@ -50,7 +50,7 @@ function errorHandler() {
       <span
         class="mr-10px max-w-200px min-w-100px flex cursor-pointer items-center font-size-16px line-height-24px hover:color-[--ep-color-primary]"
       >
-        <span class="overflow-hidden text-ellipsis whitespace-nowrap">{{ currentUserInfo.userName }}</span>
+        <span class="overflow-hidden text-ellipsis whitespace-nowrap">{{ currentUserInfo.fullName }}</span>
         <div class="ml-5px inline-block">
           <div v-if="!isVisible" class="i-ep:arrow-down" />
           <div v-else class="i-ep:arrow-up" />

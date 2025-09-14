@@ -21,7 +21,7 @@ onMounted(() => {
   } else {
     title = '晚上好'
   }
-  mainTitle.value = `${title}！${currentUserInfo.value.userName}，欢迎来到 Vue Admin`
+  mainTitle.value = `${title}！${currentUserInfo.value.fullName}，欢迎来到 Vue Admin`
 })
 </script>
 
