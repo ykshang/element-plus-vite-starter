@@ -1,10 +1,10 @@
 <template>
-  <el-row flex-1>
+  <el-row flex-1 :gutter="10">
     <el-col :span="10">
-      1
+      <peofile-managent-left />
     </el-col>
     <el-col :span="14">
-      2
+      <peofile-managent-right />
     </el-col>
   </el-row>
 </template>
