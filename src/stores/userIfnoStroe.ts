@@ -1,4 +1,5 @@
 import type { UserInfoStore } from '~/types/User'
+import dayjs from 'dayjs'
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 
@@ -14,7 +15,7 @@ export const useUserInfoStore = defineStore(
       age: '31',
       email: '123@qq.com',
       phoneNumber: '13800000000',
-      birthday: '1998-12-11',
+      birthday: 912441600000,
       sex: '男',
       brief: '指尖划过星辰，文字栖居于此——这里是未命名故事的扉页，也是你与世界的第一帧相遇。',
       offices: ['中国', '济南', '济南CBD办公室 3F', '3C-4D'],
@@ -25,7 +26,12 @@ export const useUserInfoStore = defineStore(
       avatarUrl: 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png',
     })
     const setCurrentUserInfo = (userInfo: Partial<Omit<UserInfoStore, 'age'>>) => {
-      Object.assign(currentUserInfo.value, userInfo)
+      let age = 1
+      if (userInfo.birthday) {
+        const birthday = dayjs(userInfo.birthday)
+        age = dayjs().year() - birthday.year()
+      }
+      Object.assign(currentUserInfo.value, userInfo, { age })
     }
     return { currentUserInfo, setCurrentUserInfo }
   },

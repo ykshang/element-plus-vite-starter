@@ -6,7 +6,7 @@ export interface UserInfoStore {
   email: string
   phoneNumber: string
   userid: string
-  birthday: string
+  birthday: number
   sex: string
   address: string
   firstName: string

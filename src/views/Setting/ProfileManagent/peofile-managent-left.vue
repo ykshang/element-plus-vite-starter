@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ElNotification } from 'element-plus'
+import { dayjs, ElNotification } from 'element-plus'
 import { storeToRefs } from 'pinia'
 import { ref } from 'vue'
 import { useUserInfoStore } from '~/stores/userIfnoStroe'
@@ -63,7 +63,7 @@ currentUserInfoDept.value = currentUserInfo.value.dept[currentUserInfo.value.dep
         </div>
         <div class="i-ep:calendar" />
         <div>
-          {{ currentUserInfo.birthday }}
+          {{ dayjs(currentUserInfo.birthday).format('YYYY-MM-DD') }}
         </div>
         <div class="i-ep:iphone" />
         <div>
