@@ -47,10 +47,14 @@ currentUserInfoDept.value = currentUserInfo.value.dept[currentUserInfo.value.dep
         </el-tag>
       </div>
       <el-divider />
-      <div class="grid-cols grid mx-10% flex-1 gap-6px font-size-sm color-[--ep-text-color-regular]">
+      <div class="grid-cols grid mx-10% mb-30px flex-1 gap-6px font-size-sm color-[--ep-text-color-regular]">
         <div class="i-ep:user" />
         <div>
           {{ currentUserInfo.fullName }}
+        </div>
+        <div class="i-ep:notification" />
+        <div>
+          {{ currentUserInfo.userid }}
         </div>
         <div v-if="currentUserInfo.sex === '男'" class="i-ep:male" />
         <div v-else class="i-ep:female" />
