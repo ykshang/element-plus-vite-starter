@@ -56,6 +56,13 @@ const rules = reactive<FormRules<UserInfoStore>>({
       trigger: 'change',
     },
   ],
+  skills: [
+    {
+      required: true,
+      message: '请输入技能',
+      trigger: 'change',
+    },
+  ],
   offices: [
     {
       required: true,
@@ -150,8 +157,8 @@ function handleCloseTag(tag: string) {
         <el-input-tag
           v-model="ruleForm.skills"
           clearable
-          tag-type="primary"
-          tag-effect="plain"
+          tag-type="info"
+          tag-effect="light"
           placeholder="请输入技能，点击回车确认"
           aria-label="请输入技能，点击回车确认"
         />
@@ -175,7 +182,7 @@ function handleCloseTag(tag: string) {
             @keyup.enter="handleInputConfirm"
             @blur="handleInputConfirm"
           />
-          <el-button v-else class="button-new-tag" size="small" @click="showInput">
+          <el-button v-else style="font-weight: 500; " size="small" @click="showInput">
             + 添加标签
           </el-button>
         </div>

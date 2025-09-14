@@ -10,25 +10,25 @@ const { currentUserInfo } = storeToRefs(userInfoStore)
 
 // console.log(currentUserInfo.value)
 
-const isFollow = ref(false)
-function followFun() {
-  isFollow.value = !isFollow.value
-  if (isFollow.value) {
-    ElNotification.success('关注成功')
-  } else {
-    ElNotification.success('取消关注成功')
-  }
-}
+// const isFollow = ref(false)
+// function followFun() {
+//   isFollow.value = !isFollow.value
+//   if (isFollow.value) {
+//     ElNotification.success('关注成功')
+//   } else {
+//     ElNotification.success('取消关注成功')
+//   }
+// }
 const currentUserInfoDept = ref()
 currentUserInfoDept.value = currentUserInfo.value.dept[currentUserInfo.value.dept.length - 1]
 </script>
 
 <template>
   <el-card shadow="never" class="relative">
-    <div class="absolute right-15px top-15px" @click="followFun">
+    <!-- <div class="absolute right-15px top-15px" @click="followFun">
       <div v-if="isFollow" class="i-ep:star-filled followed-star" />
       <div v-else class="i-ep:star unfollow-star" />
-    </div>
+    </div> -->
     <div class="m-auto max-w-fit w-full flex flex-col items-center justify-center px-5%">
       <el-avatar
         size="large"
@@ -96,18 +96,18 @@ currentUserInfoDept.value = currentUserInfo.value.dept[currentUserInfo.value.dep
 </template>
 
  <style lang="scss" scoped>
-.unfollow-star {
-  cursor: pointer;
-  &:hover {
-    color: var(--ep-color-primary);
-  }
-}
-.followed-star {
-  color: var(--ep-color-primary);
-  &:hover {
-    cursor: pointer;
-  }
-}
+// .unfollow-star {
+//   cursor: pointer;
+//   &:hover {
+//     color: var(--ep-color-primary);
+//   }
+// }
+// .followed-star {
+//   color: var(--ep-color-primary);
+//   &:hover {
+//     cursor: pointer;
+//   }
+// }
 .grid-cols {
   grid-template-columns: 30px 1fr;
 }
