@@ -15,7 +15,6 @@ const optionData = ref({
   },
   series: [
     {
-      name: '问题单数量',
       type: 'pie',
       radius: ['40%', '75%'],
       center: ['50%', '50%'],
