@@ -4,21 +4,25 @@ import type { FormInstance, FormRules } from 'element-plus'
 
 import type { UserInfoStore } from '~/types/User'
 import { storeToRefs } from 'pinia'
-import { reactive, ref } from 'vue'
+import { reactive, ref, toRaw } from 'vue'
 
 import officeData from '~/config/office-data'
 import { useUserInfoStore } from '~/stores/userIfnoStroe'
 
+// 办公室数据
 const options = ref(officeData)
 
+// 导入用户信息
 const userInfoStore = useUserInfoStore()
-
 const { currentUserInfo } = storeToRefs(userInfoStore)
 
-const ruleForm = currentUserInfo
+// 初始化表单数据
+const userInfo = toRaw(currentUserInfo.value)
+const ruleForm = ref<UserInfoStore>(JSON.parse(JSON.stringify(userInfo)))
 
 const ruleFormRef = ref<FormInstance>()
 
+// 表单校验
 const rules = reactive<FormRules<UserInfoStore>>({
   lastName: [
     { required: true, message: '请输入姓氏', trigger: 'blur' },
