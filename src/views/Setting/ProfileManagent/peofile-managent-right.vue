@@ -71,6 +71,7 @@ async function submitForm(formEl: FormInstance | undefined) {
   await formEl.validate((valid, fields) => {
     if (valid) {
       console.log('submit!')
+      userInfoStore.setCurrentUserInfo(ruleForm.value)
     } else {
       console.log('error submit!', fields)
     }
