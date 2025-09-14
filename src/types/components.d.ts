@@ -89,6 +89,8 @@ declare module 'vue' {
     IconSupport: typeof import('./../components/icons/IconSupport.vue')['default']
     IconTooling: typeof import('./../components/icons/IconTooling.vue')['default']
     IconVue: typeof import('./../components/icons/IconVue.vue')['default']
+    PeofileManagentLeft: typeof import('./../views/Setting/ProfileManagent/peofile-managent-left.vue')['default']
+    PeofileManagentRight: typeof import('./../views/Setting/ProfileManagent/peofile-managent-right.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     TablePagenation: typeof import('./../components/base/table-pagenation.vue')['default']
