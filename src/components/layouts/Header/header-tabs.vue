@@ -126,6 +126,7 @@ function handleDropdownVisible(val: boolean) {
 watch(
   () => route.path,
   (newPath) => {
+    window.scrollTo(0, 0)
     // console.log(newPath)
     // 检测该路由是否存在
     const newTab = tabItemList.value.find(tab => tab.path === newPath)

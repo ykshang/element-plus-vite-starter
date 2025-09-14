@@ -8,6 +8,7 @@ import emitter from '~/config/emitter'
 const refreshKey = ref(0)
 
 emitter.on('refreshPage', () => {
+  window.scrollTo(0, 0)
   ElNotification.success({
     title: '通知',
     message: '刷新成功',
