@@ -1,10 +1,10 @@
 <!-- eslint-disable no-console -->
 <script lang="ts" setup>
-import type { FormInstance, FormRules } from 'element-plus'
+import type { FormInstance, FormRules, InputInstance } from 'element-plus'
 
 import type { UserInfoStore } from '~/types/User'
 import { storeToRefs } from 'pinia'
-import { reactive, ref, toRaw } from 'vue'
+import { nextTick, reactive, ref, toRaw } from 'vue'
 
 import officeData from '~/config/office-data'
 import { useUserInfoStore } from '~/stores/userIfnoStroe'
@@ -76,6 +76,28 @@ async function submitForm(formEl: FormInstance | undefined) {
     }
   })
 }
+
+const inputVisible = ref(false)
+const inputValue = ref('')
+const InputRef = ref<InputInstance>()
+
+function showInput() {
+  inputVisible.value = true
+  nextTick(() => {
+    InputRef.value!.input!.focus()
+  })
+}
+function handleInputConfirm() {
+  if (inputValue.value) {
+    ruleForm.value.tags.push(inputValue.value)
+  }
+  inputVisible.value = false
+  inputValue.value = ''
+}
+// 自定义标签关闭事件
+function handleCloseTag(tag: string) {
+  ruleForm.value.tags.splice(ruleForm.value.tags.indexOf(tag), 1)
+}
 </script>
 
 <template>
@@ -122,6 +144,40 @@ async function submitForm(formEl: FormInstance | undefined) {
       </el-form-item>
       <el-form-item label="办公地址" prop="offices" required>
         <el-cascader v-model="ruleForm.offices" style="flex:1" :options="options" />
+      </el-form-item>
+      <el-form-item label="技能列表" prop="skills" required>
+        <el-input-tag
+          v-model="ruleForm.skills"
+          clearable
+          tag-type="primary"
+          tag-effect="plain"
+          placeholder="请输入技能，点击回车确认"
+          aria-label="请输入技能，点击回车确认"
+        />
+      </el-form-item>
+      <el-form-item label="自定义标签" prop="tags" required>
+        <div class="flex flex-1 flex-wrap gap-2">
+          <el-tag
+            v-for="tag in ruleForm.tags"
+            :key="tag"
+            closable
+            :disable-transitions="false"
+            @close="handleCloseTag(tag)"
+          >
+            {{ tag }}
+          </el-tag>
+          <el-input
+            v-if="inputVisible"
+            ref="InputRef"
+            v-model="inputValue"
+            class="w-20"
+            @keyup.enter="handleInputConfirm"
+            @blur="handleInputConfirm"
+          />
+          <el-button v-else class="button-new-tag" size="small" @click="showInput">
+            + 添加标签
+          </el-button>
+        </div>
       </el-form-item>
       <el-form-item label="简介" prop="brief">
         <el-input v-model="ruleForm.brief" type="textarea" placeholder="请输入简介" :autosize="{ minRows: 4, maxRows: 6 }" />
