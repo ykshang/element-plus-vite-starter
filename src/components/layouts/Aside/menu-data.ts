@@ -39,7 +39,7 @@ const menuDataTree = [
     )),
     subMenu: [
       {
-        path: '/Setting/Profile',
+        path: '/Setting/ProfileManagent',
         title: '个人信息',
         icon: markRaw(defineAsyncComponent(() =>
           import('~icons/ri/user-3-line'),
