@@ -20,7 +20,8 @@ export const useUserInfoStore = defineStore(
       office: ['济南研发中心', '济南CBD办公室 '],
       dept: ['华为技术', '中国地区部', '中国区业务软件部', '软件应用开发部'],
       address: '山东省济南市历下区舜华街道海信龙奥9号，10号楼1901',
-      skill: ['Vue3', 'TS', 'JS', 'HTML', 'CSS', 'SCSS', 'Less', 'Markdown'],
+      tags: ['AI', '前端开发', '项目管理', '集成交付'],
+      skills: ['Vue3', 'TS', 'JS', 'HTML', 'CSS', 'SCSS', 'Less', 'Markdown'],
       avatarUrl: 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png',
     })
     const setCurrentUserInfo = (userInfo: Partial<Omit<UserInfoStore, 'age'>>) => {

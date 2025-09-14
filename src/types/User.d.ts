@@ -13,5 +13,6 @@ export interface UserInfoStore {
   brief: string
   office: string[]
   dept: string[]
-  skill: string[]
+  skills: string[]
+  tags: string[]
 }
