@@ -6,14 +6,24 @@ export const useUserInfoStore = defineStore(
   'UserInfo',
   () => {
     const currentUserInfo = ref({
-      userName: 'Kangkang Shang',
+      firstName: 'Kangkang',
+      lastName: 'Shang',
+      fullName: 'Kangkang Shang',
       age: '31',
+      email: '123@qq.com',
+      phone: '13800000000',
+      birthday: '1998-12-11',
+      sex: '男',
+      brief: '指尖划过星辰，文字栖居于此——这里是未命名故事的扉页，也是你与世界的第一帧相遇。',
+      office: ['济南研发中心', '济南CBD办公室 '],
+      dept: ['华为技术', '中国地区部', '中国区业务软件部', '软件应用开发部'],
+      address: '山东省济南市历下区舜华街道海信龙奥9号，10号楼1901',
+      skill: ['Vue3', 'TS', 'JS', 'HTML', 'CSS', 'SCSS', 'Less', 'Markdown'],
       avatarUrl: 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png',
     })
-    const setCurrentUserInfo = (userInfo: UserInfoStore) => {
+    const setCurrentUserInfo = (userInfo: Partial<Omit<UserInfoStore, 'age'>>) => {
       Object.assign(currentUserInfo.value, userInfo)
     }
     return { currentUserInfo, setCurrentUserInfo }
   },
-  { persist: true },
 )
