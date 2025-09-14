@@ -8,7 +8,7 @@ import { useUserInfoStore } from '~/stores/userIfnoStroe'
 const router = useRouter()
 // 跳转到个人中心
 function openProfile() {
-  router.push('/Setting/Profile')
+  router.push('/Setting/ProfileManagent')
 }
 
 // 退出登录
