@@ -63,7 +63,7 @@ onMounted(() => {
     <template #header>
       工时投入
     </template>
-    <div h-300px flex>
+    <div h-350px flex>
       <div ref="myChart" class="flex-1" />
     </div>
   </el-card>
