@@ -8,11 +8,11 @@ export const useUserInfoStore = defineStore(
   () => {
     const currentUserInfo = ref({
       firstName: 'Kangkang',
-      w3account: 'kangkang shang s00132211',
+      w3account: 'kangkang shang 00132211',
       userid: 's00132211',
       lastName: 'Shang',
       fullName: 'Kangkang Shang',
-      age: '31',
+      age: '27',
       email: '123@qq.com',
       phoneNumber: '13800000000',
       birthday: 912441600000,

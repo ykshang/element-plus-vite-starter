@@ -35,8 +35,10 @@ currentUserInfoDept.value = currentUserInfo.value.dept[currentUserInfo.value.dep
         class="border-1px border-[--ep-color-primary] border-solid" shape="circle"
         :src="currentUserInfo.avatarUrl"
       />
-      <div class="mt-15px text-lg">
+      <div class="mt-15px flex text-lg">
         {{ currentUserInfo.w3account }}
+        <div v-if="currentUserInfo.sex === '男'" class="i-ep:male ml-10px color-[#409eff]" />
+        <div v-else class="i-ep:female ml-10px color-[#e574d0]" />
       </div>
       <div class="mt-10px break-all text-sm text-[--ep-color-text-2]">
         {{ currentUserInfo.brief }}
@@ -56,10 +58,9 @@ currentUserInfoDept.value = currentUserInfo.value.dept[currentUserInfo.value.dep
         <div>
           {{ currentUserInfo.userid }}
         </div>
-        <div v-if="currentUserInfo.sex === '男'" class="i-ep:male" />
-        <div v-else class="i-ep:female" />
+        <div class="i-ep:magic-stick" />
         <div>
-          {{ currentUserInfo.sex }}
+          {{ currentUserInfo.age }}岁
         </div>
         <div class="i-ep:calendar" />
         <div>
@@ -73,17 +74,21 @@ currentUserInfoDept.value = currentUserInfo.value.dept[currentUserInfo.value.dep
         <div>
           {{ currentUserInfo.email }}
         </div>
-        <div class="i-ep:office-building" />
+        <div class="i-ep:location" />
         <div>
           {{ currentUserInfo.dept.join(' / ') }}
-        </div>
-        <div class="i-ep:coordinate" />
-        <div>
-          {{ currentUserInfo.skills.join('、') }}
         </div>
         <div class="i-ep:map-location" />
         <div>
           {{ currentUserInfo.offices.join(' / ') }}
+        </div>
+        <div class="i-ep:office-building" />
+        <div>
+          {{ currentUserInfo.address }}
+        </div>
+        <div class="i-ep:notebook" />
+        <div>
+          {{ currentUserInfo.skills.join('、') }}
         </div>
       </div>
     </div>
