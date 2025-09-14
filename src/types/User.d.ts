@@ -1,9 +1,11 @@
 export interface UserInfoStore {
+  w3account: string
   userName: string
   age: string
   avatarUrl: string
   email: string
-  phone: string
+  phoneNumber: string
+  userid: string
   birthday: string
   sex: string
   address: string

@@ -65,6 +65,10 @@ currentUserInfoDept.value = currentUserInfo.value.dept[currentUserInfo.value.dep
         <div>
           {{ currentUserInfo.birthday }}
         </div>
+        <div class="i-ep:iphone" />
+        <div>
+          {{ currentUserInfo.phoneNumber }}
+        </div>
         <div class="i-ep:message" />
         <div>
           {{ currentUserInfo.email }}

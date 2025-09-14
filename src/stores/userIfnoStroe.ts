@@ -13,7 +13,7 @@ export const useUserInfoStore = defineStore(
       fullName: 'Kangkang Shang',
       age: '31',
       email: '123@qq.com',
-      phone: '13800000000',
+      phoneNumber: '13800000000',
       birthday: '1998-12-11',
       sex: '男',
       brief: '指尖划过星辰，文字栖居于此——这里是未命名故事的扉页，也是你与世界的第一帧相遇。',
