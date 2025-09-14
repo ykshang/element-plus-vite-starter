@@ -52,11 +52,11 @@ currentUserInfoDept.value = currentUserInfo.value.dept[currentUserInfo.value.dep
       <div class="grid-cols grid mx-10% mb-30px flex-1 gap-6px font-size-sm color-[--ep-text-color-regular]">
         <div class="i-ep:user" />
         <div>
-          {{ currentUserInfo.fullName }}
+          {{ currentUserInfo.userid }}
         </div>
         <div class="i-ep:notification" />
         <div>
-          {{ currentUserInfo.userid }}
+          {{ currentUserInfo.fullName }}
         </div>
         <div class="i-ep:magic-stick" />
         <div>
