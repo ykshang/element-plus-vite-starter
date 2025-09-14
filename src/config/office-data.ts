@@ -8,8 +8,8 @@ export default [
         label: '北京',
         children: [
           {
-            value: 'office-1-10',
-            label: '办公室1-10层',
+            value: '办公室 10F',
+            label: '办公室 10F',
             children: [
               { value: '1A-2F', label: '1A-2F' },
               { value: '3B-4C', label: '3B-4C' },
@@ -21,8 +21,8 @@ export default [
             ],
           },
           {
-            value: 'office-2-15',
-            label: '办公室2-15层',
+            value: '办公室 15F',
+            label: '办公室 15F',
             children: [
               { value: 'E5-F6', label: 'E5-F6' },
               { value: 'G7-H8', label: 'G7-H8' },
@@ -35,8 +35,8 @@ export default [
             ],
           },
           {
-            value: 'office-3-20',
-            label: '办公室3-20层',
+            value: '办公室 20F',
+            label: '办公室 20F',
             children: [
               { value: 'U1-V2', label: 'U1-V2' },
               { value: 'W3-X4', label: 'W3-X4' },
@@ -54,8 +54,8 @@ export default [
         label: '上海',
         children: [
           {
-            value: 'office-1-8',
-            label: '办公室1-8层',
+            value: '办公室 8F',
+            label: '办公室 8F',
             children: [
               { value: '1A-2B', label: '1A-2B' },
               { value: '3C-4D', label: '3C-4D' },
@@ -67,8 +67,8 @@ export default [
             ],
           },
           {
-            value: 'office-2-12',
-            label: '办公室2-12层',
+            value: '办公室 12F',
+            label: '办公室 12F',
             children: [
               { value: 'EO-FP', label: 'EO-FP' },
               { value: 'GQ-HR', label: 'GQ-HR' },
@@ -87,8 +87,8 @@ export default [
         label: '深圳',
         children: [
           {
-            value: 'office-1-5',
-            label: '办公室1-5层',
+            value: '办公室 5F',
+            label: '办公室 5F',
             children: [
               { value: '1A-2B', label: '1A-2B' },
               { value: '3C-4D', label: '3C-4D' },
@@ -100,8 +100,8 @@ export default [
             ],
           },
           {
-            value: 'office-2-8',
-            label: '办公室2-8层',
+            value: '办公室 8F',
+            label: '办公室 8F',
             children: [
               { value: 'EO-FP', label: 'EO-FP' },
               { value: 'GQ-HR', label: 'GQ-HR' },
@@ -113,8 +113,8 @@ export default [
             ],
           },
           {
-            value: 'office-3-15',
-            label: '办公室3-15层',
+            value: '办公室 15F',
+            label: '办公室 15F',
             children: [
               { value: 'SC-TD', label: 'SC-TD' },
               { value: 'UE-VF', label: 'UE-VF' },
@@ -129,12 +129,25 @@ export default [
         ],
       },
       {
-        value: 'guangzhou',
-        label: '广州',
+        value: '济南',
+        label: '济南',
         children: [
           {
-            value: 'office-1-6',
-            label: '办公室1-6层',
+            value: '济南CBD办公室 2F',
+            label: '济南CBD办公室 2F',
+            children: [
+              { value: '1A-2B', label: '1A-2B' },
+              { value: '3C-4D', label: '3C-4D' },
+              { value: '5E-6F', label: '5E-6F' },
+              { value: '7G-8H', label: '7G-8H' },
+              { value: '9I-0J', label: '9I-0J' },
+              { value: 'AK-BL', label: 'AK-BL' },
+              { value: 'CM-DN', label: 'CM-DN' },
+            ],
+          },
+          {
+            value: '济南CBD办公室 3F',
+            label: '济南CBD办公室 3F',
             children: [
               { value: '1A-2B', label: '1A-2B' },
               { value: '3C-4D', label: '3C-4D' },
@@ -158,8 +171,8 @@ export default [
         label: '纽约',
         children: [
           {
-            value: 'office-1-30',
-            label: '办公室1-30层',
+            value: '办公室 30F',
+            label: '办公室 30F',
             children: [
               { value: '1A-2B', label: '1A-2B' },
               { value: '3C-4D', label: '3C-4D' },
@@ -172,8 +185,8 @@ export default [
             ],
           },
           {
-            value: 'office-2-40',
-            label: '办公室2-40层',
+            value: '办公室 40F',
+            label: '办公室 40F',
             children: [
               { value: 'GQ-HR', label: 'GQ-HR' },
               { value: 'IS-JT', label: 'IS-JT' },
@@ -185,8 +198,8 @@ export default [
             ],
           },
           {
-            value: 'office-3-50',
-            label: '办公室3-50层',
+            value: '办公室 50F',
+            label: '办公室 50F',
             children: [
               { value: 'UE-VF', label: 'UE-VF' },
               { value: 'WG-XH', label: 'WG-XH' },
@@ -205,8 +218,8 @@ export default [
         label: '洛杉矶',
         children: [
           {
-            value: 'office-1-20',
-            label: '办公室1-20层',
+            value: '办公室 20F',
+            label: '办公室 20F',
             children: [
               { value: '1A-2B', label: '1A-2B' },
               { value: '3C-4D', label: '3C-4D' },
@@ -218,8 +231,8 @@ export default [
             ],
           },
           {
-            value: 'office-2-25',
-            label: '办公室2-25层',
+            value: '办公室 25F',
+            label: '办公室 25F',
             children: [
               { value: 'EO-FP', label: 'EO-FP' },
               { value: 'GQ-HR', label: 'GQ-HR' },
@@ -238,8 +251,8 @@ export default [
         label: '芝加哥',
         children: [
           {
-            value: 'office-1-15',
-            label: '办公室1-15层',
+            value: '办公室 15F',
+            label: '办公室 15F',
             children: [
               { value: '1A-2B', label: '1A-2B' },
               { value: '3C-4D', label: '3C-4D' },
@@ -251,8 +264,8 @@ export default [
             ],
           },
           {
-            value: 'office-2-18',
-            label: '办公室2-18层',
+            value: '办公室 18F',
+            label: '办公室 18F',
             children: [
               { value: 'EO-FP', label: 'EO-FP' },
               { value: 'GQ-HR', label: 'GQ-HR' },
@@ -264,8 +277,8 @@ export default [
             ],
           },
           {
-            value: 'office-3-22',
-            label: '办公室3-22层',
+            value: '办公室 22F',
+            label: '办公室 22F',
             children: [
               { value: 'SC-TD', label: 'SC-TD' },
               { value: 'UE-VF', label: 'UE-VF' },
@@ -283,8 +296,8 @@ export default [
         label: '旧金山',
         children: [
           {
-            value: 'office-1-12',
-            label: '办公室1-12层',
+            value: '办公室 12F',
+            label: '办公室 12F',
             children: [
               { value: '1A-2B', label: '1A-2B' },
               { value: '3C-4D', label: '3C-4D' },
@@ -308,8 +321,8 @@ export default [
         label: '吉隆坡',
         children: [
           {
-            value: 'office-1-8',
-            label: '办公室1-8层',
+            value: '办公室 8F',
+            label: '办公室 8F',
             children: [
               { value: '1A-2B', label: '1A-2B' },
               { value: '3C-4D', label: '3C-4D' },
@@ -322,8 +335,8 @@ export default [
             ],
           },
           {
-            value: 'office-2-12',
-            label: '办公室2-12层',
+            value: '办公室 12F',
+            label: '办公室 12F',
             children: [
               { value: 'GQ-HR', label: 'GQ-HR' },
               { value: 'IS-JT', label: 'IS-JT' },
@@ -335,8 +348,8 @@ export default [
             ],
           },
           {
-            value: 'office-3-15',
-            label: '办公室3-15层',
+            value: '办公室 15F',
+            label: '办公室 15F',
             children: [
               { value: 'UE-VF', label: 'UE-VF' },
               { value: 'WG-XH', label: 'WG-XH' },
@@ -354,8 +367,8 @@ export default [
         label: '槟城',
         children: [
           {
-            value: 'office-1-6',
-            label: '办公室1-6层',
+            value: '办公室 6F',
+            label: '办公室 6F',
             children: [
               { value: '1A-2B', label: '1A-2B' },
               { value: '3C-4D', label: '3C-4D' },
@@ -367,8 +380,8 @@ export default [
             ],
           },
           {
-            value: 'office-2-9',
-            label: '办公室2-9层',
+            value: '办公室 9F',
+            label: '办公室 9F',
             children: [
               { value: 'EO-FP', label: 'EO-FP' },
               { value: 'GQ-HR', label: 'GQ-HR' },
@@ -386,8 +399,8 @@ export default [
         label: '新山',
         children: [
           {
-            value: 'office-1-5',
-            label: '办公室1-5层',
+            value: '办公室 5F',
+            label: '办公室 5F',
             children: [
               { value: '1A-2B', label: '1A-2B' },
               { value: '3C-4D', label: '3C-4D' },
@@ -399,8 +412,8 @@ export default [
             ],
           },
           {
-            value: 'office-2-7',
-            label: '办公室2-7层',
+            value: '办公室 7F',
+            label: '办公室 7F',
             children: [
               { value: 'EO-FP', label: 'EO-FP' },
               { value: 'GQ-HR', label: 'GQ-HR' },
@@ -413,8 +426,8 @@ export default [
             ],
           },
           {
-            value: 'office-3-10',
-            label: '办公室3-10层',
+            value: '办公室 10F',
+            label: '办公室 10F',
             children: [
               { value: 'UE-VF', label: 'UE-VF' },
               { value: 'WG-XH', label: 'WG-XH' },
