@@ -34,6 +34,10 @@ const loadNode: LoadFunction = (node, resolve) => {
 
 <template>
   <el-card shadow="never" mr-5px flex-1>
-    <el-tree :props="props" :load="loadNode" lazy />
+    <el-tree
+      :props="props" node-key="id"
+      :load="loadNode" lazy
+      :expand-on-click-node="false"
+    />
   </el-card>
 </template>
