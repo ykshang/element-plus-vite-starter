@@ -85,6 +85,10 @@ function refreshNode(row: any) {
     loadNextLevelData(node.row, node.treeNode, node.resolve)
   }
 }
+function tranferLevelToText(level: number) {
+  const levelTextList = ['', '一级部门', '二级部门', '三级部门', '四级部门', '五级部门', '六级部门', '七级部门', '八级部门', '九级部门', '十级部门']
+  return levelTextList[level]
+}
 </script>
 
 <template>
@@ -101,13 +105,17 @@ function refreshNode(row: any) {
       </div>
     </div>
     <el-table
-      :data="tableData" style="width: 100%; height: 100%;" row-key="_id" lazy :load="loadNextLevelData"
+      :data="tableData" style="width: 100%; height: 100%;" row-key="_id" lazy flex-1 :load="loadNextLevelData"
       :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
     >
       <el-table-column prop="departmentCode" label="部门编码" min-width="280" />
       <el-table-column prop="departmentName" label="部门名称" width="260" />
       <el-table-column prop="departmentShortName" label="部门简称" width="150" />
-      <el-table-column prop="departmentLevel" label="部门层级" width="100" />
+      <el-table-column prop="departmentLevel" label="部门层级" width="100">
+        <template #default="{ row }">
+          {{ tranferLevelToText(row.departmentLevel) }}
+        </template>
+      </el-table-column>
       <el-table-column prop="parentDepartmentCode" label="父级部门编码" width="220" />
       <el-table-column prop="description" label="描述" min-width="300" />
       <el-table-column prop="createdAtLabel" label="创建时间" width="180" />
@@ -128,5 +136,8 @@ function refreshNode(row: any) {
     </el-table>
   </el-card>
   <department-mangement-add v-if="showAddDepartmentFlg" ref="addDepartmentRef" @close="closeAddDepartment" />
-  <department-mangement-add-sub v-if="showAddSubDepartmentFlg" ref="addSubDepartmentRef" @close="closeAddSubDepartment" />
+  <department-mangement-add-sub
+    v-if="showAddSubDepartmentFlg" ref="addSubDepartmentRef"
+    @close="closeAddSubDepartment"
+  />
 </template>
