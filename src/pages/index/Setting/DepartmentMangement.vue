@@ -33,6 +33,7 @@ function getTableData() {
         item.hasChildren = true
         item.updatedAtLabel = dayjs(item.updatedAt).format('YYYY-MM-DD HH:mm:ss')
         item.createdAtLabel = dayjs(item.createdAt).format('YYYY-MM-DD HH:mm:ss')
+        item.parentDepartmentCode = item.parentDepartmentCode === '00000000000000000000' ? '' : item.parentDepartmentCode
         return item
       })
     }
@@ -41,32 +42,21 @@ function getTableData() {
 onMounted(() => {
   getTableData()
 })
-interface User {
-  id: number
-  date: string
-  name: string
-  address: string
-  hasChildren?: boolean
-  children?: User[]
-}
-
-function load(row: User, treeNode: unknown, resolve: (data: User[]) => void) {
-  setTimeout(() => {
-    resolve([
-      {
-        id: 31,
-        date: '2016-05-01',
-        name: 'wangxiaohu',
-        address: 'No. 189, Grove St, Los Angeles',
-      },
-      {
-        id: 32,
-        date: '2016-05-01',
-        name: 'wangxiaohu',
-        address: 'No. 189, Grove St, Los Angeles',
-      },
-    ])
-  }, 1000)
+function loadNextLevelData(row: any, treeNode: unknown, resolve: (data: any[]) => void) {
+  // console.log('loadNextLevelData', row, treeNode)
+  departmentService.getDepartmentList({
+    parentDepartmentCode: row.departmentCode,
+  }).then((res: any) => {
+    if (res.success) {
+      resolve(res.result.map((item: any) => {
+        item.hasChildren = true
+        item.updatedAtLabel = dayjs(item.updatedAt).format('YYYY-MM-DD HH:mm:ss')
+        item.createdAtLabel = dayjs(item.createdAt).format('YYYY-MM-DD HH:mm:ss')
+        item.parentDepartmentCode = item.parentDepartmentCode === '00000000000000000000' ? '' : item.parentDepartmentCode
+        return item
+      }))
+    }
+  })
 }
 </script>
 
@@ -84,7 +74,7 @@ function load(row: User, treeNode: unknown, resolve: (data: User[]) => void) {
       </div>
     </div>
     <el-table
-      :data="tableData" style="width: 100%; height: 100%;" row-key="_id" lazy :load="load"
+      :data="tableData" style="width: 100%; height: 100%;" row-key="_id" lazy :load="loadNextLevelData"
       :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
     >
       <el-table-column prop="departmentCode" label="部门编码" min-width="280" />
