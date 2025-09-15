@@ -2,7 +2,7 @@
 import type { FormInstance, FormRules } from 'element-plus'
 import { ElNotification } from 'element-plus'
 import { reactive, ref, toRaw } from 'vue'
-import dictionaryService from '~/composables/services/dictionaryService'
+import departmentService from '~/composables/services/departmentService'
 
 interface RuleForm {
   departmentName: string
@@ -34,7 +34,7 @@ async function onSubmit(formEl: FormInstance | undefined) {
   await formEl.validate((valid) => {
     if (valid) {
       loading.value = true
-      dictionaryService.createDictionary(toRaw(formData)).then((res: any) => {
+      departmentService.createDepartment(toRaw(formData)).then((res: any) => {
         loading.value = false
         if (res.success) {
           ElNotification.success('操作成功')
