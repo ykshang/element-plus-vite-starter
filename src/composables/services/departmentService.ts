@@ -9,7 +9,11 @@ export async function createDepartment(params: any) {
 export async function getDepartmentList(params: any) {
   return await post('/api/department/getDepartmentList', params)
 }
+export async function main(params: any) {
+  return await post('/api/department/main', params)
+}
 export default {
   createDepartment,
   getDepartmentList,
+  main,
 }
