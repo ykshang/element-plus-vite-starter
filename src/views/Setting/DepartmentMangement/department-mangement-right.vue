@@ -86,22 +86,22 @@ function deleteDictionary(row: any) {
     ElNotification.info('取消操作')
   })
 }
-const showAddDictionaryFlg = ref(false)
-const addDictionaryRef = ref()
+const showAddDepartmentFlg = ref(false)
+const addDepartmentRef = ref()
 const showEditDictionaryFlg = ref(false)
 const editDictionaryRef = ref()
 const showDictionaryItemFlg = ref(false)
 const dictionaryItemRef = ref()
 
 function openAddDictionary() {
-  showAddDictionaryFlg.value = true
+  showAddDepartmentFlg.value = true
   nextTick(() => {
-    // console.log('AddDictionaryRef', addDictionaryRef.value)
-    addDictionaryRef.value.handleOpen()
+    // console.log('AddDictionaryRef', addDepartmentRef.value)
+    addDepartmentRef.value.handleOpen()
   })
 }
-function closeAddDictionary(refreshFlg: string) {
-  showAddDictionaryFlg.value = false
+function closeAddDepartment(refreshFlg: string) {
+  showAddDepartmentFlg.value = false
   if (refreshFlg === 'refresh') {
     initTableData()
   }
@@ -127,7 +127,7 @@ function openEditDictionary(row: any) {
 function openDictionaryItem(row: any) {
   showDictionaryItemFlg.value = true
   nextTick(() => {
-    // console.log('AddDictionaryRef', addDictionaryRef.value)
+    // console.log('AddDictionaryRef', addDepartmentRef.value)
     dictionaryItemRef.value.handleOpen(row.dictionaryKey)
   })
 }
@@ -141,7 +141,7 @@ function closeDictionaryItem() {
     <el-button type="primary" mb-15px :icon="Plus" @click="openAddDictionary">
       新增
     </el-button>
-    <div v-loading="tableLoading" class="page-container-content flex flex-1 flex-col">
+    <div v-loading="tableLoading" class="flex flex-1 flex-col">
       <el-table stripe :data="tableData" style="width: 100%; height: 100%;">
         <el-table-column type="index" width="50" />
         <el-table-column prop="dictionaryKey" label="关键字" width="200" />
@@ -167,9 +167,9 @@ function closeDictionaryItem() {
         </template>
       </el-table>
       <table-pagenation class="mt-20px" :pagenation="pagenation" @change="handlePagenationChange" />
-      <dictionary-managent-add-dictionary v-if="showAddDictionaryFlg" ref="addDictionaryRef" @close="closeAddDictionary" />
-      <dictionary-managent-edit-dictionary v-if="showEditDictionaryFlg" ref="editDictionaryRef" @close="closeEditDictionary" />
-      <dictionary-managent-dictionary-item v-if="showDictionaryItemFlg" ref="dictionaryItemRef" @close="closeDictionaryItem" />
     </div>
+    <department-mangement-add v-if="showAddDepartmentFlg" ref="addDepartmentRef" @close="closeAddDepartment" />
+    <dictionary-managent-edit-dictionary v-if="showEditDictionaryFlg" ref="editDictionaryRef" @close="closeEditDictionary" />
+    <dictionary-managent-dictionary-item v-if="showDictionaryItemFlg" ref="dictionaryItemRef" @close="closeDictionaryItem" />
   </el-card>
 </template>
