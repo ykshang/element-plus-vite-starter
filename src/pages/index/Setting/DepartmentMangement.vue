@@ -92,7 +92,7 @@ function tranferLevelToText(level: number) {
 </script>
 
 <template>
-  <el-card shadow="never" mb-10px flex-1>
+  <el-card class="card-layout" shadow="never" mb-10px flex flex-1>
     <div mb-15px flex>
       <el-button type="primary" @click="openAddDepartment">
         创建一级部门
@@ -105,7 +105,7 @@ function tranferLevelToText(level: number) {
       </div>
     </div>
     <el-table
-      :data="tableData" style="width: 100%; height: 100%;" row-key="_id" lazy flex-1 :load="loadNextLevelData"
+      :data="tableData" style="width: 100%; height: 100%;" row-key="_id" lazy :load="loadNextLevelData"
       :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
     >
       <el-table-column prop="departmentCode" label="部门编码" min-width="280" />
@@ -133,6 +133,9 @@ function tranferLevelToText(level: number) {
           </el-button>
         </template>
       </el-table-column>
+      <template #append>
+        <div pb-30px />
+      </template>
     </el-table>
   </el-card>
   <department-mangement-add v-if="showAddDepartmentFlg" ref="addDepartmentRef" @close="closeAddDepartment" />
@@ -141,3 +144,14 @@ function tranferLevelToText(level: number) {
     @close="closeAddSubDepartment"
   />
 </template>
+
+<style lang="scss" scoped>
+.card-layout {
+  ::v-deep(.ep-card__body) {
+    width: 100%;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+  }
+}
+</style>
