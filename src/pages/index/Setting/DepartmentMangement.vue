@@ -1,5 +1,5 @@
 <template>
-  <el-splitter class="mb-20px" h-full>
+  <el-splitter style="margin-bottom: 10px" h-full>
     <el-splitter-panel flex size="400px" overflow-hidden>
       <department-mangement-left />
     </el-splitter-panel>
