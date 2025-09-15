@@ -32,6 +32,9 @@ const rules = reactive<FormRules<RuleForm>>({
   departmentName: [
     { required: true, message: '该字段不能为空', trigger: 'blur' },
   ],
+  departmentShortName: [
+    { required: true, message: '该字段不能为空', trigger: 'blur' },
+  ],
 })
 async function onSubmit(formEl: FormInstance | undefined) {
   if (!formEl)
@@ -56,7 +59,7 @@ async function onSubmit(formEl: FormInstance | undefined) {
   })
 }
 function handleOpen(row: any) {
-  console.log('注册弹窗2233', row)
+  // console.log('注册弹窗2233', row)
   formData.parentDepartmentCode = row.departmentCode
   formData.departmentLevel = row.departmentLevel + 1
   parentDepartmentName.value = row.departmentName
@@ -92,6 +95,9 @@ defineExpose({
     >
       <el-form-item label="上级部门" prop="parentDepartmentCode">
         {{ parentDepartmentName }}
+      </el-form-item>
+      <el-form-item label="上级编码" prop="parentDepartmentCode" required>
+        {{ formData.parentDepartmentCode }}
       </el-form-item>
       <el-form-item label="部门名称" prop="departmentName" required>
         <el-input v-model="formData.departmentName" />
