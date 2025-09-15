@@ -6,7 +6,9 @@ import departmentService from '~/composables/services/departmentService'
 const departmentName = ref('')
 const tableData = ref([])
 const showAddDepartmentFlg = ref(false)
+const showAddSubDepartmentFlg = ref(false)
 const addDepartmentRef = ref()
+const addSubDepartmentRef = ref()
 
 showAddDepartmentFlg.value = true
 
@@ -23,7 +25,19 @@ function closeAddDepartment(refreshFlg: string) {
     getTableData()
   }
 }
-
+function openAddSubDepartment() {
+  showAddSubDepartmentFlg.value = true
+  nextTick(() => {
+    // console.log('AddDictionaryRef', addDepartmentRef.value)
+    addSubDepartmentRef.value.handleOpen()
+  })
+}
+function closeAddSubDepartment(refreshFlg: string) {
+  showAddSubDepartmentFlg.value = false
+  if (refreshFlg === 'refresh') {
+    getTableData()
+  }
+}
 function getTableData() {
   departmentService.main({
     departmentName: departmentName.value,
@@ -85,17 +99,21 @@ function loadNextLevelData(row: any, treeNode: unknown, resolve: (data: any[]) =
       <el-table-column prop="description" label="描述" min-width="300" />
       <el-table-column prop="createdAtLabel" label="创建时间" width="180" />
       <el-table-column prop="updatedAtLabel" label="更新时间" width="180" />
-      <el-table-column prop="operation" label="操作" width="150" fixed="right">
+      <el-table-column prop="operation" label="操作" width="120" fixed="right">
         <template #default>
-          <el-button link type="primary">
-            编辑
+          <el-button link type="primary" title="创建子部门">
+            <div class="i-ep:circle-plus" />
           </el-button>
-          <el-button link type="danger">
-            删除
+          <el-button link type="primary" title="编辑">
+            <div class="i-ep:edit" />
+          </el-button>
+          <el-button link type="danger" title="删除">
+            <div class="i-ep:delete" />
           </el-button>
         </template>
       </el-table-column>
     </el-table>
   </el-card>
   <department-mangement-add v-if="showAddDepartmentFlg" ref="addDepartmentRef" @close="closeAddDepartment" />
+  <department-mangement-add-sub v-if="showAddSubDepartmentFlg" ref="addSubDepartmentRef" @close="closeAddSubDepartment" />
 </template>
