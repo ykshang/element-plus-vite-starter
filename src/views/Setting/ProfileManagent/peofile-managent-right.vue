@@ -3,6 +3,7 @@
 import type { FormInstance, FormRules, InputInstance } from 'element-plus'
 
 import type { UserInfoStore } from '~/types/User'
+import { ElNotification } from 'element-plus'
 import { storeToRefs } from 'pinia'
 import { nextTick, reactive, ref, toRaw } from 'vue'
 
@@ -79,6 +80,10 @@ async function submitForm(formEl: FormInstance | undefined) {
     if (valid) {
       console.log('submit!')
       userInfoStore.setCurrentUserInfo(ruleForm.value)
+      ElNotification.success({
+        title: '成功',
+        message: '更新个人信息成功',
+      })
     } else {
       console.log('error submit!', fields)
     }
