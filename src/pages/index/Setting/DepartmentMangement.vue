@@ -25,11 +25,11 @@ function closeAddDepartment(refreshFlg: string) {
     getTableData()
   }
 }
-function openAddSubDepartment() {
+function openAddSubDepartment(row: any) {
   showAddSubDepartmentFlg.value = true
   nextTick(() => {
     // console.log('AddDictionaryRef', addDepartmentRef.value)
-    addSubDepartmentRef.value.handleOpen()
+    addSubDepartmentRef.value.handleOpen(row)
   })
 }
 function closeAddSubDepartment(refreshFlg: string) {
@@ -100,8 +100,8 @@ function loadNextLevelData(row: any, treeNode: unknown, resolve: (data: any[]) =
       <el-table-column prop="createdAtLabel" label="创建时间" width="180" />
       <el-table-column prop="updatedAtLabel" label="更新时间" width="180" />
       <el-table-column prop="operation" label="操作" width="120" fixed="right">
-        <template #default>
-          <el-button link type="primary" title="创建子部门">
+        <template #default="{ row }">
+          <el-button link type="primary" title="创建子部门" @click="openAddSubDepartment(row)">
             <div class="i-ep:circle-plus" />
           </el-button>
           <el-button link type="primary" title="编辑">
