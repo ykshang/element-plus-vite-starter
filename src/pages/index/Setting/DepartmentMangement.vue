@@ -13,7 +13,7 @@ showAddDepartmentFlg.value = true
 function openAddDepartment() {
   showAddDepartmentFlg.value = true
   nextTick(() => {
-  // console.log('AddDictionaryRef', addDepartmentRef.value)
+    // console.log('AddDictionaryRef', addDepartmentRef.value)
     addDepartmentRef.value.handleOpen()
   })
 }
@@ -84,17 +84,18 @@ function load(row: User, treeNode: unknown, resolve: (data: User[]) => void) {
       </div>
     </div>
     <el-table
-      :data="tableData" style="width: 100%" row-key="_id" lazy :load="load"
+      :data="tableData" style="width: 100%; height: 100%;" row-key="_id" lazy :load="load"
       :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
     >
-      <el-table-column prop="departmentCode" label="部门编码" />
+      <el-table-column prop="departmentCode" label="部门编码" min-width="280" />
       <el-table-column prop="departmentName" label="部门名称" width="260" />
-      <el-table-column prop="departmentLevel" label="部门层级" width="120" />
+      <el-table-column prop="departmentShortName" label="部门简称" width="150" />
+      <el-table-column prop="departmentLevel" label="部门层级" width="100" />
       <el-table-column prop="parentDepartmentCode" label="父级部门编码" width="220" />
-      <el-table-column prop="description" label="描述" />
+      <el-table-column prop="description" label="描述" min-width="300" />
       <el-table-column prop="createdAtLabel" label="创建时间" width="180" />
       <el-table-column prop="updatedAtLabel" label="更新时间" width="180" />
-      <el-table-column prop="operation" label="操作" width="150">
+      <el-table-column prop="operation" label="操作" width="150" fixed="right">
         <template #default>
           <el-button link type="primary">
             编辑
@@ -105,6 +106,6 @@ function load(row: User, treeNode: unknown, resolve: (data: User[]) => void) {
         </template>
       </el-table-column>
     </el-table>
-    <department-mangement-add v-if="showAddDepartmentFlg" ref="addDepartmentRef" @close="closeAddDepartment" />
   </el-card>
+  <department-mangement-add v-if="showAddDepartmentFlg" ref="addDepartmentRef" @close="closeAddDepartment" />
 </template>
