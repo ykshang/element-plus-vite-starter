@@ -2,20 +2,9 @@
 import { Plus } from '@element-plus/icons-vue'
 import dayjs from 'dayjs'
 import { ElMessageBox, ElNotification } from 'element-plus'
-import { nextTick, onMounted, reactive, ref } from 'vue'
-import dictionaryService from '~/composables/services/dictionaryService'
+import { nextTick, onMounted, ref } from 'vue'
+import departmentService from '~/composables/services/departmentService'
 
-// 分页组件初始化数据
-const pagenation: Pagenation = reactive({
-  pageNum: 1,
-  pageSize: 20,
-  total: 1000,
-})
-
-// 字典查询条件
-const formInline = reactive({
-  dictionaryKey: '',
-})
 // 字典列表
 const tableData = ref<Dictionary[]>([])
 // 表格加载状态
@@ -26,28 +15,20 @@ function initTableData() {
   btnDisabled.value = true
   tableLoading.value = true
   const requestParam = getRequestParam()
-  dictionaryService.getDictionaryListByPage(requestParam).then((res: any) => {
+  departmentService.getDepartmentList(requestParam).then((res: any) => {
     tableLoading.value = false
     btnDisabled.value = false
-    // console.log('字典列表', res)
+    console.log('字典列表', res)
     if (res.success) {
-      const { data, total } = res.result
-      data.forEach((item: any) => {
+      res.result.forEach((item: any) => {
         item.createdAtLabel = dayjs(item.createdAt).format('YYYY-MM-DD HH:mm:ss')
         item.updatedAtLabel = dayjs(item.updatedAt).format('YYYY-MM-DD HH:mm:ss')
       })
-      tableData.value = data
-      pagenation.total = total
+      tableData.value = res.result
     }
   })
 }
 
-// 分页变化时，重新组装分页数据
-function handlePagenationChange(params: any) {
-  pagenation.pageNum = params.pageNum
-  pagenation.pageSize = params.pageSize
-  initTableData()
-}
 // 初始化加载
 onMounted(() => {
   initTableData()
@@ -55,9 +36,7 @@ onMounted(() => {
 // 获取查询参数
 function getRequestParam() {
   return {
-    dictionaryKey: formInline.dictionaryKey,
-    pageNum: pagenation.pageNum,
-    pageSize: pagenation.pageSize,
+    parentDepartmentCode: 'root',
   }
 }
 // 删除选中的列
@@ -71,17 +50,17 @@ function deleteDictionary(row: any) {
     appendTo: 'body',
   }).then(() => {
     const requestParam = { _id: row._id }
-    dictionaryService.removeDictionary(requestParam).then((res: any) => {
-      if (res.success) {
-        ElNotification.success('删除成功')
-        initTableData()
-      }
-    }).catch(({ error }) => {
-      ElNotification.error({
-        title: '删除失败',
-        message: error.errMsg,
-      })
-    })
+    // departmentService.removeDictionary(requestParam).then((res: any) => {
+    //   if (res.success) {
+    //     ElNotification.success('删除成功')
+    //     initTableData()
+    //   }
+    // }).catch(({ error }) => {
+    //   ElNotification.error({
+    //     title: '删除失败',
+    //     message: error.errMsg,
+    //   })
+    // })
   }).catch(() => {
     ElNotification.info('取消操作')
   })
@@ -123,17 +102,6 @@ function openEditDictionary(row: any) {
     editDictionaryRef.value.handleOpen()
   })
 }
-
-function openDictionaryItem(row: any) {
-  showDictionaryItemFlg.value = true
-  nextTick(() => {
-    // console.log('AddDictionaryRef', addDepartmentRef.value)
-    dictionaryItemRef.value.handleOpen(row.dictionaryKey)
-  })
-}
-function closeDictionaryItem() {
-  showDictionaryItemFlg.value = false
-}
 </script>
 
 <template>
@@ -144,16 +112,13 @@ function closeDictionaryItem() {
     <div v-loading="tableLoading" class="flex flex-1 flex-col">
       <el-table stripe :data="tableData" style="width: 100%; height: 100%;">
         <el-table-column type="index" width="50" />
-        <el-table-column prop="dictionaryKey" label="关键字" width="200" />
-        <el-table-column prop="dictionaryName" label="字典名称" width="200" />
+        <el-table-column prop="departmentCode" label="部门编码" width="200" />
+        <el-table-column prop="departmentName" label="部门名称" width="200" />
         <el-table-column prop="description" label="描述" />
         <el-table-column prop="createdAtLabel" label="创建时间" width="200" />
         <el-table-column prop="updatedAtLabel" label="更新时间" width="200" />
-        <el-table-column prop="operation" label="操作" width="250">
+        <el-table-column prop="operation" label="操作" width="150">
           <template #default="scope">
-            <el-button link type="primary" @click="openDictionaryItem(scope.row)">
-              字典项
-            </el-button>
             <el-button link type="primary" @click="openEditDictionary(scope.row)">
               编辑
             </el-button>
@@ -166,7 +131,6 @@ function closeDictionaryItem() {
           <el-empty description="暂无数据" />
         </template>
       </el-table>
-      <table-pagenation class="mt-20px" :pagenation="pagenation" @change="handlePagenationChange" />
     </div>
     <department-mangement-add v-if="showAddDepartmentFlg" ref="addDepartmentRef" @close="closeAddDepartment" />
     <dictionary-managent-edit-dictionary v-if="showEditDictionaryFlg" ref="editDictionaryRef" @close="closeEditDictionary" />
