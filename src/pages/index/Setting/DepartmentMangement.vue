@@ -1,6 +1,6 @@
 <template>
-  <el-splitter>
-    <el-splitter-panel size="30%">
+  <el-splitter h-full overflow-hidden>
+    <el-splitter-panel flex size="30%" overflow-hidden>
       <department-mangement-left />
     </el-splitter-panel>
     <el-splitter-panel :min="200">

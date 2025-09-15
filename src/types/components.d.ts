@@ -83,6 +83,7 @@ declare module 'vue' {
     ElTag: typeof import('element-plus/es')['ElTag']
     ElText: typeof import('element-plus/es')['ElText']
     ElTimePicker: typeof import('element-plus/es')['ElTimePicker']
+    ElTree: typeof import('element-plus/es')['ElTree']
     HeaderMenuCollapseBtn: typeof import('./../components/layouts/Header/header-menu-collapse-btn.vue')['default']
     HeaderNavigatorBar: typeof import('./../components/layouts/Header/header-navigator-bar.vue')['default']
     HeaderTabItem: typeof import('./../components/layouts/Header/header-tab-item.vue')['default']
