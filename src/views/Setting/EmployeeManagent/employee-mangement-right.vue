@@ -132,8 +132,8 @@ function openEditDictionary(row: any) {
         </template>
       </el-table>
     </div>
-    <department-mangement-add v-if="showAddDepartmentFlg" ref="addDepartmentRef" @close="closeAddDepartment" />
-    <dictionary-managent-edit-dictionary v-if="showEditDictionaryFlg" ref="editDictionaryRef" @close="closeEditDictionary" />
-    <dictionary-managent-dictionary-item v-if="showDictionaryItemFlg" ref="dictionaryItemRef" @close="closeDictionaryItem" />
+    <employee-mangement-add v-if="showAddDepartmentFlg" ref="addDepartmentRef" @close="closeAddDepartment" />
+    <!-- <dictionary-managent-edit-dictionary v-if="showEditDictionaryFlg" ref="editDictionaryRef" @close="closeEditDictionary" /> -->
+    <!-- <dictionary-managent-dictionary-item v-if="showDictionaryItemFlg" ref="dictionaryItemRef" @close="closeDictionaryItem" /> -->
   </el-card>
 </template>
