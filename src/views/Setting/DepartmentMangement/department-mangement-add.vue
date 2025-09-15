@@ -18,9 +18,9 @@ const loading = ref(false)
 const dialogVisible = ref(false)
 // 初始化注册表单
 const formData = reactive<RuleForm>({
-  departmentName: '华为技术有限公司',
-  departmentShortName: '华为技术',
-  departmentCode: '01000000000000000000',
+  departmentName: '',
+  departmentShortName: '',
+  departmentCode: '',
   parentDepartmentCode: '00000000000000000000',
   departmentLevel: 1,
   description: '',
@@ -29,6 +29,9 @@ const ruleFormRef = ref<FormInstance>()
 
 const rules = reactive<FormRules<RuleForm>>({
   departmentName: [
+    { required: true, message: '该字段不能为空', trigger: 'blur' },
+  ],
+  departmentShortName: [
     { required: true, message: '该字段不能为空', trigger: 'blur' },
   ],
 })
@@ -86,11 +89,11 @@ defineExpose({
       label-position="left"
       class="px-40px py-20px"
     >
-      <el-form-item label="上级部门" prop="parentDepartmentCode">
-        {{ formData.parentDepartmentCode }}
-      </el-form-item>
       <el-form-item label="部门名称" prop="departmentName" required>
         <el-input v-model="formData.departmentName" />
+      </el-form-item>
+      <el-form-item label="部门简称" prop="departmentShortName" required>
+        <el-input v-model="formData.departmentShortName" />
       </el-form-item>
       <el-form-item label="描述" prop="description">
         <el-input v-model="formData.description" type="textarea" :autosize="{ minRows: 2, maxRows: 4 }" />

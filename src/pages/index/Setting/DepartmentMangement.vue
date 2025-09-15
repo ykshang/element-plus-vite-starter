@@ -38,7 +38,7 @@ function closeAddSubDepartment(refreshFlg: string, nodeCode: string) {
   showAddSubDepartmentFlg.value = false
   // console.log(nodeCode)
   if (refreshFlg === 'refresh') {
-    refreshNode(nodeCode)
+    nodeCode && refreshNode(nodeCode)
   }
 }
 function getTableData() {
