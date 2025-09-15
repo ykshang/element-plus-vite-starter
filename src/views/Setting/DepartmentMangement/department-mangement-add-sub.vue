@@ -73,7 +73,7 @@ function handleClose() {
 function handleCloseAndRefresh() {
   dialogVisible.value = false
   // console.log('关闭弹窗')
-  emit('close', 'refresh')
+  emit('close', 'refresh', formData.parentDepartmentCode)
 }
 defineExpose({
   handleOpen,
@@ -82,7 +82,7 @@ defineExpose({
 </script>
 
 <template>
-  <el-dialog v-model="dialogVisible" width="550px" title="新增子部门" draggable @closed="handleClose">
+  <el-dialog v-model="dialogVisible" width="550px" title="创建子部门" draggable @closed="handleClose">
     <el-form
       ref="ruleFormRef"
       v-loading="loading"

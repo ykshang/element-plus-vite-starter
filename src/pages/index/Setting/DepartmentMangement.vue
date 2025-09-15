@@ -11,6 +11,8 @@ const addDepartmentRef = ref()
 const addSubDepartmentRef = ref()
 
 showAddDepartmentFlg.value = true
+// 记录节点的ID，刷新方法
+const nodeMap = new Map()
 
 function openAddDepartment() {
   showAddDepartmentFlg.value = true
@@ -32,10 +34,11 @@ function openAddSubDepartment(row: any) {
     addSubDepartmentRef.value.handleOpen(row)
   })
 }
-function closeAddSubDepartment(refreshFlg: string) {
+function closeAddSubDepartment(refreshFlg: string, nodeCode: string) {
   showAddSubDepartmentFlg.value = false
+  // console.log(nodeCode)
   if (refreshFlg === 'refresh') {
-    getTableData()
+    refreshNode(nodeCode)
   }
 }
 function getTableData() {
@@ -43,12 +46,15 @@ function getTableData() {
     departmentName: departmentName.value,
   }).then((res: any) => {
     if (res.success) {
-      tableData.value = res.result.map((item: any) => {
-        item.hasChildren = true
-        item.updatedAtLabel = dayjs(item.updatedAt).format('YYYY-MM-DD HH:mm:ss')
-        item.createdAtLabel = dayjs(item.createdAt).format('YYYY-MM-DD HH:mm:ss')
-        item.parentDepartmentCode = item.parentDepartmentCode === '00000000000000000000' ? '' : item.parentDepartmentCode
-        return item
+      tableData.value = []
+      nextTick(() => {
+        tableData.value = res.result.map((item: any) => {
+          item.hasChildren = true
+          item.updatedAtLabel = dayjs(item.updatedAt).format('YYYY-MM-DD HH:mm:ss')
+          item.createdAtLabel = dayjs(item.createdAt).format('YYYY-MM-DD HH:mm:ss')
+          item.parentDepartmentCode = item.parentDepartmentCode === '00000000000000000000' ? '' : item.parentDepartmentCode
+          return item
+        })
       })
     }
   })
@@ -57,6 +63,7 @@ onMounted(() => {
   getTableData()
 })
 function loadNextLevelData(row: any, treeNode: unknown, resolve: (data: any[]) => void) {
+  nodeMap.set(row.departmentCode, { row, treeNode, resolve })
   // console.log('loadNextLevelData', row, treeNode)
   departmentService.getDepartmentList({
     parentDepartmentCode: row.departmentCode,
@@ -71,6 +78,12 @@ function loadNextLevelData(row: any, treeNode: unknown, resolve: (data: any[]) =
       }))
     }
   })
+}
+function refreshNode(row: any) {
+  const node = nodeMap.get(row.id)
+  if (node) {
+    loadNextLevelData(node.row, node.treeNode, node.resolve)
+  }
 }
 </script>
 

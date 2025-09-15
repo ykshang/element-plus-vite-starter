@@ -75,7 +75,7 @@ defineExpose({
 </script>
 
 <template>
-  <el-dialog v-model="dialogVisible" width="550px" title="新增部门" draggable @closed="handleClose">
+  <el-dialog v-model="dialogVisible" width="550px" title="创建一级部门" draggable @closed="handleClose">
     <el-form
       ref="ruleFormRef"
       v-loading="loading"
