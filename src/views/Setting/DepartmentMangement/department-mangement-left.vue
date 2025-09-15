@@ -36,9 +36,8 @@ const loadNode: LoadFunction = (node, resolve) => {
 </script>
 
 <template>
-  <el-card shadow="never" mb-10px mr-5px flex-1>
+  <el-card shadow="never" mr-5px flex-1>
     <el-tree
-      style="max-width: 600px"
       :props="props"
       :load="loadNode"
       lazy
