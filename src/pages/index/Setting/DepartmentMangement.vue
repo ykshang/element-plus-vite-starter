@@ -49,10 +49,12 @@ function getTableData() {
       tableData.value = []
       nextTick(() => {
         tableData.value = res.result.map((item: any) => {
+          nodeMap.set(item.departmentCode, item)
           item.hasChildren = true
           item.updatedAtLabel = dayjs(item.updatedAt).format('YYYY-MM-DD HH:mm:ss')
           item.createdAtLabel = dayjs(item.createdAt).format('YYYY-MM-DD HH:mm:ss')
           item.parentDepartmentCode = item.parentDepartmentCode === '00000000000000000000' ? '' : item.parentDepartmentCode
+          item.children = []
           return item
         })
       })
@@ -73,6 +75,7 @@ function loadNextLevelData(row: any, treeNode: unknown, resolve: (data: any[]) =
         item.updatedAtLabel = dayjs(item.updatedAt).format('YYYY-MM-DD HH:mm:ss')
         item.createdAtLabel = dayjs(item.createdAt).format('YYYY-MM-DD HH:mm:ss')
         item.parentDepartmentCode = item.parentDepartmentCode === '00000000000000000000' ? '' : item.parentDepartmentCode
+        item.children = []
         return item
       }))
     }
@@ -81,7 +84,20 @@ function loadNextLevelData(row: any, treeNode: unknown, resolve: (data: any[]) =
 function refreshNode(row: any) {
   const node = nodeMap.get(row.departmentCode)
   if (node) {
-    loadNextLevelData(node.row, node.treeNode, node.resolve)
+    departmentService.getDepartmentList({
+      parentDepartmentCode: row.departmentCode,
+    }).then((res: any) => {
+      if (res.success) {
+        node.children = res.result.map((item: any) => {
+          item.hasChildren = true
+          item.updatedAtLabel = dayjs(item.updatedAt).format('YYYY-MM-DD HH:mm:ss')
+          item.createdAtLabel = dayjs(item.createdAt).format('YYYY-MM-DD HH:mm:ss')
+          item.parentDepartmentCode = item.parentDepartmentCode === '00000000000000000000' ? '' : item.parentDepartmentCode
+          item.children = []
+          return item
+        })
+      }
+    })
   }
 }
 function tranferLevelToText(level: number) {
