@@ -1,4 +1,8 @@
 <script lang="ts" setup>
+/**
+ * todo 将节点刷新方法的入参由code 改为row ，造成删除时刷新偶问题
+ * todo 编辑场景，接口未对接，节点刷新也没更新
+ */
 import dayjs from 'dayjs'
 import { ElMessageBox, ElNotification } from 'element-plus'
 import { nextTick, onMounted, ref } from 'vue'
