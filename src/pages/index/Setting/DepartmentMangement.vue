@@ -151,6 +151,7 @@ function tranferLevelToText(level: number) {
     display: flex;
     flex: 1;
     flex-direction: column;
+    box-sizing: border-box;
   }
 }
 </style>
