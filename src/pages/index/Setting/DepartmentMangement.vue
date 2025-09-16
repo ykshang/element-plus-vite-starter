@@ -10,7 +10,10 @@ const showAddSubDepartmentFlg = ref(false)
 const addDepartmentRef = ref()
 const addSubDepartmentRef = ref()
 const tableRef = ref()
-
+function testVal() {
+  // eslint-disable-next-line no-console
+  console.log(tableRef.value)
+}
 showAddDepartmentFlg.value = true
 // 记录节点的ID，刷新方法
 const nodeMap = new Map()
@@ -55,7 +58,6 @@ function getTableData() {
           item.updatedAtLabel = dayjs(item.updatedAt).format('YYYY-MM-DD HH:mm:ss')
           item.createdAtLabel = dayjs(item.createdAt).format('YYYY-MM-DD HH:mm:ss')
           item.parentDepartmentCode = item.parentDepartmentCode === '00000000000000000000' ? '' : item.parentDepartmentCode
-          item.children = []
           return item
         })
       })
@@ -76,7 +78,6 @@ function loadNextLevelData(row: any, treeNode: unknown, resolve: (data: any[]) =
         item.updatedAtLabel = dayjs(item.updatedAt).format('YYYY-MM-DD HH:mm:ss')
         item.createdAtLabel = dayjs(item.createdAt).format('YYYY-MM-DD HH:mm:ss')
         item.parentDepartmentCode = item.parentDepartmentCode === '00000000000000000000' ? '' : item.parentDepartmentCode
-        item.children = []
         return item
       }))
     }
@@ -113,6 +114,9 @@ function tranferLevelToText(level: number) {
       <el-button type="primary" @click="openAddDepartment">
         创建一级部门
       </el-button>
+      <el-button type="primary" @click="testVal">
+        测试
+      </el-button>
       <div ml-a flex>
         <el-input v-model="departmentName" placeholder="请输入部门名称" clearable style="width: 300px" />
         <el-button type="primary" ml-10px w-40px @click="getTableData">
@@ -121,7 +125,7 @@ function tranferLevelToText(level: number) {
       </div>
     </div>
     <el-table
-      ref="tableRef" :data="tableData" style="width: 100%; height: 100%;" row-key="_id" lazy
+      ref="tableRef" :data="tableData" style="width: 100%; height: 100%;" row-key="departmentCode" lazy
       :load="loadNextLevelData" :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
     >
       <el-table-column prop="departmentCode" label="部门编码" min-width="280" />
