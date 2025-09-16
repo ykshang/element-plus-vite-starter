@@ -33,14 +33,15 @@ function openAddSubDepartment(row: any) {
     addSubDepartmentRef.value.handleOpen(row)
   })
 }
-function closeAddSubDepartment(refreshFlg: string, nodeCode: string) {
+function closeAddSubDepartment(refreshFlg: string, parentDepartmentCode: string) {
   showAddSubDepartmentFlg.value = false
   // console.log(nodeCode)
   if (refreshFlg === 'refresh') {
-    nodeCode && refreshNode(nodeCode)
+    parentDepartmentCode && refreshNode(parentDepartmentCode)
   }
 }
 function getTableData() {
+  // console.log(tableRef.value.store.states.lazyTreeNodeMap.value)
   departmentService.main({
     departmentName: departmentName.value,
   }).then((res: any) => {
