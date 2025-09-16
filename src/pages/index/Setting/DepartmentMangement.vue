@@ -173,9 +173,12 @@ function deleteDepartment(row: any) {
           {{ tranferLevelToText(row.departmentLevel) }}
         </template>
       </el-table-column>
-      <el-table-column prop="parentDepartmentName" label="上级部门名称" :show-overflow-tooltip="true" width="260" />
-      <el-table-column prop="parentDepartmentCode" label="上级部门编码" width="200" />
-      <el-table-column prop="description" label="描述" :show-overflow-tooltip="true" min-width="200" />
+      <el-table-column prop="parentDepartmentName" label="上级部门" :show-overflow-tooltip="true" width="300">
+        <template #default="{ row }">
+          {{ row.parentDepartmentName ? `${row.parentDepartmentName}（${row.parentDepartmentCode}）` : row.parentDepartmentCode }}
+        </template>
+      </el-table-column>
+      <el-table-column prop="description" label="备注" :show-overflow-tooltip="true" min-width="200" />
       <el-table-column prop="createdAtLabel" label="创建时间" width="180" />
       <el-table-column prop="updatedAtLabel" label="更新时间" width="180" />
       <el-table-column prop="operation" label="操作" width="120" fixed="right">
