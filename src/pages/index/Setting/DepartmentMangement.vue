@@ -117,7 +117,11 @@ function deleteDepartment(row: any) {
   departmentService.deleteDepartment(row.departmentCode).then((res: any) => {
     if (res.success) {
       ElNotification.success('删除成功')
-      refreshNode(row.parentDepartmentCode)
+      if (row.departmentLevel === 1) {
+        getTableData()
+      } else {
+        refreshNode(row.parentDepartmentCode)
+      }
       // ----清理垃圾缓存 start------
       // 页面存在垃圾数据，当存在多层节点时，删除某一级节点，数据库会删除该节点及所有子节点，但是页面缓存还在
       // 获取该部门编码对应的前缀，获取已缓存的所有子部门的编码，删除这些编码对应子列表数据，并删除这个键值
@@ -185,6 +189,7 @@ function deleteDepartment(row: any) {
         </template>
       </el-table-column>
       <template #append>
+        <!-- 滚动条会遮挡最后一行，需要在最后一行添加一个空的div，用于撑起高度 -->
         <div pb-30px />
       </template>
     </el-table>
