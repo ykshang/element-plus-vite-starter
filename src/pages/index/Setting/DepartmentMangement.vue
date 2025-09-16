@@ -63,7 +63,6 @@ onMounted(() => {
   getTableData()
 })
 function loadNextLevelData(row: any, treeNode: unknown, resolve: (data: any[]) => void) {
-  nodeMap.set(row.departmentCode, { row, treeNode, resolve })
   // console.log('loadNextLevelData', row, treeNode)
   departmentService.getDepartmentList({
     parentDepartmentCode: row.departmentCode,
@@ -80,7 +79,7 @@ function loadNextLevelData(row: any, treeNode: unknown, resolve: (data: any[]) =
   })
 }
 function refreshNode(row: any) {
-  const node = nodeMap.get(row.id)
+  const node = nodeMap.get(row.departmentCode)
   if (node) {
     loadNextLevelData(node.row, node.treeNode, node.resolve)
   }
