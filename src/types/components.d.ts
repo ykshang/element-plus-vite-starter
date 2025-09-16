@@ -30,6 +30,7 @@ declare module 'vue' {
     DashBoardPart2Card1: typeof import('./../views/home/DashBoard/DashBoard-part-2/dash-board-part-2-card-1.vue')['default']
     DepartmentMangementAdd: typeof import('./../views/Setting/DepartmentMangement/department-mangement-add.vue')['default']
     DepartmentMangementAddSub: typeof import('./../views/Setting/DepartmentMangement/department-mangement-add-sub.vue')['default']
+    DepartmentMangementEdit: typeof import('./../views/Setting/DepartmentMangement/department-mangement-edit.vue')['default']
     DepartmentMangementLeft: typeof import('./../views/Setting/EmployeeManagent/department-mangement-left.vue')['default']
     DepartmentMangementRight: typeof import('./../views/Setting/EmployeeManagent/department-mangement-right.vue')['default']
     DictionaryManagent: typeof import('./../components/business/Setting/DictionaryManagent.vue')['default']

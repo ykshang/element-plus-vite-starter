@@ -8,8 +8,12 @@ const departmentName = ref('')
 const tableData = ref([])
 const showAddDepartmentFlg = ref(false)
 const showAddSubDepartmentFlg = ref(false)
+const showEditDepartmentFlg = ref(false)
+
 const addDepartmentRef = ref()
 const addSubDepartmentRef = ref()
+const editDepartmentRef = ref()
+
 const tableRef = ref()
 showAddDepartmentFlg.value = true
 
@@ -36,6 +40,19 @@ function openAddSubDepartment(row: any) {
 function closeAddSubDepartment(refreshFlg: string, parentRow: any) {
   showAddSubDepartmentFlg.value = false
   // console.log(nodeCode)
+  if (refreshFlg === 'refresh') {
+    parentRow && refreshNode(parentRow)
+  }
+}
+
+function openEditDepartment(row: any) {
+  showEditDepartmentFlg.value = true
+  nextTick(() => {
+    editDepartmentRef.value.handleOpen(row)
+  })
+}
+function closeEditDepartment(refreshFlg: string, parentRow: any) {
+  showEditDepartmentFlg.value = false
   if (refreshFlg === 'refresh') {
     parentRow && refreshNode(parentRow)
   }
@@ -186,7 +203,7 @@ function deleteDepartment(row: any) {
           <el-button v-if="row.departmentLevel < 10" link type="primary" title="创建子部门" @click="openAddSubDepartment(row)">
             <div class="i-ep:circle-plus" />
           </el-button>
-          <el-button link type="primary" title="编辑">
+          <el-button link type="primary" title="编辑" @click="openEditDepartment(row)">
             <div class="i-ep:edit" />
           </el-button>
           <el-button link type="danger" title="删除" @click="onDeleteDepartment(row)">
@@ -201,6 +218,7 @@ function deleteDepartment(row: any) {
     </el-table>
   </el-card>
   <department-mangement-add v-if="showAddDepartmentFlg" ref="addDepartmentRef" @close="closeAddDepartment" />
+  <department-mangement-edit v-if="showEditDepartmentFlg" ref="editDepartmentRef" @close="closeEditDepartment" />
   <department-mangement-add-sub
     v-if="showAddSubDepartmentFlg" ref="addSubDepartmentRef"
     @close="closeAddSubDepartment"
