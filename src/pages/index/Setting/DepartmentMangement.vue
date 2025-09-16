@@ -52,6 +52,7 @@ function getTableData() {
           item.updatedAtLabel = dayjs(item.updatedAt).format('YYYY-MM-DD HH:mm:ss')
           item.createdAtLabel = dayjs(item.createdAt).format('YYYY-MM-DD HH:mm:ss')
           item.parentDepartmentCode = item.parentDepartmentCode === '00000000000000000000' ? '' : item.parentDepartmentCode
+          item.parentDepartmentName = item.parentDepartmentName || 'N/A'
           return item
         })
       })
@@ -72,6 +73,7 @@ function loadNextLevelData(row: any, treeNode: unknown, resolve: (data: any[]) =
         item.updatedAtLabel = dayjs(item.updatedAt).format('YYYY-MM-DD HH:mm:ss')
         item.createdAtLabel = dayjs(item.createdAt).format('YYYY-MM-DD HH:mm:ss')
         item.parentDepartmentCode = item.parentDepartmentCode === '00000000000000000000' ? '' : item.parentDepartmentCode
+        item.parentDepartmentName = item.parentDepartmentName || 'N/A'
         return item
       })
       resolve(tempList)
@@ -89,6 +91,7 @@ function refreshNode(departmentCode: string) {
         item.updatedAtLabel = dayjs(item.updatedAt).format('YYYY-MM-DD HH:mm:ss')
         item.createdAtLabel = dayjs(item.createdAt).format('YYYY-MM-DD HH:mm:ss')
         item.parentDepartmentCode = item.parentDepartmentCode === '00000000000000000000' ? '' : item.parentDepartmentCode
+        item.parentDepartmentName = item.parentDepartmentName || 'N/A'
         item.children = []
         return item
       })
@@ -171,6 +174,7 @@ function deleteDepartment(row: any) {
           {{ tranferLevelToText(row.departmentLevel) }}
         </template>
       </el-table-column>
+      <el-table-column prop="parentDepartmentName" label="父级部门名称" :show-overflow-tooltip="true" width="260" />
       <el-table-column prop="parentDepartmentCode" label="父级部门编码" width="200" />
       <el-table-column prop="description" label="描述" :show-overflow-tooltip="true" min-width="200" />
       <el-table-column prop="createdAtLabel" label="创建时间" width="180" />
