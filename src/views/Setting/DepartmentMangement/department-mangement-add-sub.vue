@@ -25,7 +25,7 @@ const formData = reactive<RuleForm>({
   departmentLevel: 1,
   description: '',
 })
-const parentDepartmentName = ref('')
+const parentDepartment = ref()
 const ruleFormRef = ref<FormInstance>()
 
 const rules = reactive<FormRules<RuleForm>>({
@@ -60,9 +60,9 @@ async function onSubmit(formEl: FormInstance | undefined) {
 }
 function handleOpen(row: any) {
   // console.log('注册弹窗2233', row)
+  parentDepartment.value = row
   formData.parentDepartmentCode = row.departmentCode
   formData.departmentLevel = row.departmentLevel + 1
-  parentDepartmentName.value = row.departmentName
   dialogVisible.value = true
 }
 function handleClose() {
@@ -73,7 +73,7 @@ function handleClose() {
 function handleCloseAndRefresh() {
   dialogVisible.value = false
   // console.log('关闭弹窗')
-  emit('close', 'refresh', formData.parentDepartmentCode)
+  emit('close', 'refresh', parentDepartment.value)
 }
 defineExpose({
   handleOpen,
@@ -94,7 +94,7 @@ defineExpose({
       class="px-40px py-20px"
     >
       <el-form-item label="上级部门" prop="parentDepartmentCode">
-        {{ parentDepartmentName }}
+        {{ parentDepartment.departmentName }}
       </el-form-item>
       <el-form-item label="上级编码" prop="parentDepartmentCode" required>
         {{ formData.parentDepartmentCode }}

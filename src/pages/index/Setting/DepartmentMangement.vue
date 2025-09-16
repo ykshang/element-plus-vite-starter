@@ -33,11 +33,11 @@ function openAddSubDepartment(row: any) {
     addSubDepartmentRef.value.handleOpen(row)
   })
 }
-function closeAddSubDepartment(refreshFlg: string, parentDepartmentCode: string) {
+function closeAddSubDepartment(refreshFlg: string, parentRow: any) {
   showAddSubDepartmentFlg.value = false
   // console.log(nodeCode)
   if (refreshFlg === 'refresh') {
-    parentDepartmentCode && refreshNode(parentDepartmentCode)
+    parentRow && refreshNode(parentRow)
   }
 }
 function getTableData() {
@@ -52,7 +52,6 @@ function getTableData() {
           item.updatedAtLabel = dayjs(item.updatedAt).format('YYYY-MM-DD HH:mm:ss')
           item.createdAtLabel = dayjs(item.createdAt).format('YYYY-MM-DD HH:mm:ss')
           item.parentDepartmentCode = item.parentDepartmentCode === '00000000000000000000' ? '' : item.parentDepartmentCode
-          item.parentDepartmentName = item.parentDepartmentName || 'N/A'
           return item
         })
       })
@@ -73,16 +72,16 @@ function loadNextLevelData(row: any, treeNode: unknown, resolve: (data: any[]) =
         item.updatedAtLabel = dayjs(item.updatedAt).format('YYYY-MM-DD HH:mm:ss')
         item.createdAtLabel = dayjs(item.createdAt).format('YYYY-MM-DD HH:mm:ss')
         item.parentDepartmentCode = item.parentDepartmentCode === '00000000000000000000' ? '' : item.parentDepartmentCode
-        item.parentDepartmentName = item.parentDepartmentName || 'N/A'
+        item.parentDepartmentName = row.departmentName || item.parentDepartmentCode
         return item
       })
       resolve(tempList)
     }
   })
 }
-function refreshNode(departmentCode: string) {
+function refreshNode(row: any) {
   departmentService.getDepartmentList({
-    parentDepartmentCode: departmentCode,
+    parentDepartmentCode: row.departmentCode,
   }).then((res: any) => {
     if (res.success) {
       // 刷新当前节点的子节点
@@ -91,11 +90,11 @@ function refreshNode(departmentCode: string) {
         item.updatedAtLabel = dayjs(item.updatedAt).format('YYYY-MM-DD HH:mm:ss')
         item.createdAtLabel = dayjs(item.createdAt).format('YYYY-MM-DD HH:mm:ss')
         item.parentDepartmentCode = item.parentDepartmentCode === '00000000000000000000' ? '' : item.parentDepartmentCode
-        item.parentDepartmentName = item.parentDepartmentName || 'N/A'
+        item.parentDepartmentName = row.departmentName || item.parentDepartmentCode
         item.children = []
         return item
       })
-      tableRef.value.store.states.lazyTreeNodeMap.value[departmentCode] = tempList
+      tableRef.value.store.states.lazyTreeNodeMap.value[row.departmentCode] = tempList
     }
   })
 }
@@ -123,7 +122,7 @@ function deleteDepartment(row: any) {
       if (row.departmentLevel === 1) {
         getTableData()
       } else {
-        refreshNode(row.parentDepartmentCode)
+        refreshNode(row)
       }
       // ----清理垃圾缓存 start------
       // 页面存在垃圾数据，当存在多层节点时，删除某一级节点，数据库会删除该节点及所有子节点，但是页面缓存还在
@@ -174,8 +173,8 @@ function deleteDepartment(row: any) {
           {{ tranferLevelToText(row.departmentLevel) }}
         </template>
       </el-table-column>
-      <el-table-column prop="parentDepartmentName" label="父级部门名称" :show-overflow-tooltip="true" width="260" />
-      <el-table-column prop="parentDepartmentCode" label="父级部门编码" width="200" />
+      <el-table-column prop="parentDepartmentName" label="上级部门名称" :show-overflow-tooltip="true" width="260" />
+      <el-table-column prop="parentDepartmentCode" label="上级部门编码" width="200" />
       <el-table-column prop="description" label="描述" :show-overflow-tooltip="true" min-width="200" />
       <el-table-column prop="createdAtLabel" label="创建时间" width="180" />
       <el-table-column prop="updatedAtLabel" label="更新时间" width="180" />
