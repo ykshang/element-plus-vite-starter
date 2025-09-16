@@ -9,6 +9,7 @@ const showAddDepartmentFlg = ref(false)
 const showAddSubDepartmentFlg = ref(false)
 const addDepartmentRef = ref()
 const addSubDepartmentRef = ref()
+const tableRef = ref()
 
 showAddDepartmentFlg.value = true
 // 记录节点的ID，刷新方法
@@ -120,8 +121,8 @@ function tranferLevelToText(level: number) {
       </div>
     </div>
     <el-table
-      :data="tableData" style="width: 100%; height: 100%;" row-key="_id" lazy :load="loadNextLevelData"
-      :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
+      ref="tableRef" :data="tableData" style="width: 100%; height: 100%;" row-key="_id" lazy
+      :load="loadNextLevelData" :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
     >
       <el-table-column prop="departmentCode" label="部门编码" min-width="280" />
       <el-table-column prop="departmentName" label="部门名称" width="260" />
