@@ -10,13 +10,7 @@ const showAddSubDepartmentFlg = ref(false)
 const addDepartmentRef = ref()
 const addSubDepartmentRef = ref()
 const tableRef = ref()
-function testVal() {
-  // eslint-disable-next-line no-console
-  console.log(tableRef.value)
-}
 showAddDepartmentFlg.value = true
-// 记录节点的ID，刷新方法
-const nodeMap = new Map()
 
 function openAddDepartment() {
   showAddDepartmentFlg.value = true
@@ -53,7 +47,6 @@ function getTableData() {
       tableData.value = []
       nextTick(() => {
         tableData.value = res.result.map((item: any) => {
-          nodeMap.set(item.departmentCode, item)
           item.hasChildren = true
           item.updatedAtLabel = dayjs(item.updatedAt).format('YYYY-MM-DD HH:mm:ss')
           item.createdAtLabel = dayjs(item.createdAt).format('YYYY-MM-DD HH:mm:ss')
@@ -73,34 +66,34 @@ function loadNextLevelData(row: any, treeNode: unknown, resolve: (data: any[]) =
     parentDepartmentCode: row.departmentCode,
   }).then((res: any) => {
     if (res.success) {
-      resolve(res.result.map((item: any) => {
+      const tempList = res.result.map((item: any) => {
         item.hasChildren = true
         item.updatedAtLabel = dayjs(item.updatedAt).format('YYYY-MM-DD HH:mm:ss')
         item.createdAtLabel = dayjs(item.createdAt).format('YYYY-MM-DD HH:mm:ss')
         item.parentDepartmentCode = item.parentDepartmentCode === '00000000000000000000' ? '' : item.parentDepartmentCode
         return item
-      }))
+      })
+      resolve(tempList)
     }
   })
 }
-function refreshNode(row: any) {
-  const node = nodeMap.get(row.departmentCode)
-  if (node) {
-    departmentService.getDepartmentList({
-      parentDepartmentCode: row.departmentCode,
-    }).then((res: any) => {
-      if (res.success) {
-        node.children = res.result.map((item: any) => {
-          item.hasChildren = true
-          item.updatedAtLabel = dayjs(item.updatedAt).format('YYYY-MM-DD HH:mm:ss')
-          item.createdAtLabel = dayjs(item.createdAt).format('YYYY-MM-DD HH:mm:ss')
-          item.parentDepartmentCode = item.parentDepartmentCode === '00000000000000000000' ? '' : item.parentDepartmentCode
-          item.children = []
-          return item
-        })
-      }
-    })
-  }
+function refreshNode(departmentCode: string) {
+  departmentService.getDepartmentList({
+    parentDepartmentCode: departmentCode,
+  }).then((res: any) => {
+    if (res.success) {
+      // 刷新当前节点的子节点
+      const tempList = res.result.map((item: any) => {
+        item.hasChildren = true
+        item.updatedAtLabel = dayjs(item.updatedAt).format('YYYY-MM-DD HH:mm:ss')
+        item.createdAtLabel = dayjs(item.createdAt).format('YYYY-MM-DD HH:mm:ss')
+        item.parentDepartmentCode = item.parentDepartmentCode === '00000000000000000000' ? '' : item.parentDepartmentCode
+        item.children = []
+        return item
+      })
+      tableRef.value.store.states.lazyTreeNodeMap.value[departmentCode] = tempList
+    }
+  })
 }
 function tranferLevelToText(level: number) {
   const levelTextList = ['', '一级部门', '二级部门', '三级部门', '四级部门', '五级部门', '六级部门', '七级部门', '八级部门', '九级部门', '十级部门']
@@ -113,9 +106,6 @@ function tranferLevelToText(level: number) {
     <div mb-15px flex>
       <el-button type="primary" @click="openAddDepartment">
         创建一级部门
-      </el-button>
-      <el-button type="primary" @click="testVal">
-        测试
       </el-button>
       <div ml-a flex>
         <el-input v-model="departmentName" placeholder="请输入部门名称" clearable style="width: 300px" />
