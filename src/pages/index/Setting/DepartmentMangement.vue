@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import dayjs from 'dayjs'
+import { ElNotification } from 'element-plus'
 import { nextTick, onMounted, ref } from 'vue'
 import departmentService from '~/composables/services/departmentService'
 
@@ -99,6 +100,19 @@ function tranferLevelToText(level: number) {
   const levelTextList = ['', '一级部门', '二级部门', '三级部门', '四级部门', '五级部门', '六级部门', '七级部门', '八级部门', '九级部门', '十级部门']
   return levelTextList[level]
 }
+function deleteDepartment(row: any) {
+  departmentService.deleteDepartment(row.departmentCode).then((res: any) => {
+    if (res.success) {
+      ElNotification.success('删除成功')
+      refreshNode(row.parentDepartmentCode)
+    }
+  }).catch(({ error }) => {
+    ElNotification.error({
+      title: '删除失败',
+      message: error.errMsg,
+    })
+  })
+}
 </script>
 
 <template>
@@ -138,7 +152,7 @@ function tranferLevelToText(level: number) {
           <el-button link type="primary" title="编辑">
             <div class="i-ep:edit" />
           </el-button>
-          <el-button link type="danger" title="删除">
+          <el-button link type="danger" title="删除" @click="deleteDepartment(row)">
             <div class="i-ep:delete" />
           </el-button>
         </template>

@@ -124,9 +124,29 @@ export function post(url: string, params = {}) {
       })
   })
 }
+/*
+ *  post请求:向服务器端提交数据
+ *  url:请求地址
+ *  params:参数
+ * */
+export function deleteMethod(url: string) {
+  return new Promise((resolve, reject) => {
+    request({
+      url,
+      method: 'delete',
+    })
+      .then((response) => {
+        resolve(response)
+      })
+      .catch((error) => {
+        reject(error)
+      })
+  })
+}
 
 // 对外暴露请求方法
 export default {
   get,
   post,
+  deleteMethod,
 }
