@@ -5,12 +5,9 @@ import { reactive, ref, toRaw } from 'vue'
 import departmentService from '~/composables/services/departmentService'
 
 interface RuleForm {
-  departmentCode: string
   departmentName: string
   departmentShortName: string
-  parentDepartmentCode: string
-  departmentLevel: number
-  description?: string
+  description: string
 }
 const emit = defineEmits(['close'])
 const loading = ref(false)
@@ -20,9 +17,6 @@ const dialogVisible = ref(false)
 const formData = reactive<RuleForm>({
   departmentName: '',
   departmentShortName: '',
-  departmentCode: '',
-  parentDepartmentCode: '',
-  departmentLevel: 1,
   description: '',
 })
 const parentDepartment = ref()
@@ -61,8 +55,9 @@ async function onSubmit(formEl: FormInstance | undefined) {
 function handleOpen(row: any) {
   // console.log('注册弹窗2233', row)
   parentDepartment.value = row
-  formData.parentDepartmentCode = row.departmentCode
-  formData.departmentLevel = row.departmentLevel + 1
+  formData.departmentName = row.departmentName
+  formData.departmentShortName = row.departmentShortName
+  formData.description = row.description
   dialogVisible.value = true
 }
 function handleClose() {
@@ -93,12 +88,6 @@ defineExpose({
       label-position="left"
       class="px-40px py-20px"
     >
-      <el-form-item label="上级部门" prop="parentDepartmentCode">
-        {{ parentDepartment.departmentName }}
-      </el-form-item>
-      <el-form-item label="上级编码" prop="parentDepartmentCode" required>
-        {{ formData.parentDepartmentCode }}
-      </el-form-item>
       <el-form-item label="部门名称" prop="departmentName" required>
         <el-input v-model="formData.departmentName" />
       </el-form-item>

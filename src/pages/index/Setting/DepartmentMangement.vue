@@ -51,10 +51,14 @@ function openEditDepartment(row: any) {
     editDepartmentRef.value.handleOpen(row)
   })
 }
-function closeEditDepartment(refreshFlg: string, parentRow: any) {
+function closeEditDepartment(refreshFlg: string, row: any) {
   showEditDepartmentFlg.value = false
   if (refreshFlg === 'refresh') {
-    parentRow && refreshNode(parentRow)
+    if (row.departmentLevel === 1) {
+      getTableData()
+    } else {
+      row && refreshNode(row)
+    }
   }
 }
 function getTableData() {
