@@ -13,7 +13,7 @@ export async function main(params: any) {
   return await post('/api/department/main', params)
 }
 export async function deleteDepartment(departmentCode: string) {
-  return await deleteMethod(`/api/department/${departmentCode}`)
+  return await post(`/api/department/delete/${departmentCode}`)
 }
 export default {
   createDepartment,
