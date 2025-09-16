@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import dayjs from 'dayjs'
-import { ElNotification } from 'element-plus'
+import { ElMessageBox, ElNotification } from 'element-plus'
 import { nextTick, onMounted, ref } from 'vue'
 import departmentService from '~/composables/services/departmentService'
 
@@ -100,6 +100,19 @@ function tranferLevelToText(level: number) {
   const levelTextList = ['', '一级部门', '二级部门', '三级部门', '四级部门', '五级部门', '六级部门', '七级部门', '八级部门', '九级部门', '十级部门']
   return levelTextList[level]
 }
+function onDeleteDepartment(row: any) {
+  ElMessageBox.confirm('确定删除该部门及其子部门吗？', '提示', {
+    confirmButtonText: '确定',
+    cancelButtonText: '取消',
+    type: 'warning',
+    draggable: true,
+    appendTo: 'body',
+  }).then(() => {
+    deleteDepartment(row)
+  }).catch(() => {
+    ElNotification.info('操作已取消')
+  })
+}
 function deleteDepartment(row: any) {
   departmentService.deleteDepartment(row.departmentCode).then((res: any) => {
     if (res.success) {
@@ -146,27 +159,27 @@ function deleteDepartment(row: any) {
       ref="tableRef" :data="tableData" style="width: 100%; height: 100%;" row-key="departmentCode" lazy
       :load="loadNextLevelData" :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
     >
-      <el-table-column prop="departmentCode" label="部门编码" min-width="280" />
-      <el-table-column prop="departmentName" label="部门名称" width="260" />
-      <el-table-column prop="departmentShortName" label="部门简称" width="150" />
+      <el-table-column prop="departmentCode" label="部门编码" :show-overflow-tooltip="true" min-width="300" />
+      <el-table-column prop="departmentName" label="部门名称" :show-overflow-tooltip="true" width="260" />
+      <el-table-column prop="departmentShortName" label="部门简称" :show-overflow-tooltip="true" width="120" />
       <el-table-column prop="departmentLevel" label="部门层级" width="100">
         <template #default="{ row }">
           {{ tranferLevelToText(row.departmentLevel) }}
         </template>
       </el-table-column>
-      <el-table-column prop="parentDepartmentCode" label="父级部门编码" width="220" />
-      <el-table-column prop="description" label="描述" min-width="300" />
+      <el-table-column prop="parentDepartmentCode" label="父级部门编码" width="200" />
+      <el-table-column prop="description" label="描述" :show-overflow-tooltip="true" min-width="200" />
       <el-table-column prop="createdAtLabel" label="创建时间" width="180" />
       <el-table-column prop="updatedAtLabel" label="更新时间" width="180" />
       <el-table-column prop="operation" label="操作" width="120" fixed="right">
         <template #default="{ row }">
-          <el-button link type="primary" title="创建子部门" @click="openAddSubDepartment(row)">
+          <el-button v-if="row.departmentLevel < 10" link type="primary" title="创建子部门" @click="openAddSubDepartment(row)">
             <div class="i-ep:circle-plus" />
           </el-button>
           <el-button link type="primary" title="编辑">
             <div class="i-ep:edit" />
           </el-button>
-          <el-button link type="danger" title="删除" @click="deleteDepartment(row)">
+          <el-button link type="danger" title="删除" @click="onDeleteDepartment(row)">
             <div class="i-ep:delete" />
           </el-button>
         </template>
