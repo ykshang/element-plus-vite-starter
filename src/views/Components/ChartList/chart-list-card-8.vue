@@ -2,66 +2,74 @@
 import { onMounted, ref } from 'vue'
 import echarts from '~/config/echarts'
 
-const optionData = ref()
-optionData.value = {
+const optionData = ref({
   grid: {
     left: 0,
     right: 0,
     top: 0,
     bottom: 0,
   },
-  tooltip: {
-    trigger: 'item',
-    formatter: '{a} <br/>{b} : {c}%',
-  },
-  legend: {
-    top: 0,
-    data: ['超出预期', '完全胜任', '基本胜任', '未胜任（一项指标）', '未胜任（多项指标）'],
-  },
+  xAxis: {},
+  yAxis: {},
   series: [
     {
-      name: 'Funnel',
-      type: 'funnel',
-      top: 55,
-      bottom: 0,
-      left: '10%',
-      width: '80%',
-      min: 0,
-      max: 100,
-      minSize: '0%',
-      maxSize: '100%',
-      sort: 'descending',
-      gap: 1,
-      label: {
-        show: true,
-        position: 'inside',
-      },
-      labelLine: {
-        length: 10,
-        lineStyle: {
-          width: 1,
-          type: 'solid',
-        },
-      },
-      itemStyle: {
-        borderColor: '#fff',
-        borderWidth: 1,
-      },
-      emphasis: {
-        label: {
-          fontSize: 14,
-        },
-      },
+      symbolSize: 10,
       data: [
-        { value: 100, name: '超出预期' },
-        { value: 90, name: '完全胜任' },
-        { value: 70, name: '基本胜任' },
-        { value: 30, name: '未胜任（一项指标）' },
-        { value: 10, name: '未胜任（多项指标）' },
+        [9.0, 5.04],
+        [7.07, 9.95],
+        [4.0, 8.58],
+        [10.05, 4.81],
+        [2.0, 9.33],
+        [3.0, 7.66],
+        [12.4, 3.81],
+        [14.0, 8.33],
+        [12.0, 9.96],
+        [13.5, 10.82],
+        [6.15, 9.2],
+        [9.5, 8.2],
+        [2.03, 9.23],
+        [1.2, 5.83],
+        [3.02, 6.47],
+        [6.05, 9.33],
+        [7.05, 6.96],
+        [7.03, 10.24],
+        [2.0, 9.26],
+        [1.0, 4.84],
+        [9.08, 5.82],
+        [8.02, 9.68],
       ],
+      type: 'scatter',
+    },
+    {
+      symbolSize: 10,
+      data: [
+        [10.0, 8.04],
+        [8.07, 6.95],
+        [13.0, 7.58],
+        [9.05, 8.81],
+        [11.0, 8.33],
+        [14.0, 7.66],
+        [13.4, 6.81],
+        [10.0, 6.33],
+        [14.0, 8.96],
+        [12.5, 6.82],
+        [9.15, 7.2],
+        [11.5, 7.2],
+        [3.03, 4.23],
+        [12.2, 7.83],
+        [2.02, 4.47],
+        [1.05, 3.33],
+        [4.05, 4.96],
+        [6.03, 7.24],
+        [12.0, 6.26],
+        [12.0, 8.84],
+        [7.08, 5.82],
+        [5.02, 5.68],
+      ],
+      type: 'scatter',
     },
   ],
-}
+})
 const myChartRef = ref()
 onMounted(() => {
   const myChart = echarts.init(myChartRef.value)
@@ -70,7 +78,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <el-card shadow="never" header="漏斗图" flex flex-1 flex-col body-class="flex flex-1">
+  <el-card shadow="never" header="散点图" flex flex-1 flex-col body-class="flex flex-1">
     <div ref="myChartRef" class="flex-1" />
   </el-card>
 </template>

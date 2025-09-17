@@ -4,25 +4,39 @@ import echarts from '~/config/echarts'
 
 const optionData = ref()
 optionData.value = {
+  grid: {
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+  },
   tooltip: {
-    formatter: '{a} <br/>{b} : {c}%',
+    show: true,
+  },
+  radar: {
+    radius: '80%',
+    nameGap: '3',
+    indicator: [
+      { name: '领导力', max: 10 },
+      { name: '亲和力', max: 10 },
+      { name: '业务能力', max: 10 },
+      { name: '客户服务', max: 10 },
+      { name: '开发', max: 10 },
+      { name: '营销', max: 10 },
+    ],
   },
   series: [
     {
-      name: 'Pressure',
-      type: 'gauge',
-      radius: '100%', // 占容器尺寸的80%
-      center: ['50%', '57%'], // 水平居中，垂直偏下
-      detail: {
-        formatter: '{value}',
-        valueAnimation: true,
-        fontSize: 20,
-        offsetCenter: [0, '55%'],
-      },
+      name: 'Budget vs spending',
+      type: 'radar',
       data: [
         {
-          value: 50,
-          name: 'SCORE',
+          value: [4, 3, 2, 5, 5, 8],
+          name: '专家 Json',
+        },
+        {
+          value: [5, 4, 8, 6, 4, 6],
+          name: '专家 Alex',
         },
       ],
     },
@@ -36,7 +50,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <el-card shadow="never" header="漏斗图" flex flex-1 flex-col body-class="flex flex-1">
+  <el-card shadow="never" header="雷达图" flex flex-1 flex-col body-class="flex flex-1">
     <div ref="myChartRef" class="flex-1" />
   </el-card>
 </template>

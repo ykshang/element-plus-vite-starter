@@ -2,46 +2,37 @@
 import { onMounted, ref } from 'vue'
 import echarts from '~/config/echarts'
 
-const optionData = ref()
-optionData.value = {
-  grid: {
-    left: 0,
-    right: 0,
-    top: 0,
-    bottom: 0,
-  },
+const optionData = ref({
   tooltip: {
-    show: true,
-  },
-  radar: {
-    radius: '80%',
-    nameGap: '3',
-    indicator: [
-      { name: '领导力', max: 10 },
-      { name: '亲和力', max: 10 },
-      { name: '业务能力', max: 10 },
-      { name: '客户服务', max: 10 },
-      { name: '开发', max: 10 },
-      { name: '营销', max: 10 },
-    ],
+    trigger: 'item',
   },
   series: [
     {
-      name: 'Budget vs spending',
-      type: 'radar',
+      name: '访问来源',
+      type: 'pie',
+      radius: ['0%', '80%'],
+      avoidLabelOverlap: false,
+      padAngle: 3,
+      itemStyle: {
+        borderRadius: 10,
+      },
+      label: {
+        show: false,
+        position: 'center',
+      },
+      labelLine: {
+        show: false,
+      },
       data: [
-        {
-          value: [4, 3, 2, 5, 5, 8],
-          name: '专家 Json',
-        },
-        {
-          value: [5, 4, 8, 6, 4, 6],
-          name: '专家 Alex',
-        },
+        { value: 1048, name: '搜索引擎' },
+        { value: 735, name: '直接访问' },
+        { value: 580, name: '邮件' },
+        { value: 484, name: '联盟广告' },
+        { value: 300, name: '视频广告' },
       ],
     },
   ],
-}
+})
 const myChartRef = ref()
 onMounted(() => {
   const myChart = echarts.init(myChartRef.value)
@@ -50,7 +41,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <el-card shadow="never" header="雷达图" flex flex-1 flex-col body-class="flex flex-1">
+  <el-card shadow="never" header="饼图 2" flex flex-1 flex-col body-class="flex flex-1">
     <div ref="myChartRef" class="flex-1" />
   </el-card>
 </template>
