@@ -176,7 +176,7 @@ defineExpose({
         </el-button>
       </div>
     </el-dialog>
-    <dictionary-managent-dictionary-item-add v-if="showAddDictionaryItemFlg" ref="addDictionaryItemRef" @close="closeAddDictionaryItem" />
-    <dictionary-managent-dictionary-item-edit v-if="showEditDictionaryItemFlg" ref="editDictionaryItemRef" @close="closeEditDictionaryItem" />
+    <dictionary-management-dictionary-item-add v-if="showAddDictionaryItemFlg" ref="addDictionaryItemRef" @close="closeAddDictionaryItem" />
+    <dictionary-management-dictionary-item-edit v-if="showEditDictionaryItemFlg" ref="editDictionaryItemRef" @close="closeEditDictionaryItem" />
   </div>
 </template>

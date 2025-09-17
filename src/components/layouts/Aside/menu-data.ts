@@ -39,14 +39,14 @@ const menuDataTree = [
     )),
     subMenu: [
       {
-        path: '/Setting/ProfileManagent',
+        path: '/Setting/ProfileManagement',
         title: '个人信息',
         icon: markRaw(defineAsyncComponent(() =>
           import('~icons/ri/user-3-line'),
         )),
       },
       {
-        path: '/Setting/EmployeeManagent',
+        path: '/Setting/EmployeeManagement',
         title: '员工管理',
         icon: markRaw(defineAsyncComponent(() =>
           import('~icons/ri/group-line'),
@@ -67,14 +67,14 @@ const menuDataTree = [
         )),
       },
       {
-        path: '/Setting/TaskMangement',
+        path: '/Setting/TaskManagement',
         title: '任务管理',
         icon: markRaw(defineAsyncComponent(() =>
           import('~icons/ri/calendar-todo-line'),
         )),
       },
       {
-        path: '/Setting/DictionaryManagent',
+        path: '/Setting/DictionaryManagement',
         title: '字典管理',
         icon: markRaw(defineAsyncComponent(() =>
           import('~icons/ri/book-2-line'),
