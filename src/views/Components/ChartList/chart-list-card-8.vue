@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { Bottom } from '@element-plus/icons-vue'
-import { color } from 'echarts'
 import { onMounted, ref } from 'vue'
 import echarts from '~/config/echarts'
 
@@ -56,10 +54,10 @@ optionData.value = {
       },
       data: [
         { value: 100, name: '超出预期' },
-        { value: 80, name: '完全胜任' },
-        { value: 60, name: '基本胜任' },
-        { value: 45, name: '未胜任（一项指标）' },
-        { value: 30, name: '未胜任（多项指标）' },
+        { value: 90, name: '完全胜任' },
+        { value: 70, name: '基本胜任' },
+        { value: 30, name: '未胜任（一项指标）' },
+        { value: 10, name: '未胜任（多项指标）' },
       ],
     },
   ],
