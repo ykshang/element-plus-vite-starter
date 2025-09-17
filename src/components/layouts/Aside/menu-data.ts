@@ -60,7 +60,7 @@ const menuDataTree = [
         )),
       },
       {
-        path: '/Setting/MenuMangement',
+        path: '/Setting/MenuManagement',
         title: '菜单管理',
         icon: markRaw(defineAsyncComponent(() =>
           import('~icons/ri/apps-line'),

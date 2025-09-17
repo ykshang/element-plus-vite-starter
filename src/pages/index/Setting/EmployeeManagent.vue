@@ -1,10 +1,10 @@
 <template>
   <el-splitter style="margin-bottom: 10px" h-full>
     <el-splitter-panel flex size="400px" overflow-hidden>
-      <employee-mangement-left />
+      <employee-management-left />
     </el-splitter-panel>
     <el-splitter-panel flex :min="200" overflow-hidden>
-      <employee-mangement-right />
+      <employee-management-right />
     </el-splitter-panel>
   </el-splitter>
 </template>
