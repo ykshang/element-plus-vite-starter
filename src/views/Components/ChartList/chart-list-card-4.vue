@@ -10,16 +10,18 @@ const optionData = ref({
     bottom: 0,
   },
   xAxis: {
-    type: 'category',
-    data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+    data: ['2017-10-24', '2017-10-25', '2017-10-26', '2017-10-27'],
   },
-  yAxis: {
-    type: 'value',
-  },
+  yAxis: {},
   series: [
     {
-      data: [150, 230, 224, 218, 135, 147, 260],
-      type: 'line',
+      type: 'candlestick',
+      data: [
+        [20, 34, 10, 38],
+        [40, 35, 30, 50],
+        [31, 38, 33, 44],
+        [38, 15, 5, 42],
+      ],
     },
   ],
 })
