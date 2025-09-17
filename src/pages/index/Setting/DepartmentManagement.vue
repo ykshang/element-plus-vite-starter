@@ -23,6 +23,7 @@ const editDepartmentRef = ref()
 const tableRef = ref()
 showAddDepartmentFlg.value = true
 
+// 新增子部门弹窗 打开方法
 function openAddDepartment() {
   showAddDepartmentFlg.value = true
   nextTick(() => {
@@ -30,12 +31,14 @@ function openAddDepartment() {
     addDepartmentRef.value.handleOpen()
   })
 }
+// 新增子部门弹窗 关闭方法
 function closeAddDepartment(refreshFlg: string) {
   showAddDepartmentFlg.value = false
   if (refreshFlg === 'refresh') {
     getTableData()
   }
 }
+// 新增子部门弹窗 打开方法
 function openAddSubDepartment(row: any) {
   showAddSubDepartmentFlg.value = true
   nextTick(() => {
@@ -43,6 +46,7 @@ function openAddSubDepartment(row: any) {
     addSubDepartmentRef.value.handleOpen(row)
   })
 }
+// 新增子部门弹窗 关闭方法
 function closeAddSubDepartment(refreshFlg: string, parentRow: any) {
   showAddSubDepartmentFlg.value = false
   // console.log(nodeCode)
@@ -50,13 +54,14 @@ function closeAddSubDepartment(refreshFlg: string, parentRow: any) {
     parentRow && refreshNode(parentRow)
   }
 }
-
+// 编辑部门弹窗 打开方法
 function openEditDepartment(row: any) {
   showEditDepartmentFlg.value = true
   nextTick(() => {
     editDepartmentRef.value.handleOpen(row)
   })
 }
+// 编辑部门弹窗 关闭方法
 function closeEditDepartment(refreshFlg: string, row: any) {
   showEditDepartmentFlg.value = false
   if (refreshFlg === 'refresh') {
@@ -67,6 +72,7 @@ function closeEditDepartment(refreshFlg: string, row: any) {
     }
   }
 }
+// 主表格第一层数据
 function getTableData() {
   departmentService.main({
     departmentName: departmentName.value,
@@ -85,6 +91,7 @@ function getTableData() {
 onMounted(() => {
   getTableData()
 })
+// 加载下一级部门数据
 function loadNextLevelData(row: any, treeNode: unknown, resolve: (data: any[]) => void) {
   // console.log('loadNextLevelData', row, treeNode)
   departmentService.getDepartmentList({
@@ -99,6 +106,7 @@ function loadNextLevelData(row: any, treeNode: unknown, resolve: (data: any[]) =
     }
   })
 }
+// 刷新节点
 function refreshNode(row: any) {
   departmentService.getDepartmentList({
     parentDepartmentCode: row.departmentCode,
@@ -118,10 +126,13 @@ function refreshNode(row: any) {
     }
   })
 }
+// 格式化部门层级
 function tranferLevelToText(level: number) {
   const levelTextList = ['', '一级部门', '二级部门', '三级部门', '四级部门', '五级部门', '六级部门', '七级部门', '八级部门', '九级部门', '十级部门']
   return levelTextList[level]
 }
+
+// 点击删除按钮
 function onDeleteDepartment(row: any) {
   ElMessageBox.confirm('确定删除该部门及其子部门吗？', '提示', {
     confirmButtonText: '确定',
@@ -135,6 +146,7 @@ function onDeleteDepartment(row: any) {
     ElNotification.info('操作已取消')
   })
 }
+// 删除部门方法
 function deleteDepartment(row: any) {
   departmentService.deleteDepartment(row.departmentCode).then((res: any) => {
     if (res.success) {
@@ -167,6 +179,7 @@ function deleteDepartment(row: any) {
     })
   })
 }
+// 格式化父层部门的名称
 function parentDepartmentName(row: any) {
   return row.parentDepartmentName ? `${row.parentDepartmentName}（${row.parentDepartmentCode}）` : row.parentDepartmentCode
 }
