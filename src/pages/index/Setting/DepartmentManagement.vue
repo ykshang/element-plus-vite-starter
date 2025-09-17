@@ -20,6 +20,8 @@ const addDepartmentRef = ref()
 const addSubDepartmentRef = ref()
 const editDepartmentRef = ref()
 
+const allDepartments = ref<any[]>([])
+
 const tableRef = ref()
 showAddDepartmentFlg.value = true
 
@@ -72,7 +74,7 @@ function closeEditDepartment(refreshFlg: string, row: any) {
     }
   }
 }
-// 主表格第一层数据
+// 获取主表格数据
 function getTableData() {
   departmentService.mainSearch({
     departmentName: departmentName.value,
@@ -88,7 +90,16 @@ function getTableData() {
     }
   })
 }
+// 获取所有部门
+function getAllDepartments() {
+  departmentService.getAllDepartments().then((res: any) => {
+    if (res.success) {
+      allDepartments.value = res.result
+    }
+  })
+}
 onMounted(() => {
+  getAllDepartments()
   getTableData()
 })
 // 加载下一级部门数据
@@ -113,11 +124,6 @@ function refreshNode(row: any) {
       // 刷新当前节点的子节点
       const tempList = res.result.map((item: any) => {
         item.hasChildren = true
-        item.updatedAtLabel = dayjs(item.updatedAt).format('YYYY-MM-DD HH:mm:ss')
-        item.createdAtLabel = dayjs(item.createdAt).format('YYYY-MM-DD HH:mm:ss')
-        item.parentDepartmentCode = item.parentDepartmentCode === '00000000000000000000' ? '' : item.parentDepartmentCode
-        item.parentDepartmentName = row.departmentName || item.parentDepartmentCode
-        item.children = []
         return item
       })
       tableRef.value.store.states.lazyTreeNodeMap.value[row.departmentCode] = tempList
@@ -179,7 +185,11 @@ function deleteDepartment(row: any) {
 }
 // 格式化父层部门的名称
 function parentDepartmentName(row: any) {
-  return row.parentDepartmentName ? `${row.parentDepartmentName}（${row.parentDepartmentCode}）` : row.parentDepartmentCode
+  if (!row.parentDepartmentCode || row.parentDepartmentCode === '00000000000000000000') {
+    return ''
+  }
+  const parentDepartment = allDepartments.value.find(item => item.departmentCode === row.parentDepartmentCode)
+  return parentDepartment ? `${parentDepartment.departmentName}（${parentDepartment.departmentCode}）` : row.parentDepartmentCode
 }
 </script>
 
