@@ -6,7 +6,7 @@ import { nextTick, onMounted, reactive, ref } from 'vue'
 import dictionaryService from '~/composables/services/dictionaryService'
 
 // 分页组件初始化数据
-const pagenation: Pagenation = reactive({
+const pagination: Pagenation = reactive({
   pageNum: 1,
   pageSize: 20,
   total: 1000,
@@ -41,15 +41,15 @@ function initTableData() {
         item.updatedAtLabel = dayjs(item.updatedAt).format('YYYY-MM-DD HH:mm:ss')
       })
       tableData.value = data
-      pagenation.total = total
+      pagination.total = total
     }
   })
 }
 
 // 分页变化时，重新组装分页数据
 function handlePagenationChange(params: any) {
-  pagenation.pageNum = params.pageNum
-  pagenation.pageSize = params.pageSize
+  pagination.pageNum = params.pageNum
+  pagination.pageSize = params.pageSize
   initTableData()
 }
 // 初始化加载
@@ -60,8 +60,8 @@ onMounted(() => {
 function getRequestParam() {
   return {
     dictionaryKey: formInline.dictionaryKey,
-    pageNum: pagenation.pageNum,
-    pageSize: pagenation.pageSize,
+    pageNum: pagination.pageNum,
+    pageSize: pagination.pageSize,
   }
 }
 // 删除选中的列
@@ -184,7 +184,7 @@ function closeDictionaryItem() {
           <el-empty description="暂无数据" />
         </template>
       </el-table>
-      <table-pagenation class="mt-20px" :pagenation="pagenation" @change="handlePagenationChange" />
+      <table-pagination class="mt-20px" :pagination="pagination" @change="handlePagenationChange" />
       <dictionary-management-add-dictionary v-if="showAddDictionaryFlg" ref="addDictionaryRef" @close="closeAddDictionary" />
       <dictionary-management-edit-dictionary v-if="showEditDictionaryFlg" ref="editDictionaryRef" @close="closeEditDictionary" />
       <dictionary-management-dictionary-item v-if="showDictionaryItemFlg" ref="dictionaryItemRef" @close="closeDictionaryItem" />

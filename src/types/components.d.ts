@@ -91,10 +91,10 @@ declare module 'vue' {
     HomePagePart4: typeof import('./../views/home/home-page/home-page-part-4.vue')['default']
     HomePagePart5: typeof import('./../views/home/home-page/home-page-part-5.vue')['default']
     HomePagePart6: typeof import('./../views/home/home-page/home-page-part-6.vue')['default']
-    IcomDemoDemo: typeof import('./../components/icons/IcomDemoDemo.vue')['default']
     IconAvatar: typeof import('./../components/icons/IconAvatar.vue')['default']
     IconCommunity: typeof import('./../components/icons/IconCommunity.vue')['default']
     IconDark: typeof import('./../components/icons/IconDark.vue')['default']
+    IconDemoDemo: typeof import('./../components/icons/IconDemoDemo.vue')['default']
     IconDocumentation: typeof import('./../components/icons/IconDocumentation.vue')['default']
     IconEcosystem: typeof import('./../components/icons/IconEcosystem.vue')['default']
     IconLight: typeof import('./../components/icons/IconLight.vue')['default']
@@ -106,6 +106,7 @@ declare module 'vue' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     TablePagenation: typeof import('./../components/base/table-pagenation.vue')['default']
+    TablePagination: typeof import('./../components/base/table-pagination.vue')['default']
     UserRegister: typeof import('./../views/Login/user-register.vue')['default']
   }
   export interface GlobalDirectives {
