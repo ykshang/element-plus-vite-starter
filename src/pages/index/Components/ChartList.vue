@@ -1,6 +1,6 @@
 <template>
-  <div class="grid">
-    <div>1</div>
+  <div class="grid grid-cols-4">
+    <chart-list-card-1 />
     <div>1</div>
     <div>1</div>
     <div>1</div>
