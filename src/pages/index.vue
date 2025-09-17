@@ -22,6 +22,7 @@ emitter.on('refreshPage', () => {
 const font = reactive({
   color: 'rgba(0, 0, 0, .15)',
 })
+const waterMarkContent = ref<string[]>([])
 // 水印文字颜色
 watch(
   isDark,
@@ -39,7 +40,7 @@ watch(
 
 <template>
   <el-config-provider namespace="ep" :locale="zhCn">
-    <el-watermark :font="font" :z-index="999999" h-full w-full flex>
+    <el-watermark :font="font" :content="waterMarkContent" :z-index="999999" h-full w-full flex>
       <base-layout-side />
       <div class="main-container flex flex-1 flex-col overflow-hidden bg-[--ep-bg-color-page]">
         <base-layout-header />
