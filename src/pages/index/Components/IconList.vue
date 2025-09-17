@@ -1,27 +1,31 @@
 <script lang="ts" setup></script>
 
 <template>
-  <div class="flex-1 p-20px">
-    <base-ui-card>
-      <template #title>
-        @element-plus/icons-vue
-      </template>
-      <template #content>
-        本应用预装了 <el-text type="primary">
+  <el-row>
+    <el-col :span="24">
+      <el-card shadow="never">
+        <template #header>
           @element-plus/icons-vue
-        </el-text> 图标库，您可以直接使用。
-        具体使用方式，可以参考
-        <el-link type="primary" target="_blank" href="https://element-plus.org/zh-CN/component/icon.html">
-          Element-Plus 官方文档
-          <div class="i-ri:external-link-line" ml-3px />
-        </el-link>
-      </template>
-    </base-ui-card>
-    <base-ui-card class="mt-20px">
-      <template #title>
-        @iconify-json
-      </template>
-      <template #content>
+        </template>
+        <div>
+          本应用预装了 <el-text type="primary">
+            @element-plus/icons-vue
+          </el-text> 图标库，您可以直接使用。
+          具体使用方式，可以参考
+          <el-link type="primary" target="_blank" href="https://element-plus.org/zh-CN/component/icon.html">
+            Element-Plus 官方文档
+            <div class="i-ri:external-link-line" ml-3px />
+          </el-link>
+        </div>
+      </el-card>
+    </el-col>
+  </el-row>
+  <el-row>
+    <el-col :span="24" mt-10px>
+      <el-card shadow="never">
+        <template #header>
+          @iconify-json
+        </template>
         本系统已经预装了 <el-text type="primary">
           @iconify-json
         </el-text> 图标库的 <el-text type="primary">
@@ -57,7 +61,8 @@
         <el-text ml-5px>
           （选中一个图标后，可以查看具体引入方式的对应代码）
         </el-text>
-      </template>
-    </base-ui-card>
-  </div>
+      </el-card>
+    </el-col>
+  </el-row>
+  <div flex-1 />
 </template>
