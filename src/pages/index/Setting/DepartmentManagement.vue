@@ -74,7 +74,7 @@ function closeEditDepartment(refreshFlg: string, row: any) {
 }
 // 主表格第一层数据
 function getTableData() {
-  departmentService.main({
+  departmentService.mainSearch({
     departmentName: departmentName.value,
   }).then((res: any) => {
     if (res.success) {

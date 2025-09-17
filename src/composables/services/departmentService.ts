@@ -23,7 +23,7 @@ export async function getDepartmentList(params: any) {
  * @param params 部门编码
  * @returns
  */
-export async function main(params: any) {
+export async function mainSearch(params: any) {
   return await postMethod('/api/department/main', params)
 }
 /**
@@ -52,8 +52,8 @@ export async function getAllDepartments() {
 export default {
   createDepartment,
   getDepartmentList,
-  main,
+  mainSearch,
+  getAllDepartments,
   deleteDepartment,
   getSubDepartments,
-  getAllDepartments,
 }
