@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { reactive } from 'vue'
+import { computed, reactive, ref } from 'vue'
 
 import { useThemeConfigStore } from '~/stores/useThemeStroe'
 
@@ -13,6 +13,7 @@ function toggleWatermark(val: boolean) {
   toggleWaterMark(val)
 }
 interface WaterMarkConfig {
+  showWatermark: boolean
   content: string
   font: {
     fontSize: number
@@ -23,8 +24,8 @@ interface WaterMarkConfig {
   gap: [number, number]
   offset: [number, number]
 }
-
 const waterMarkConfig = reactive<WaterMarkConfig>({
+  showWatermark: true,
   content: 'Vue Admin',
   font: {
     fontSize: 16,
@@ -35,6 +36,7 @@ const waterMarkConfig = reactive<WaterMarkConfig>({
   gap: [100, 100],
   offset: [] as unknown as [number, number],
 })
+const waterMarkContent = computed(() => waterMarkConfig.showWatermark ? waterMarkConfig.content : '')
 </script>
 
 <template>
@@ -48,7 +50,7 @@ const waterMarkConfig = reactive<WaterMarkConfig>({
   <el-card header="局部水印" mb-10px flex flex-1 flex-col body-class="flex flex-1">
     <el-watermark
       class="flex-1 border border-gray-200 border-solid p-20px"
-      :content="waterMarkConfig.content"
+      :content="waterMarkContent"
       :font="waterMarkConfig.font"
       :z-index="waterMarkConfig.zIndex"
       :rotate="waterMarkConfig.rotate"
@@ -56,10 +58,10 @@ const waterMarkConfig = reactive<WaterMarkConfig>({
       :offset="waterMarkConfig.offset"
     >
       <div>
-        <h1 class="color-[--ep-text-color-regular]">
+        <h1 class="color-[--ep-color-primary]">
           Vue Admin
         </h1>
-        <h2 class="color-[--ep-text-color-secondary]">
+        <h2 class="color-[--ep-color-primary-light-3]">
           这是一个基于 Vue 3 + Element Plus + Pinia + UnoCSS 的后台管理系统
         </h2>
       </div>
@@ -67,9 +69,13 @@ const waterMarkConfig = reactive<WaterMarkConfig>({
     <el-form
       :model="waterMarkConfig"
       label-position="left"
+      label-suffix="："
       label-width="150px"
-      class="mx-50px w-400px"
+      class="mx-50px w-450px"
     >
+      <el-form-item label="是否显示">
+        <el-switch v-model="waterMarkConfig.showWatermark" />
+      </el-form-item>
       <el-form-item label="内容">
         <el-input v-model="waterMarkConfig.content" />
       </el-form-item>
