@@ -11,7 +11,7 @@ const optionData = ref({
   },
   xAxis: {
     type: 'category',
-    data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+    data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
   },
   yAxis: {
     type: 'value',
@@ -31,7 +31,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <el-card header="折线图" h-300px flex flex-col body-class="flex flex-1">
+  <el-card header="柱状图" h-300px flex flex-col body-class="flex flex-1">
     <div ref="myChart" class="flex-1" />
   </el-card>
 </template>

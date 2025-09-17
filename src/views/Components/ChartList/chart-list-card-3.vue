@@ -8,7 +8,7 @@ const optionData = ref({
   },
   series: [
     {
-      name: 'Access From',
+      name: '访问来源',
       type: 'pie',
       radius: ['40%', '80%'],
       avoidLabelOverlap: false,
@@ -24,11 +24,11 @@ const optionData = ref({
         show: false,
       },
       data: [
-        { value: 1048, name: 'Search Engine' },
-        { value: 735, name: 'Direct' },
-        { value: 580, name: 'Email' },
-        { value: 484, name: 'Union Ads' },
-        { value: 300, name: 'Video Ads' },
+        { value: 1048, name: '搜索引擎' },
+        { value: 735, name: '直接访问' },
+        { value: 580, name: '邮件' },
+        { value: 484, name: '联盟广告' },
+        { value: 300, name: '视频广告' },
       ],
     },
   ],
@@ -41,7 +41,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <el-card header="折线图" h-300px flex flex-col body-class="flex flex-1">
+  <el-card header="饼图" h-300px flex flex-col body-class="flex flex-1">
     <div ref="myChart" class="flex-1" />
   </el-card>
 </template>
