@@ -154,13 +154,13 @@ function deleteDepartment(row: any) {
       // ----清理垃圾缓存 start------
       // 页面存在垃圾数据，当存在多层节点时，删除某一级节点，数据库会删除该节点及所有子节点，但是页面缓存还在
       // 获取该部门编码对应的前缀，获取已缓存的所有子部门的编码，删除这些编码对应子列表数据，并删除这个键值
-      let codelist = Object.keys(tableRef.value.store.states.lazyTreeNodeMap.value)
+      let codeList = Object.keys(tableRef.value.store.states.lazyTreeNodeMap.value)
       let code = row.departmentCode
       while (code.endsWith('00')) {
         code = code.slice(0, -2)
       }
-      codelist = codelist.filter(item => item.startsWith(code))
-      codelist.forEach((item) => {
+      codeList = codeList.filter(item => item.startsWith(code))
+      codeList.forEach((item) => {
         tableRef.value.store.states.lazyTreeNodeMap.value[item] = []
         delete tableRef.value.store.states.lazyTreeNodeMap.value[item]
       })
@@ -227,9 +227,9 @@ function deleteDepartment(row: any) {
       </template>
     </el-table>
   </el-card>
-  <department-mangement-add v-if="showAddDepartmentFlg" ref="addDepartmentRef" @close="closeAddDepartment" />
-  <department-mangement-edit v-if="showEditDepartmentFlg" ref="editDepartmentRef" @close="closeEditDepartment" />
-  <department-mangement-add-sub
+  <department-management-add v-if="showAddDepartmentFlg" ref="addDepartmentRef" @close="closeAddDepartment" />
+  <department-management-edit v-if="showEditDepartmentFlg" ref="editDepartmentRef" @close="closeEditDepartment" />
+  <department-management-add-sub
     v-if="showAddSubDepartmentFlg" ref="addSubDepartmentRef"
     @close="closeAddSubDepartment"
   />

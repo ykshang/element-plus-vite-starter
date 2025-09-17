@@ -53,7 +53,7 @@ const menuDataTree = [
         )),
       },
       {
-        path: '/Setting/DepartmentMangement',
+        path: '/Setting/DepartmentManagement',
         title: '部门管理',
         icon: markRaw(defineAsyncComponent(() =>
           import('~icons/ri/building-line'),
