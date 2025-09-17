@@ -60,6 +60,13 @@ const menuDataTree = [
         )),
       },
       {
+        path: '/Setting/DictionaryManagement',
+        title: '字典管理',
+        icon: markRaw(defineAsyncComponent(() =>
+          import('~icons/ri/book-2-line'),
+        )),
+      },
+      {
         path: '/Setting/MenuManagement',
         title: '菜单管理',
         icon: markRaw(defineAsyncComponent(() =>
@@ -71,13 +78,6 @@ const menuDataTree = [
         title: '任务管理',
         icon: markRaw(defineAsyncComponent(() =>
           import('~icons/ri/calendar-todo-line'),
-        )),
-      },
-      {
-        path: '/Setting/DictionaryManagement',
-        title: '字典管理',
-        icon: markRaw(defineAsyncComponent(() =>
-          import('~icons/ri/book-2-line'),
         )),
       },
     ],
