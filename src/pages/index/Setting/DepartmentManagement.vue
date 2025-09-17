@@ -1,16 +1,10 @@
 <script lang="ts" setup>
-/**
- * TODO Fix this！
- *  将节点刷新方法的入参由code 改为row ，造成删除时刷新偶问题
- * TODO
- *  编辑场景，接口未对接，节点刷新也没更新
- */
 import dayjs from 'dayjs'
 import { ElMessageBox, ElNotification } from 'element-plus'
 import { nextTick, onMounted, ref } from 'vue'
 import departmentService from '~/composables/services/departmentService'
 
-const departmentName = ref('') // TODO Fix this！
+const departmentName = ref('')
 const tableData = ref([])
 const showAddDepartmentFlg = ref(false)
 const showAddSubDepartmentFlg = ref(false)
@@ -131,7 +125,7 @@ function refreshNode(targetNodeCode: string) {
   })
 }
 // 格式化部门层级
-function tranferLevelToText(level: number) {
+function transferLevelToText(level: number) {
   const levelTextList = ['', '一级部门', '二级部门', '三级部门', '四级部门', '五级部门', '六级部门', '七级部门', '八级部门', '九级部门', '十级部门']
   return levelTextList[level]
 }
@@ -215,7 +209,7 @@ function parentDepartmentName(row: any) {
       <el-table-column prop="departmentCode" label="部门编码" :show-overflow-tooltip="true" min-width="200" />
       <el-table-column prop="departmentLevel" label="部门层级" width="90">
         <template #default="{ row }">
-          {{ tranferLevelToText(row.departmentLevel) }}
+          {{ transferLevelToText(row.departmentLevel) }}
         </template>
       </el-table-column>
       <el-table-column prop="parentDepartmentCode" label="上级部门" :show-overflow-tooltip="true" width="300">
