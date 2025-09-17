@@ -189,10 +189,10 @@ function parentDepartmentName(row: any) {
       ref="tableRef" :data="tableData" style="width: 100%; height: 100%;" row-key="departmentCode" lazy
       :load="loadNextLevelData" :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
     >
-      <el-table-column prop="departmentCode" fixed="left" label="部门编码" :show-overflow-tooltip="true" min-width="300" />
-      <el-table-column prop="departmentName" label="部门名称" :show-overflow-tooltip="true" width="260" />
+      <el-table-column prop="departmentName" fixed="left" label="部门名称" :show-overflow-tooltip="true" width="360" />
       <el-table-column prop="departmentShortName" label="部门简称" :show-overflow-tooltip="true" width="120" />
-      <el-table-column prop="departmentLevel" label="部门层级" width="100">
+      <el-table-column prop="departmentCode" label="部门编码" :show-overflow-tooltip="true" min-width="200" />
+      <el-table-column prop="departmentLevel" label="部门层级" width="90">
         <template #default="{ row }">
           {{ tranferLevelToText(row.departmentLevel) }}
         </template>
@@ -202,7 +202,7 @@ function parentDepartmentName(row: any) {
           {{ parentDepartmentName(row) }}
         </template>
       </el-table-column>
-      <el-table-column prop="parentDepartmentCode" label="上层部门编码" :show-overflow-tooltip="true" min-width="200" />
+      <!-- <el-table-column prop="parentDepartmentCode" label="上层部门编码" :show-overflow-tooltip="true" min-width="200" /> -->
       <el-table-column prop="description" label="备注" :show-overflow-tooltip="true" min-width="200" />
       <el-table-column prop="createdAt" label="创建时间" width="180">
         <template #default="{ row }">
