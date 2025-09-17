@@ -76,6 +76,7 @@ declare module 'vue' {
     ElTag: typeof import('element-plus/es')['ElTag']
     ElText: typeof import('element-plus/es')['ElText']
     ElTree: typeof import('element-plus/es')['ElTree']
+    ElWatermark: typeof import('element-plus/es')['ElWatermark']
     EmployeeManagementAdd: typeof import('./../views/Setting/EmployeeManagement/employee-management-add.vue')['default']
     EmployeeManagementLeft: typeof import('./../views/Setting/EmployeeManagement/employee-management-left.vue')['default']
     EmployeeManagementRight: typeof import('./../views/Setting/EmployeeManagement/employee-management-right.vue')['default']
