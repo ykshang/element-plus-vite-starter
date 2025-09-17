@@ -42,11 +42,18 @@ export async function deleteDepartment(departmentCode: string) {
 export async function getSubDepartments(params: string) {
   return await getMethod(`/api/department/getSubDepartments/${params}`)
 }
-
+/**
+ * 获取所有部门
+ * @returns 部门列表
+ */
+export async function getAllDepartments() {
+  return await getMethod(`/api/department/all`)
+}
 export default {
   createDepartment,
   getDepartmentList,
   main,
   deleteDepartment,
   getSubDepartments,
+  getAllDepartments,
 }
