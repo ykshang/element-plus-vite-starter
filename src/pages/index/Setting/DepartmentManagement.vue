@@ -94,7 +94,7 @@ onMounted(() => {
 // 加载下一级部门数据
 function loadNextLevelData(row: any, treeNode: unknown, resolve: (data: any[]) => void) {
   // console.log('loadNextLevelData', row, treeNode)
-  departmentService.getDepartmentList({
+  departmentService.getSubDepartments({
     parentDepartmentCode: row.departmentCode,
   }).then((res: any) => {
     if (res.success) {

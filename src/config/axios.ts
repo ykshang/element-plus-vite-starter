@@ -88,7 +88,7 @@ request.interceptors.response.use(
  *  url:请求地址
  *  params:参数
  * */
-export function get(url: string, params = {}) {
+export function getMethod(url: string, params = {}) {
   return new Promise((resolve, reject) => {
     request({
       url,
@@ -109,7 +109,7 @@ export function get(url: string, params = {}) {
  *  url:请求地址
  *  params:参数
  * */
-export function post(url: string, params = {}) {
+export function postMethod(url: string, params = {}) {
   return new Promise((resolve, reject) => {
     request({
       url,
@@ -146,7 +146,7 @@ export function deleteMethod(url: string) {
 
 // 对外暴露请求方法
 export default {
-  get,
-  post,
+  getMethod,
+  postMethod,
   deleteMethod,
 }
