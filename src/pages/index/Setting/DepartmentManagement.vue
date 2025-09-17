@@ -207,7 +207,7 @@ function parentDepartmentName(row: any) {
       </div>
     </div>
     <el-table
-      ref="tableRef" :data="tableData" style="width: 100%; height: 100%;" row-key="departmentCode" lazy
+      ref="tableRef" :data="tableData" stripe style="width: 100%; height: 100%;" row-key="departmentCode" lazy
       :load="loadNextLevelData" :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
     >
       <el-table-column prop="departmentName" fixed="left" label="部门名称" :show-overflow-tooltip="true" width="360" />
