@@ -103,6 +103,13 @@ const menuDataTree = [
           import('~icons/ri/pie-chart-line'),
         )),
       },
+      {
+        path: '/Components/WaterMark/',
+        title: '水印组件',
+        icon: markRaw(defineAsyncComponent(() =>
+          import('~icons/ri/water-flash-line'),
+        )),
+      },
     ],
   },
 ]
