@@ -246,7 +246,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <el-card header="旭日图" h-300px flex flex-col body-class="flex flex-1">
+  <el-card shadow="never" header="旭日图" h-300px flex flex-col body-class="flex flex-1">
     <div ref="myChart" class="flex-1" />
   </el-card>
 </template>
