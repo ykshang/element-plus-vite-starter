@@ -16,13 +16,13 @@ optionData.value = {
   },
   legend: {
     top: 0,
-    data: ['超出预期', '完全胜任', '基本胜任', '未胜任（一项指标）', '未胜任（多项指标）'],
+    data: ['初筛', '笔试', '面试', '谈薪', '入职'],
   },
   series: [
     {
       name: 'Funnel',
       type: 'funnel',
-      top: 55,
+      top: 35,
       bottom: 0,
       left: '10%',
       width: '80%',
@@ -53,11 +53,11 @@ optionData.value = {
         },
       },
       data: [
-        { value: 100, name: '超出预期' },
-        { value: 90, name: '完全胜任' },
-        { value: 70, name: '基本胜任' },
-        { value: 30, name: '未胜任（一项指标）' },
-        { value: 10, name: '未胜任（多项指标）' },
+        { value: 100, name: '初筛' },
+        { value: 50, name: '笔试' },
+        { value: 40, name: '面试' },
+        { value: 20, name: '谈薪' },
+        { value: 10, name: '入职' },
       ],
     },
   ],

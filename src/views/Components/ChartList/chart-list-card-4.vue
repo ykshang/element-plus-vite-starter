@@ -21,6 +21,10 @@ const optionData = ref({
       data: [150, 230, 224, 218, 135, 147, 260],
       type: 'bar',
     },
+    {
+      data: [120, 180, 124, 118, 195, 187, 200],
+      type: 'bar',
+    },
   ],
 })
 const myChartRef = ref()
@@ -31,7 +35,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <el-card shadow="never" header="柱状图 1" flex flex-1 flex-col body-class="flex flex-1">
+  <el-card shadow="never" header="柱状图 2" flex flex-1 flex-col body-class="flex flex-1">
     <div ref="myChartRef" class="flex-1" />
   </el-card>
 </template>

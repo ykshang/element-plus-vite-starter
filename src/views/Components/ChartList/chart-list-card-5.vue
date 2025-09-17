@@ -10,11 +10,11 @@ const optionData = ref({
     {
       name: '访问来源',
       type: 'pie',
-      radius: ['0%', '80%'],
+      radius: ['40%', '80%'],
       avoidLabelOverlap: false,
-      padAngle: 1,
+      padAngle: 2,
       itemStyle: {
-        borderRadius: 5,
+        borderRadius: 10,
       },
       label: {
         show: false,
@@ -41,7 +41,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <el-card shadow="never" header="饼图 2" flex flex-1 flex-col body-class="flex flex-1">
+  <el-card shadow="never" header="饼图 1" flex flex-1 flex-col body-class="flex flex-1">
     <div ref="myChartRef" class="flex-1" />
   </el-card>
 </template>

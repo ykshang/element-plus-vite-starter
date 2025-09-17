@@ -36,7 +36,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <el-card shadow="never" header="漏斗图" flex flex-1 flex-col body-class="flex flex-1">
+  <el-card shadow="never" header="仪表盘" flex flex-1 flex-col body-class="flex flex-1">
     <div ref="myChartRef" class="flex-1" />
   </el-card>
 </template>

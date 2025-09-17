@@ -15,11 +15,22 @@ const optionData = ref({
   },
   yAxis: {
     type: 'value',
+    max: 300,
   },
   series: [
     {
-      data: [150, 230, 224, 218, 135, 147, 260],
-      type: 'bar',
+      data: [150, 230, 204, 228, 135, 147, 200],
+      type: 'line',
+      areaStyle: {
+        opacity: 0.2,
+      },
+    },
+    {
+      data: [190, 180, 234, 208, 171, 117, 160],
+      type: 'line',
+      areaStyle: {
+        opacity: 0.2,
+      },
     },
   ],
 })
@@ -31,7 +42,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <el-card shadow="never" header="折线图" flex flex-1 flex-col body-class="flex flex-1">
+  <el-card shadow="never" header="折线图 2" flex flex-1 flex-col body-class="flex flex-1">
     <div ref="myChartRef" class="flex-1" />
   </el-card>
 </template>
