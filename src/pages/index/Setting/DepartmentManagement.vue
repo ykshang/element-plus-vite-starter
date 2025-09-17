@@ -76,9 +76,6 @@ function getTableData() {
       nextTick(() => {
         tableData.value = res.result.map((item: any) => {
           item.hasChildren = true
-          item.updatedAtLabel = dayjs(item.updatedAt).format('YYYY-MM-DD HH:mm:ss')
-          item.createdAtLabel = dayjs(item.createdAt).format('YYYY-MM-DD HH:mm:ss')
-          item.parentDepartmentCode = item.parentDepartmentCode === '00000000000000000000' ? '' : item.parentDepartmentCode
           return item
         })
       })
@@ -96,10 +93,6 @@ function loadNextLevelData(row: any, treeNode: unknown, resolve: (data: any[]) =
     if (res.success) {
       const tempList = res.result.map((item: any) => {
         item.hasChildren = true
-        item.updatedAtLabel = dayjs(item.updatedAt).format('YYYY-MM-DD HH:mm:ss')
-        item.createdAtLabel = dayjs(item.createdAt).format('YYYY-MM-DD HH:mm:ss')
-        item.parentDepartmentCode = item.parentDepartmentCode === '00000000000000000000' ? '' : item.parentDepartmentCode
-        item.parentDepartmentName = row.departmentName || item.parentDepartmentCode
         return item
       })
       resolve(tempList)
@@ -149,6 +142,7 @@ function deleteDepartment(row: any) {
       if (row.departmentLevel === 1) {
         getTableData()
       } else {
+        // 刷新父节点
         refreshNode(row)
       }
       // ----清理垃圾缓存 start------
@@ -172,6 +166,9 @@ function deleteDepartment(row: any) {
       message: error.errMsg,
     })
   })
+}
+function parentDepartmentName(row: any) {
+  return row.parentDepartmentName ? `${row.parentDepartmentName}（${row.parentDepartmentCode}）` : row.parentDepartmentCode
 }
 </script>
 
@@ -200,17 +197,29 @@ function deleteDepartment(row: any) {
           {{ tranferLevelToText(row.departmentLevel) }}
         </template>
       </el-table-column>
-      <el-table-column prop="parentDepartmentName" label="上级部门" :show-overflow-tooltip="true" width="300">
+      <el-table-column prop="parentDepartmentCode" label="上级部门" :show-overflow-tooltip="true" width="300">
         <template #default="{ row }">
-          {{ row.parentDepartmentName ? `${row.parentDepartmentName}（${row.parentDepartmentCode}）` : row.parentDepartmentCode }}
+          {{ parentDepartmentName(row) }}
         </template>
       </el-table-column>
+      <el-table-column prop="parentDepartmentCode" label="上层部门编码" :show-overflow-tooltip="true" min-width="200" />
       <el-table-column prop="description" label="备注" :show-overflow-tooltip="true" min-width="200" />
-      <el-table-column prop="createdAtLabel" label="创建时间" width="180" />
-      <el-table-column prop="updatedAtLabel" label="更新时间" width="180" />
+      <el-table-column prop="createdAt" label="创建时间" width="180">
+        <template #default="{ row }">
+          {{ dayjs(row.createdAt).format('YYYY-MM-DD HH:mm:ss') }}
+        </template>
+      </el-table-column>
+      <el-table-column prop="updatedAt" label="更新时间" width="180">
+        <template #default="{ row }">
+          {{ dayjs(row.updatedAt).format('YYYY-MM-DD HH:mm:ss') }}
+        </template>
+      </el-table-column>
       <el-table-column prop="operation" label="操作" width="120" fixed="right">
         <template #default="{ row }">
-          <el-button v-if="row.departmentLevel < 10" link type="primary" title="创建子部门" @click="openAddSubDepartment(row)">
+          <el-button
+            v-if="row.departmentLevel < 10" link type="primary" title="创建子部门"
+            @click="openAddSubDepartment(row)"
+          >
             <div class="i-ep:circle-plus" />
           </el-button>
           <el-button link type="primary" title="编辑" @click="openEditDepartment(row)">
