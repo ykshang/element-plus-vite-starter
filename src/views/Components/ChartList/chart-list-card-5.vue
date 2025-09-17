@@ -70,15 +70,15 @@ const optionData = ref({
     },
   ],
 })
-const myChart = ref()
+const myChartRef = ref()
 onMounted(() => {
-  const mychart = echarts.init(myChart.value)
-  mychart.setOption(optionData.value)
+  const myChart = echarts.init(myChartRef.value)
+  myChart.setOption(optionData.value)
 })
 </script>
 
 <template>
-  <el-card shadow="never" header="散点图" h-300px flex flex-col body-class="flex flex-1">
-    <div ref="myChart" class="flex-1" />
+  <el-card shadow="never" header="散点图" flex flex-1 flex-col body-class="flex flex-1">
+    <div ref="myChartRef" class="flex-1" />
   </el-card>
 </template>

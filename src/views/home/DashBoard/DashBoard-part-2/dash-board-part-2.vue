@@ -4,7 +4,7 @@ import { onMounted, ref } from 'vue'
 
 import echarts from '~/config/echarts'
 
-const myChart = ref()
+const myChartRef = ref()
 const xAxisData = [
   '北京',
   '天津',
@@ -124,8 +124,8 @@ const dattitl = dayjs().format('YYYY-MM-DD')
 onMounted(() => {
   // 总数
   // 渲染图表
-  const mychart = echarts.init(myChart.value)
-  mychart.setOption(optionData.value)
+  const myChart = echarts.init(myChartRef.value)
+  myChart.setOption(optionData.value)
 })
 </script>
 
@@ -149,7 +149,7 @@ onMounted(() => {
         </div>
       </div>
       <div class="mx-10px mt-10px flex flex-1">
-        <div ref="myChart" class="flex-1" />
+        <div ref="myChartRef" class="flex-1" />
       </div>
     </div>
   </el-card>

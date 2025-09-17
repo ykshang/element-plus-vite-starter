@@ -8,7 +8,7 @@ interface Props {
 }
 const props = defineProps<Props>()
 const totalNum = ref(0)
-const myChart = ref()
+const myChartRef = ref()
 const optionData = ref({
   tooltip: {
     trigger: 'item',
@@ -47,7 +47,7 @@ const compareLastClass = ref('')
 const compareLastShowUp = ref(true)
 
 onMounted(() => {
-  const mychart = echarts.init(myChart.value)
+  const myChart = echarts.init(myChartRef.value)
   const seriesData: number[] = []
   let tempNum = props.dataSource.totalNum
   // 将总单数随机分配给五种类型
@@ -62,7 +62,7 @@ onMounted(() => {
   optionData.value.series[0].data.forEach((item, index) => {
     item.value = seriesData[index]
   })
-  mychart.setOption(optionData.value)
+  myChart.setOption(optionData.value)
   watchEffect(() => {
     const dataSource = props.dataSource
     // 总数
@@ -93,7 +93,7 @@ onMounted(() => {
       </div>
     </div>
     <div class="mx-10px mt-10px flex flex-1">
-      <div ref="myChart" class="flex-1" />
+      <div ref="myChartRef" class="flex-1" />
     </div>
   </div>
 </template>

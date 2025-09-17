@@ -8,7 +8,7 @@ interface Props {
 }
 const props = defineProps<Props>()
 const totalSlaNum = ref(0)
-const myChart = ref()
+const myChartRef = ref()
 const optionData = ref({
   tooltip: {
     trigger: 'axis',
@@ -69,8 +69,8 @@ onMounted(() => {
   // 渲染图表
   optionData.value.xAxis.data = xAxisData
   optionData.value.series[0].data = seriesData
-  const mychart = echarts.init(myChart.value)
-  mychart.setOption(optionData.value)
+  const myChart = echarts.init(myChartRef.value)
+  myChart.setOption(optionData.value)
 })
 </script>
 
@@ -91,7 +91,7 @@ onMounted(() => {
       </div>
     </div>
     <div class="mx-10px mt-10px flex flex-1">
-      <div ref="myChart" class="flex-1" />
+      <div ref="myChartRef" class="flex-1" />
     </div>
   </div>
 </template>

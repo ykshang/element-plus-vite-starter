@@ -2,7 +2,7 @@
 import { onMounted, ref } from 'vue'
 import echarts from '~/config/echarts'
 
-const myChart = ref()
+const myChartRef = ref()
 const optionData = ref({
   tooltip: {
     trigger: 'item',
@@ -38,7 +38,7 @@ const optionData = ref({
   ],
 })
 onMounted(() => {
-  const mychart = echarts.init(myChart.value)
+  const myChart = echarts.init(myChartRef.value)
   const seriesData: number[] = []
   // 将总单数随机分配给五种类型
   let tempNum = 240
@@ -53,7 +53,7 @@ onMounted(() => {
   optionData.value.series[0].data.forEach((item, index) => {
     item.value = seriesData[index]
   })
-  mychart.setOption(optionData.value)
+  myChart.setOption(optionData.value)
 })
 </script>
 
@@ -63,7 +63,7 @@ onMounted(() => {
       工时投入
     </template>
     <div h-350px flex>
-      <div ref="myChart" class="flex-1" />
+      <div ref="myChartRef" class="flex-1" />
     </div>
   </el-card>
 </template>
