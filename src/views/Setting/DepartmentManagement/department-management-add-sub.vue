@@ -5,7 +5,6 @@ import { reactive, ref, toRaw } from 'vue'
 import departmentService from '~/composables/services/departmentService'
 
 interface RuleForm {
-  departmentCode: string
   departmentName: string
   departmentShortName: string
   parentDepartmentCode: string
@@ -20,7 +19,6 @@ const dialogVisible = ref(false)
 const formData = reactive<RuleForm>({
   departmentName: '',
   departmentShortName: '',
-  departmentCode: '',
   parentDepartmentCode: '',
   departmentLevel: 1,
   description: '',
@@ -72,8 +70,8 @@ function handleClose() {
 }
 function handleCloseAndRefresh() {
   dialogVisible.value = false
-  // console.log('关闭弹窗')
-  emit('close', 'refresh', parentDepartment.value)
+  // 新增子节点后，需要触发父节点的刷新
+  emit('close', 'refresh', formData.parentDepartmentCode)
 }
 defineExpose({
   handleOpen,

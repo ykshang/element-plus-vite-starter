@@ -49,11 +49,13 @@ function openAddSubDepartment(row: any) {
   })
 }
 // 新增子部门弹窗 关闭方法
-function closeAddSubDepartment(refreshFlg: string, parentRow: any) {
+function closeAddSubDepartment(refreshFlg: string, parentDepartmentCode: string) {
   showAddSubDepartmentFlg.value = false
-  // console.log(nodeCode)
   if (refreshFlg === 'refresh') {
-    parentRow && refreshNode(parentRow)
+    // 获取最新的全量部门列表
+    getAllDepartments()
+    // 新增子部门后，需要刷新父部门的子节点
+    parentDepartmentCode && refreshNode(parentDepartmentCode)
   }
 }
 // 编辑部门弹窗 打开方法
@@ -116,17 +118,15 @@ function loadNextLevelData(row: any, treeNode: unknown, resolve: (data: any[]) =
   })
 }
 // 刷新节点
-function refreshNode(row: any) {
-  departmentService.getDepartmentList({
-    parentDepartmentCode: row.departmentCode,
-  }).then((res: any) => {
+function refreshNode(targetNodeCode: string) {
+  departmentService.getSubDepartments(targetNodeCode).then((res: any) => {
     if (res.success) {
       // 刷新当前节点的子节点
       const tempList = res.result.map((item: any) => {
         item.hasChildren = true
         return item
       })
-      tableRef.value.store.states.lazyTreeNodeMap.value[row.departmentCode] = tempList
+      tableRef.value.store.states.lazyTreeNodeMap.value[targetNodeCode] = tempList
     }
   })
 }
@@ -159,7 +159,7 @@ function deleteDepartment(row: any) {
         getTableData()
       } else {
         // 刷新父节点
-        refreshNode(row)
+        refreshNode(row.parentDepartmentCode)
       }
       // ----清理垃圾缓存 start------
       // 页面存在垃圾数据，当存在多层节点时，删除某一级节点，数据库会删除该节点及所有子节点，但是页面缓存还在
@@ -211,7 +211,7 @@ function parentDepartmentName(row: any) {
       :load="loadNextLevelData" :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
     >
       <el-table-column prop="departmentName" fixed="left" label="部门名称" :show-overflow-tooltip="true" width="360" />
-      <el-table-column prop="departmentShortName" label="部门简称" :show-overflow-tooltip="true" width="120" />
+      <el-table-column prop="departmentShortName" label="部门简称" :show-overflow-tooltip="true" width="150" />
       <el-table-column prop="departmentCode" label="部门编码" :show-overflow-tooltip="true" min-width="200" />
       <el-table-column prop="departmentLevel" label="部门层级" width="90">
         <template #default="{ row }">
