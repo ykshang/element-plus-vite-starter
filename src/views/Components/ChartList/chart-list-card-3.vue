@@ -3,23 +3,33 @@ import { onMounted, ref } from 'vue'
 import echarts from '~/config/echarts'
 
 const optionData = ref({
-  grid: {
-    left: 0,
-    right: 0,
-    top: 0,
-    bottom: 0,
-  },
-  xAxis: {
-    type: 'category',
-    data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-  },
-  yAxis: {
-    type: 'value',
+  tooltip: {
+    trigger: 'item',
   },
   series: [
     {
-      data: [150, 230, 224, 218, 135, 147, 260],
-      type: 'line',
+      name: 'Access From',
+      type: 'pie',
+      radius: ['40%', '80%'],
+      avoidLabelOverlap: false,
+      padAngle: 3,
+      itemStyle: {
+        borderRadius: 10,
+      },
+      label: {
+        show: false,
+        position: 'center',
+      },
+      labelLine: {
+        show: false,
+      },
+      data: [
+        { value: 1048, name: 'Search Engine' },
+        { value: 735, name: 'Direct' },
+        { value: 580, name: 'Email' },
+        { value: 484, name: 'Union Ads' },
+        { value: 300, name: 'Video Ads' },
+      ],
     },
   ],
 })
