@@ -1,0 +1,8 @@
+<template>
+  <div class="grid">
+    <div>1</div>
+    <div>1</div>
+    <div>1</div>
+    <div>1</div>
+  </div>
+</template>

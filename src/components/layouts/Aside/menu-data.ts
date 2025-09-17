@@ -96,6 +96,13 @@ const menuDataTree = [
           import('~icons/ri/remixicon-line'),
         )),
       },
+      {
+        path: '/Components/ChartList/',
+        title: '图表组件',
+        icon: markRaw(defineAsyncComponent(() =>
+          import('~icons/ri/pie-chart-line'),
+        )),
+      },
     ],
   },
 ]
