@@ -33,7 +33,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <el-card header="折线图" h-300px flex flex-col body-class="flex flex-1">
+  <el-card header="K线图" h-300px flex flex-col body-class="flex flex-1">
     <div ref="myChart" class="flex-1" />
   </el-card>
 </template>

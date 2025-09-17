@@ -1,5 +1,5 @@
 // 引入柱状图图表，图表后缀都为 Chart
-import { BarChart, CandlestickChart, LineChart, PieChart, ScatterChart } from 'echarts/charts'
+import { BarChart, CandlestickChart, LineChart, PieChart, RadarChart, ScatterChart } from 'echarts/charts'
 // 引入标题，提示框，直角坐标系，数据集，内置数据转换器组件，组件后缀都为 Component
 import {
   DatasetComponent,
@@ -32,6 +32,7 @@ echarts.use([
   LineChart,
   CandlestickChart,
   ScatterChart,
+  RadarChart,
 ])
 
 export default echarts
