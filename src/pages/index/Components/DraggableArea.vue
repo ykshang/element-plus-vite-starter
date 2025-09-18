@@ -32,19 +32,19 @@ for (let i = 0; i < 40; i++) {
   align-items: center;
   justify-content: center;
   font-size: 25px;
-  color: #ffffff;
+  color: var(--ep-bg-color-page);
   cursor: move;
-  border: 1px solid #e5e4e9;
+  border: 1px solid var(--ep-border-color);
   user-select: none;
 }
 .item-1 {
-  background-color: #87bba2;
+  background-color: #05c464;
 }
 .item-2 {
   background-color: #ff9b54;
 }
 .item-3 {
-  background-color: #73628a;
+  background-color: #a289c3;
 }
 .item-4 {
   background-color: #76c893;
