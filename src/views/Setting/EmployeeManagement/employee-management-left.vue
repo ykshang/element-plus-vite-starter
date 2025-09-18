@@ -1,43 +1,98 @@
 <script lang="ts" setup>
-import type { LoadFunction } from 'element-plus'
-import departmentService from '~/composables/services/departmentService'
+import type { FilterNodeMethodFunction, TreeInstance } from 'element-plus'
 
-// 初始化部门树
-function getNextLevelNode(parentCode: string) {
-  return departmentService.getDepartmentList({
-    parentDepartmentCode: parentCode,
-  })
+import { ref, watch } from 'vue'
+
+interface Tree {
+  [key: string]: any
 }
 
-const props = {
-  label: 'departmentName',
-  children: 'zones',
-  isLeaf: 'leaf',
+const filterText = ref('')
+const treeRef = ref<TreeInstance>()
+
+const defaultProps = {
+  children: 'children',
+  label: 'label',
 }
 
-const loadNode: LoadFunction = (node, resolve) => {
-  // eslint-disable-next-line no-console
-  console.log(node)
-  // 根节点
-  if (node.parent === null && node.level === 0) {
-    return getNextLevelNode('root').then((res: any) => {
-      resolve(res.result)
-    })
-  } else {
-    const parentCode = node.data.departmentCode
-    return getNextLevelNode(parentCode).then((res: any) => {
-      resolve(res.result)
-    })
-  }
+watch(filterText, (val) => {
+  treeRef.value!.filter(val)
+})
+
+const filterNode: FilterNodeMethodFunction = (value: string, data: Tree) => {
+  if (!value)
+    return true
+  return data.label.includes(value)
 }
+
+const data: Tree[] = [
+  {
+    id: 1,
+    label: 'Level one 1',
+    children: [
+      {
+        id: 4,
+        label: 'Level two 1-1',
+        children: [
+          {
+            id: 9,
+            label: 'Level three 1-1-1',
+          },
+          {
+            id: 10,
+            label: 'Level three 1-1-2',
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: 2,
+    label: 'Level one 2',
+    children: [
+      {
+        id: 5,
+        label: 'Level two 2-1',
+      },
+      {
+        id: 6,
+        label: 'Level two 2-2',
+      },
+    ],
+  },
+  {
+    id: 3,
+    label: 'Level one 3',
+    children: [
+      {
+        id: 7,
+        label: 'Level two 3-1',
+      },
+      {
+        id: 8,
+        label: 'Level two 3-2',
+      },
+    ],
+  },
+]
 </script>
 
 <template>
   <el-card shadow="never" mr-5px flex-1>
+    <el-input
+      v-model="filterText"
+      class="mb-20px w-60"
+      placeholder="Filter keyword"
+    />
+
     <el-tree
-      :props="props" node-key="id"
-      :load="loadNode" lazy
-      :expand-on-click-node="false"
+      ref="treeRef"
+      style="max-width: 600px"
+      class="filter-tree"
+      :data="data"
+      :props="defaultProps"
+      default-expand-all
+      :filter-node-method="filterNode"
     />
   </el-card>
 </template>
