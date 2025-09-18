@@ -33,7 +33,7 @@ const waterMarkConfig = reactive<WaterMarkConfig>({
   },
   zIndex: -1,
   rotate: -22,
-  gap: [100, 100],
+  gap: [50, 50],
   offset: [] as unknown as [number, number],
 })
 const waterMarkContent = computed(() => waterMarkConfig.showWatermark ? waterMarkConfig.content : '')
