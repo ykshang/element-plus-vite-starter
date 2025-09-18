@@ -1,0 +1,524 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>24x24网格看板 - 带间隙防重叠</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        height: 100vh;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+        color: #2c3e50;
+      }
+
+      h1 {
+        margin: 15px 0;
+        text-align: center;
+        color: #3498db;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+      }
+
+      .description {
+        text-align: center;
+        margin-bottom: 20px;
+        line-height: 1.5;
+        color: #34495e;
+      }
+
+      .container {
+        display: flex;
+        gap: 20px;
+        flex: 1;
+        width: 100vw;
+        padding: 10px;
+      }
+
+      .components-panel {
+        width: 200px;
+        background: white;
+        border-radius: 10px;
+        padding: 15px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .components-panel h2 {
+        margin-bottom: 15px;
+        color: #3498db;
+        font-size: 1.2rem;
+        text-align: center;
+      }
+
+      .component {
+        background: #3498db;
+        color: white;
+        padding: 12px;
+        margin: 10px 0;
+        border-radius: 6px;
+        cursor: grab;
+        text-align: center;
+        transition: all 0.2s ease;
+        user-select: none;
+      }
+
+      .component:hover {
+        background: #2980b9;
+        transform: translateY(-2px);
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+      }
+
+      .kanban-container {
+        flex: 1;
+        background: white;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        overflow: auto;
+      }
+
+      .kanban-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #eee;
+      }
+
+      .grid-size {
+        font-weight: bold;
+        color: #7f8c8d;
+      }
+
+      .kanban {
+        flex: 1;
+        position: relative;
+        /* 24*(40+1) - 1 */
+        background:
+          linear-gradient(to right, #eee 1px, transparent 1px), linear-gradient(to bottom, #eee 1px, transparent 1px);
+        background-size: 41px 41px;
+        /* 40px + 1px gap */
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        overflow: hidden;
+      }
+
+      .grid-item {
+        position: absolute;
+        background: rgba(52, 152, 219, 0.8);
+        border: 2px solid #2980b9;
+        border-radius: 5px;
+        padding: 10px;
+        color: white;
+        cursor: move;
+        user-select: none;
+        min-width: 40px;
+        min-height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        transition: all 0.2s ease;
+        z-index: 1;
+      }
+
+      .grid-item:hover {
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        z-index: 2;
+      }
+
+      .grid-item.overlapping {
+        border: 2px dashed #e74c3c;
+        background: rgba(231, 76, 60, 0.3);
+      }
+
+      .grid-item.resizing {
+        box-shadow: 0 0 0 2px #e74c3c;
+        z-index: 3;
+      }
+
+      .resize-handle {
+        position: absolute;
+        width: 12px;
+        height: 12px;
+        background: #e74c3c;
+        border-radius: 50%;
+        right: -6px;
+        bottom: -6px;
+        cursor: nwse-resize;
+        box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+        z-index: 4;
+      }
+
+      .status {
+        margin-top: 10px;
+        padding: 8px 12px;
+        border-radius: 4px;
+        background: #f8f9fa;
+        font-size: 14px;
+        min-height: 36px;
+      }
+
+      .status.overlap-warning {
+        background: #ffeaa7;
+        color: #d35400;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>24×24 网格看板 - 带间隙防重叠</h1>
+    <p class="description">从左侧面板拖拽组件到看板上，组件间有1px间隙避免视觉重叠，并支持防重叠功能。</p>
+
+    <div class="container">
+      <div class="components-panel">
+        <h2>组件库</h2>
+        <div class="component" data-type="chart" draggable="true">数据分析图表</div>
+        <div class="component" data-type="table" draggable="true">数据表格</div>
+        <div class="component" data-type="metric" draggable="true">关键指标</div>
+        <div class="component" data-type="image" draggable="true">图片展示</div>
+        <div class="component" data-type="text" draggable="true">文本组件</div>
+      </div>
+
+      <div class="kanban-container">
+        <div class="kanban-header">
+          <h2>看板面板</h2>
+          <div class="grid-size">网格: 24×24 (带1px间隙)</div>
+        </div>
+        <div class="status" id="status">准备就绪。从左侧拖拽组件到看板上。</div>
+        <div class="kanban" id="kanban"></div>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        const kanban = document.getElementById('kanban')
+        const status = document.getElementById('status')
+        const components = document.querySelectorAll('.component')
+        let activeItem = null
+        let isDragging = false
+        let isResizing = false
+        let startX, startY
+        let startWidth, startHeight
+        let startLeft, startTop
+
+        // 网格单元大小（包括间隙）
+        const CELL_SIZE = 40
+        const GAP_SIZE = 1
+        const UNIT_SIZE = CELL_SIZE + GAP_SIZE
+
+        // 创建网格背景
+        function createGrid() {
+          // CSS渐变已经创建了网格，这里只需要添加网格坐标
+          for (let x = 0; x <= 24; x++) {
+            const xLabel = document.createElement('div')
+            xLabel.style.position = 'absolute'
+            xLabel.style.left = x * UNIT_SIZE + 'px'
+            xLabel.style.top = '-20px'
+            xLabel.style.fontSize = '10px'
+            xLabel.style.color = '#95a5a6'
+            xLabel.textContent = x
+            kanban.appendChild(xLabel)
+          }
+
+          for (let y = 0; y <= 24; y++) {
+            const yLabel = document.createElement('div')
+            yLabel.style.position = 'absolute'
+            yLabel.style.left = '-25px'
+            yLabel.style.top = y * UNIT_SIZE + 'px'
+            yLabel.style.fontSize = '10px'
+            yLabel.style.color = '#95a5a6'
+            yLabel.textContent = y
+            kanban.appendChild(yLabel)
+          }
+        }
+
+        createGrid()
+
+        // 为组件添加拖拽事件
+        components.forEach((component) => {
+          component.addEventListener('dragstart', function (e) {
+            e.dataTransfer.setData('text/plain', component.dataset.type)
+            status.textContent = `正在拖拽: ${component.textContent}`
+          })
+        })
+
+        // 看板放置区域事件
+        kanban.addEventListener('dragover', function (e) {
+          e.preventDefault()
+          kanban.style.backgroundColor = '#f8f9fa'
+        })
+
+        kanban.addEventListener('dragleave', function () {
+          kanban.style.backgroundColor = ''
+        })
+
+        kanban.addEventListener('drop', function (e) {
+          e.preventDefault()
+          kanban.style.backgroundColor = ''
+
+          const type = e.dataTransfer.getData('text/plain')
+          const rect = kanban.getBoundingClientRect()
+
+          // 计算放置位置（对齐到网格）
+          const x = Math.floor((e.clientX - rect.left) / UNIT_SIZE) * UNIT_SIZE
+          const y = Math.floor((e.clientY - rect.top) / UNIT_SIZE) * UNIT_SIZE
+
+          // 检查是否与现有组件重叠（考虑间隙）
+          if (!isOverlapping(x, y, CELL_SIZE, CELL_SIZE, null)) {
+            // 创建新组件
+            createComponent(type, x, y, CELL_SIZE, CELL_SIZE)
+            status.textContent = `已添加: ${type}组件`
+          } else {
+            status.textContent = '无法放置组件: 与现有组件重叠'
+            status.classList.add('overlap-warning')
+            setTimeout(() => {
+              status.classList.remove('overlap-warning')
+              status.textContent = '准备就绪'
+            }, 2000)
+          }
+        })
+
+        // 检查是否与现有组件重叠（考虑间隙）
+        function isOverlapping(x, y, width, height, excludeItem) {
+          const items = kanban.querySelectorAll('.grid-item')
+          // 添加间隙检查偏移量
+          const gapOffset = GAP_SIZE / 2
+
+          const newRect = {
+            left: x + gapOffset,
+            top: y + gapOffset,
+            right: x + width - gapOffset,
+            bottom: y + height - gapOffset,
+          }
+
+          for (let i = 0; i < items.length; i++) {
+            const item = items[i]
+
+            // 排除自身
+            if (excludeItem && item === excludeItem) continue
+
+            const rect = item.getBoundingClientRect()
+            const kanbanRect = kanban.getBoundingClientRect()
+
+            const itemRect = {
+              left: rect.left - kanbanRect.left + gapOffset,
+              top: rect.top - kanbanRect.top + gapOffset,
+              right: rect.right - kanbanRect.left - gapOffset,
+              bottom: rect.bottom - kanbanRect.top - gapOffset,
+            }
+
+            // 检查矩形是否重叠（考虑间隙）
+            if (
+              newRect.left < itemRect.right &&
+              newRect.right > itemRect.left &&
+              newRect.top < itemRect.bottom &&
+              newRect.bottom > itemRect.top
+            ) {
+              return true
+            }
+          }
+
+          return false
+        }
+
+        // 创建看板组件
+        function createComponent(type, x, y, width, height) {
+          const component = document.createElement('div')
+          component.className = 'grid-item'
+          component.style.left = x + 'px'
+          component.style.top = y + 'px'
+          component.style.width = width + 'px'
+          component.style.height = height + 'px'
+
+          // 根据类型设置内容
+          switch (type) {
+            case 'chart':
+              component.innerHTML = '<div>数据分析图表</div>'
+              component.style.background = 'linear-gradient(135deg, #3498db, #2c3e50)'
+              break
+            case 'table':
+              component.innerHTML = '<div>数据表格</div>'
+              component.style.background = 'linear-gradient(135deg, #2ecc71, #27ae60)'
+              break
+            case 'metric':
+              component.innerHTML = '<div>关键指标</div>'
+              component.style.background = 'linear-gradient(135deg, #e74c3c, #c0392b)'
+              break
+            case 'image':
+              component.innerHTML = '<div>图片展示</div>'
+              component.style.background = 'linear-gradient(135deg, #9b59b6, #8e44ad)'
+              break
+            case 'text':
+              component.innerHTML = '<div>文本组件</div>'
+              component.style.background = 'linear-gradient(135deg, #f39c12, #d35400)'
+              break
+          }
+
+          // 添加调整大小手柄
+          const resizeHandle = document.createElement('div')
+          resizeHandle.className = 'resize-handle'
+          component.appendChild(resizeHandle)
+
+          // 添加到看板
+          kanban.appendChild(component)
+
+          // 添加事件监听
+          addDragAndResizeListeners(component)
+
+          return component
+        }
+
+        // 添加拖拽和调整大小事件
+        function addDragAndResizeListeners(item) {
+          const resizeHandle = item.querySelector('.resize-handle')
+
+          // 鼠标按下事件 - 移动
+          item.addEventListener('mousedown', function (e) {
+            if (e.target === resizeHandle) return // 调整大小手柄有自己的事件
+
+            activeItem = item
+            isDragging = true
+
+            const rect = item.getBoundingClientRect()
+            startX = e.clientX
+            startY = e.clientY
+            startLeft = rect.left - kanban.getBoundingClientRect().left
+            startTop = rect.top - kanban.getBoundingClientRect().top
+
+            item.style.zIndex = 1000
+            e.preventDefault()
+          })
+
+          // 鼠标按下事件 - 调整大小
+          resizeHandle.addEventListener('mousedown', function (e) {
+            activeItem = item
+            isResizing = true
+
+            const rect = item.getBoundingClientRect()
+            startX = e.clientX
+            startY = e.clientY
+            startWidth = rect.width
+            startHeight = rect.height
+            startLeft = rect.left - kanban.getBoundingClientRect().left
+            startTop = rect.top - kanban.getBoundingClientRect().top
+
+            item.classList.add('resizing')
+            e.stopPropagation()
+            e.preventDefault()
+          })
+
+          // 鼠标移动事件
+          document.addEventListener('mousemove', function (e) {
+            if (!activeItem) return
+
+            const kanbanRect = kanban.getBoundingClientRect()
+
+            if (isDragging) {
+              // 计算新位置
+              let newLeft = startLeft + (e.clientX - startX)
+              let newTop = startTop + (e.clientY - startY)
+
+              // 对齐到网格
+              newLeft = Math.round(newLeft / UNIT_SIZE) * UNIT_SIZE
+              newTop = Math.round(newTop / UNIT_SIZE) * UNIT_SIZE
+
+              // 边界检查
+              newLeft = Math.max(0, Math.min(kanbanRect.width - activeItem.offsetWidth, newLeft))
+              newTop = Math.max(0, Math.min(kanbanRect.height - activeItem.offsetHeight, newTop))
+
+              // 检查是否重叠（考虑间隙）
+              if (!isOverlapping(newLeft, newTop, activeItem.offsetWidth, activeItem.offsetHeight, activeItem)) {
+                // 应用新位置
+                activeItem.style.left = newLeft + 'px'
+                activeItem.style.top = newTop + 'px'
+                activeItem.classList.remove('overlapping')
+                status.textContent = `位置: (${newLeft / UNIT_SIZE}, ${newTop / UNIT_SIZE}), 大小: (${activeItem.offsetWidth / CELL_SIZE}×${activeItem.offsetHeight / CELL_SIZE})`
+              } else {
+                // 显示重叠警告
+                activeItem.classList.add('overlapping')
+                status.textContent = '无法移动: 与现有组件重叠'
+                status.classList.add('overlap-warning')
+              }
+            } else if (isResizing) {
+              // 计算新尺寸
+              let newWidth = startWidth + (e.clientX - startX)
+              let newHeight = startHeight + (e.clientY - startY)
+
+              // 对齐到网格（最小为1个网格）
+              newWidth = Math.max(CELL_SIZE, Math.round(newWidth / CELL_SIZE) * CELL_SIZE)
+              newHeight = Math.max(CELL_SIZE, Math.round(newHeight / CELL_SIZE) * CELL_SIZE)
+
+              // 边界检查
+              const maxWidth = kanbanRect.width - startLeft
+              const maxHeight = kanbanRect.height - startTop
+              newWidth = Math.min(maxWidth, newWidth)
+              newHeight = Math.min(maxHeight, newHeight)
+
+              // 检查是否重叠（考虑间隙）
+              if (!isOverlapping(startLeft, startTop, newWidth, newHeight, activeItem)) {
+                // 应用新尺寸
+                activeItem.style.width = newWidth + 'px'
+                activeItem.style.height = newHeight + 'px'
+                activeItem.classList.remove('overlapping')
+                status.textContent = `位置: (${startLeft / UNIT_SIZE}, ${startTop / UNIT_SIZE}), 大小: (${newWidth / CELL_SIZE}×${newHeight / CELL_SIZE})`
+              } else {
+                // 显示重叠警告
+                activeItem.classList.add('overlapping')
+                status.textContent = '无法调整大小: 与现有组件重叠'
+                status.classList.add('overlap-warning')
+              }
+            }
+          })
+
+          // 鼠标释放事件
+          document.addEventListener('mouseup', function () {
+            if (activeItem) {
+              activeItem.style.zIndex = ''
+              activeItem.classList.remove('resizing')
+
+              if (activeItem.classList.contains('overlapping')) {
+                // 恢复原始位置或大小
+                if (isDragging) {
+                  activeItem.style.left = startLeft + 'px'
+                  activeItem.style.top = startTop + 'px'
+                } else if (isResizing) {
+                  activeItem.style.width = startWidth + 'px'
+                  activeItem.style.height = startHeight + 'px'
+                }
+                activeItem.classList.remove('overlapping')
+
+                setTimeout(() => {
+                  status.classList.remove('overlap-warning')
+                  status.textContent = '操作已取消: 重叠检测'
+                }, 1000)
+              } else {
+                status.textContent = '操作完成'
+              }
+
+              activeItem = null
+            }
+            isDragging = false
+            isResizing = false
+          })
+        }
+
+        // 添加一些示例组件
+        createComponent('chart', 1 * UNIT_SIZE, 1 * UNIT_SIZE, 4 * CELL_SIZE, 3 * CELL_SIZE)
+        createComponent('metric', 6 * UNIT_SIZE, 2 * UNIT_SIZE, 3 * CELL_SIZE, 3 * CELL_SIZE)
+        createComponent('table', 2 * UNIT_SIZE, 7 * UNIT_SIZE, 5 * CELL_SIZE, 4 * CELL_SIZE)
+      })
+    </script>
+  </body>
+</html>
