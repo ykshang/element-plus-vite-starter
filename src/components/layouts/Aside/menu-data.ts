@@ -110,6 +110,14 @@ const menuDataTree = [
           import('~icons/ri/water-flash-line'),
         )),
       },
+      {
+        path: '/Components/DraggableArea/',
+        title: '可拖拽组件',
+        icon: markRaw(defineAsyncComponent(() =>
+          import('~icons/ri/water-flash-line'),
+        )),
+      },
+
     ],
   },
 ]
