@@ -83,7 +83,18 @@ onMounted(() => {
       <el-tree
         ref="departmentTreeRef" :data="depatmentTreeData" :props="defaultProps" :default-expand-all="false"
         :filter-node-method="filterDepatmentNode"
-      />
+      >
+        <template #default="{ data }">
+          <div class="group flex flex-1">
+            <div flex-1>
+              {{ data.departmentName }}
+            </div>
+            <el-button style="display: none;" class="group-hover:!flex" type="primary" link text>
+              <div class="i-ri:search-line" />
+            </el-button>
+          </div>
+        </template>
+      </el-tree>
       <div pb-30px />
     </el-scrollbar>
   </el-card>
