@@ -114,7 +114,7 @@ const menuDataTree = [
         path: '/Components/DraggableArea/',
         title: '可拖拽组件',
         icon: markRaw(defineAsyncComponent(() =>
-          import('~icons/ri/water-flash-line'),
+          import('~icons/ri/drag-drop-fill'),
         )),
       },
 

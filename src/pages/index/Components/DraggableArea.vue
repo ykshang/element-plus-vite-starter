@@ -11,7 +11,7 @@ for (let i = 0; i < 40; i++) {
 <template>
   <draggable
     v-model="gridList"
-    class="card grid grid-cols-8 grid-rows-5 flex-1 gap-10px"
+    class="card grid grid-cols-8 grid-rows-5 mb-10px flex-1 gap-10px bg-[--ep-bg-color] p-10px"
     item-key="id"
     animation="300"
     chosen-class="chosen"
