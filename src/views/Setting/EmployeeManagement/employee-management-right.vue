@@ -105,7 +105,7 @@ function openEditDictionary(row: any) {
 </script>
 
 <template>
-  <el-card shadow="never" ml-5px flex-1>
+  <el-card header="员工列表" shadow="never" ml-5px flex-1>
     <el-button type="primary" mb-15px :icon="Plus" @click="openAddDictionary">
       新增
     </el-button>
