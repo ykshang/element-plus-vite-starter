@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>24x24网格看板 - 带间隙防重叠</title>
+    <title>响应式24x24网格看板</title>
     <style>
       * {
         box-sizing: border-box;
@@ -14,8 +14,7 @@
       body {
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-        height: 100vh;
-        overflow: hidden;
+        min-height: 100vh;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -33,20 +32,31 @@
       .description {
         text-align: center;
         margin-bottom: 20px;
+        max-width: 600px;
         line-height: 1.5;
         color: #34495e;
       }
 
       .container {
         display: flex;
+        flex-direction: column;
         gap: 20px;
-        flex: 1;
-        width: 100vw;
-        padding: 10px;
+        width: 100%;
+        max-width: 1200px;
+      }
+
+      @media (min-width: 992px) {
+        .container {
+          flex-direction: row;
+        }
+
+        .components-panel {
+          width: 200px;
+          flex-shrink: 0;
+        }
       }
 
       .components-panel {
-        width: 200px;
         background: white;
         border-radius: 10px;
         padding: 15px;
@@ -79,12 +89,12 @@
       }
 
       .kanban-container {
-        flex: 1;
         background: white;
         border-radius: 10px;
         padding: 20px;
         box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         overflow: auto;
+        flex: 1;
       }
 
       .kanban-header {
@@ -101,14 +111,22 @@
         color: #7f8c8d;
       }
 
-      .kanban {
-        flex: 1;
+      .kanban-wrapper {
         position: relative;
-        /* 24*(40+1) - 1 */
+        width: 100%;
+        padding-bottom: 100%;
+        /* 保持1:1宽高比 */
+      }
+
+      .kanban {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
         background:
           linear-gradient(to right, #eee 1px, transparent 1px), linear-gradient(to bottom, #eee 1px, transparent 1px);
-        background-size: 41px 41px;
-        /* 40px + 1px gap */
+        background-size: calc(100% / 24) calc(100% / 24);
         border: 1px solid #ddd;
         border-radius: 5px;
         overflow: hidden;
@@ -123,9 +141,8 @@
         color: white;
         cursor: move;
         user-select: none;
-        min-width: 40px;
-        min-height: 40px;
         display: flex;
+        flex-direction: column;
         align-items: center;
         justify-content: center;
         box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
@@ -148,6 +165,14 @@
         z-index: 3;
       }
 
+      .grid-size-info {
+        font-size: 12px;
+        margin-top: 5px;
+        background: rgba(0, 0, 0, 0.2);
+        padding: 2px 5px;
+        border-radius: 3px;
+      }
+
       .resize-handle {
         position: absolute;
         width: 12px;
@@ -159,6 +184,29 @@
         cursor: nwse-resize;
         box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
         z-index: 4;
+      }
+
+      .instructions {
+        margin-top: 20px;
+        background: white;
+        border-radius: 10px;
+        padding: 15px;
+        max-width: 1200px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .instructions h3 {
+        color: #3498db;
+        margin-bottom: 10px;
+      }
+
+      .instructions ul {
+        padding-left: 20px;
+        line-height: 1.6;
+      }
+
+      .instructions li {
+        margin-bottom: 8px;
       }
 
       .status {
@@ -178,27 +226,42 @@
   </head>
 
   <body>
-    <h1>24×24 网格看板 - 带间隙防重叠</h1>
-    <p class="description">从左侧面板拖拽组件到看板上，组件间有1px间隙避免视觉重叠，并支持防重叠功能。</p>
+    <h1>响应式24×24网格看板</h1>
+    <p class="description">组件使用1-24网格单位定义大小，支持响应式布局，防重叠功能。</p>
 
     <div class="container">
       <div class="components-panel">
         <h2>组件库</h2>
-        <div class="component" data-type="chart" draggable="true">数据分析图表</div>
-        <div class="component" data-type="table" draggable="true">数据表格</div>
-        <div class="component" data-type="metric" draggable="true">关键指标</div>
-        <div class="component" data-type="image" draggable="true">图片展示</div>
-        <div class="component" data-type="text" draggable="true">文本组件</div>
+        <div class="component" data-type="chart" data-width="4" data-height="3" draggable="true">图表 (4×3)</div>
+        <div class="component" data-type="table" data-width="6" data-height="4" draggable="true">表格 (6×4)</div>
+        <div class="component" data-type="metric" data-width="2" data-height="2" draggable="true">指标 (2×2)</div>
+        <div class="component" data-type="image" data-width="3" data-height="3" draggable="true">图片 (3×3)</div>
+        <div class="component" data-type="text" data-width="4" data-height="2" draggable="true">文本 (4×2)</div>
       </div>
 
       <div class="kanban-container">
         <div class="kanban-header">
           <h2>看板面板</h2>
-          <div class="grid-size">网格: 24×24 (带1px间隙)</div>
+          <div class="grid-size">网格: 24×24 单位</div>
         </div>
         <div class="status" id="status">准备就绪。从左侧拖拽组件到看板上。</div>
-        <div class="kanban" id="kanban"></div>
+        <div class="kanban-wrapper">
+          <div class="kanban" id="kanban"></div>
+        </div>
       </div>
+    </div>
+
+    <div class="instructions">
+      <h3>使用说明</h3>
+      <ul>
+        <li>从左侧拖拽组件到看板上，组件使用网格单位(1-24)定义大小</li>
+        <li>拖动组件中部可以移动组件位置</li>
+        <li>拖动组件右下角的手柄可以调整组件大小</li>
+        <li>组件会自动对齐到网格</li>
+        <li>组件在移动和调整大时会自动避免与其他组件重叠</li>
+        <li>红色虚线边框表示当前位置会导致重叠，无法放置</li>
+        <li>看板是响应式的，会根据容器大小自动调整</li>
+      </ul>
     </div>
 
     <script>
@@ -213,10 +276,8 @@
         let startWidth, startHeight
         let startLeft, startTop
 
-        // 网格单元大小（包括间隙）
-        const CELL_SIZE = 40
-        const GAP_SIZE = 1
-        const UNIT_SIZE = CELL_SIZE + GAP_SIZE
+        // 网格单位大小（百分比）
+        const GRID_UNIT = 100 / 24 // 每个网格单位占看板宽度的百分比
 
         // 创建网格背景
         function createGrid() {
@@ -224,7 +285,7 @@
           for (let x = 0; x <= 24; x++) {
             const xLabel = document.createElement('div')
             xLabel.style.position = 'absolute'
-            xLabel.style.left = x * UNIT_SIZE + 'px'
+            xLabel.style.left = `calc(${x} * ${GRID_UNIT}%)`
             xLabel.style.top = '-20px'
             xLabel.style.fontSize = '10px'
             xLabel.style.color = '#95a5a6'
@@ -236,7 +297,7 @@
             const yLabel = document.createElement('div')
             yLabel.style.position = 'absolute'
             yLabel.style.left = '-25px'
-            yLabel.style.top = y * UNIT_SIZE + 'px'
+            yLabel.style.top = `calc(${y} * ${GRID_UNIT}%)`
             yLabel.style.fontSize = '10px'
             yLabel.style.color = '#95a5a6'
             yLabel.textContent = y
@@ -249,9 +310,20 @@
         // 为组件添加拖拽事件
         components.forEach((component) => {
           component.addEventListener('dragstart', function (e) {
-            e.dataTransfer.setData('text/plain', component.dataset.type)
-            status.textContent = `正在拖拽: ${component.textContent}`
-          })
+            const type = component.dataset.type
+            const width = parseInt(component.dataset.width)
+            const height = parseInt(component.dataset.height)
+
+            e.dataTransfer.setData(
+              'text/plain',
+              JSON.stringify({
+                type: type,
+                width: width,
+                height: height,
+              }),
+
+              status.textContent = `正在拖拽: ${component.textContent}`
+            })
         })
 
         // 看板放置区域事件
@@ -268,18 +340,24 @@
           e.preventDefault()
           kanban.style.backgroundColor = ''
 
-          const type = e.dataTransfer.getData('text/plain')
+          const data = JSON.parse(e.dataTransfer.getData('text/plain'))
           const rect = kanban.getBoundingClientRect()
 
           // 计算放置位置（对齐到网格）
-          const x = Math.floor((e.clientX - rect.left) / UNIT_SIZE) * UNIT_SIZE
-          const y = Math.floor((e.clientY - rect.top) / UNIT_SIZE) * UNIT_SIZE
+          const xPercent = ((e.clientX - rect.left) / rect.width) * 100
+          const yPercent = ((e.clientY - rect.top) / rect.height) * 100
 
-          // 检查是否与现有组件重叠（考虑间隙）
-          if (!isOverlapping(x, y, CELL_SIZE, CELL_SIZE, null)) {
+          const xGrid = Math.floor(xPercent / GRID_UNIT)
+          const yGrid = Math.floor(yPercent / GRID_UNIT)
+
+          const xPos = xGrid * GRID_UNIT
+          const yPos = yGrid * GRID_UNIT
+
+          // 检查是否与现有组件重叠
+          if (!isOverlapping(xGrid, yGrid, data.width, data.height, null)) {
             // 创建新组件
-            createComponent(type, x, y, CELL_SIZE, CELL_SIZE)
-            status.textContent = `已添加: ${type}组件`
+            createComponent(data.type, xGrid, yGrid, data.width, data.height)
+            status.textContent = `已添加: ${data.type}组件 (${data.width}×${data.height})`
           } else {
             status.textContent = '无法放置组件: 与现有组件重叠'
             status.classList.add('overlap-warning')
@@ -290,17 +368,15 @@
           }
         })
 
-        // 检查是否与现有组件重叠（考虑间隙）
+        // 检查是否与现有组件重叠（使用网格单位）
         function isOverlapping(x, y, width, height, excludeItem) {
           const items = kanban.querySelectorAll('.grid-item')
-          // 添加间隙检查偏移量
-          const gapOffset = GAP_SIZE / 2
 
           const newRect = {
-            left: x + gapOffset,
-            top: y + gapOffset,
-            right: x + width - gapOffset,
-            bottom: y + height - gapOffset,
+            left: x,
+            top: y,
+            right: x + width,
+            bottom: y + height,
           }
 
           for (let i = 0; i < items.length; i++) {
@@ -309,17 +385,19 @@
             // 排除自身
             if (excludeItem && item === excludeItem) continue
 
-            const rect = item.getBoundingClientRect()
-            const kanbanRect = kanban.getBoundingClientRect()
+            const itemX = parseInt(item.dataset.x)
+            const itemY = parseInt(item.dataset.y)
+            const itemWidth = parseInt(item.dataset.width)
+            const itemHeight = parseInt(item.dataset.height)
 
             const itemRect = {
-              left: rect.left - kanbanRect.left + gapOffset,
-              top: rect.top - kanbanRect.top + gapOffset,
-              right: rect.right - kanbanRect.left - gapOffset,
-              bottom: rect.bottom - kanbanRect.top - gapOffset,
+              left: itemX,
+              top: itemY,
+              right: itemX + itemWidth,
+              bottom: itemY + itemHeight,
             }
 
-            // 检查矩形是否重叠（考虑间隙）
+            // 检查矩形是否重叠
             if (
               newRect.left < itemRect.right &&
               newRect.right > itemRect.left &&
@@ -337,34 +415,46 @@
         function createComponent(type, x, y, width, height) {
           const component = document.createElement('div')
           component.className = 'grid-item'
-          component.style.left = x + 'px'
-          component.style.top = y + 'px'
-          component.style.width = width + 'px'
-          component.style.height = height + 'px'
+          component.dataset.x = x
+          component.dataset.y = y
+          component.dataset.width = width
+          component.dataset.height = height
+
+          // 设置位置和大小（使用百分比）
+          component.style.left = `calc(${x} * ${GRID_UNIT}%)`
+          component.style.top = `calc(${y} * ${GRID_UNIT}%)`
+          component.style.width = `calc(${width} * ${GRID_UNIT}% - 2px)`
+          component.style.height = `calc(${height} * ${GRID_UNIT}% - 2px)`
 
           // 根据类型设置内容
+          let title = ''
           switch (type) {
             case 'chart':
-              component.innerHTML = '<div>数据分析图表</div>'
+              title = '数据分析图表'
               component.style.background = 'linear-gradient(135deg, #3498db, #2c3e50)'
               break
             case 'table':
-              component.innerHTML = '<div>数据表格</div>'
+              title = '数据表格'
               component.style.background = 'linear-gradient(135deg, #2ecc71, #27ae60)'
               break
             case 'metric':
-              component.innerHTML = '<div>关键指标</div>'
+              title = '关键指标'
               component.style.background = 'linear-gradient(135deg, #e74c3c, #c0392b)'
               break
             case 'image':
-              component.innerHTML = '<div>图片展示</div>'
+              title = '图片展示'
               component.style.background = 'linear-gradient(135deg, #9b59b6, #8e44ad)'
               break
             case 'text':
-              component.innerHTML = '<div>文本组件</div>'
+              title = '文本组件'
               component.style.background = 'linear-gradient(135deg, #f39c12, #d35400)'
               break
           }
+
+          component.innerHTML = `
+                      <div>${title}</div>
+                      <div class="grid-size-info">${width}×${height}</div>
+                  `
 
           // 添加调整大小手柄
           const resizeHandle = document.createElement('div')
@@ -394,8 +484,8 @@
             const rect = item.getBoundingClientRect()
             startX = e.clientX
             startY = e.clientY
-            startLeft = rect.left - kanban.getBoundingClientRect().left
-            startTop = rect.top - kanban.getBoundingClientRect().top
+            startLeft = parseInt(item.dataset.x)
+            startTop = parseInt(item.dataset.y)
 
             item.style.zIndex = 1000
             e.preventDefault()
@@ -409,10 +499,10 @@
             const rect = item.getBoundingClientRect()
             startX = e.clientX
             startY = e.clientY
-            startWidth = rect.width
-            startHeight = rect.height
-            startLeft = rect.left - kanban.getBoundingClientRect().left
-            startTop = rect.top - kanban.getBoundingClientRect().top
+            startWidth = parseInt(item.dataset.width)
+            startHeight = parseInt(item.dataset.height)
+            startLeft = parseInt(item.dataset.x)
+            startTop = parseInt(item.dataset.y)
 
             item.classList.add('resizing')
             e.stopPropagation()
@@ -424,101 +514,123 @@
             if (!activeItem) return
 
             const kanbanRect = kanban.getBoundingClientRect()
+            const gridSizePx = kanbanRect.width / 24
 
             if (isDragging) {
-              // 计算新位置
-              let newLeft = startLeft + (e.clientX - startX)
-              let newTop = startTop + (e.clientY - startY)
+              // 计算新位置（网格单位）
+              const deltaX = (e.clientX - startX) / gridSizePx
+              const deltaY = (e.clientY - startY) / gridSizePx
 
-              // 对齐到网格
-              newLeft = Math.round(newLeft / UNIT_SIZE) * UNIT_SIZE
-              newTop = Math.round(newTop / UNIT_SIZE) * UNIT_SIZE
-
-              // 边界检查
-              newLeft = Math.max(0, Math.min(kanbanRect.width - activeItem.offsetWidth, newLeft))
-              newTop = Math.max(0, Math.min(kanbanRect.height - activeItem.offsetHeight, newTop))
-
-              // 检查是否重叠（考虑间隙）
-              if (!isOverlapping(newLeft, newTop, activeItem.offsetWidth, activeItem.offsetHeight, activeItem)) {
-                // 应用新位置
-                activeItem.style.left = newLeft + 'px'
-                activeItem.style.top = newTop + 'px'
-                activeItem.classList.remove('overlapping')
-                status.textContent = `位置: (${newLeft / UNIT_SIZE}, ${newTop / UNIT_SIZE}), 大小: (${activeItem.offsetWidth / CELL_SIZE}×${activeItem.offsetHeight / CELL_SIZE})`
-              } else {
-                // 显示重叠警告
-                activeItem.classList.add('overlapping')
-                status.textContent = '无法移动: 与现有组件重叠'
-                status.classList.add('overlap-warning')
-              }
-            } else if (isResizing) {
-              // 计算新尺寸
-              let newWidth = startWidth + (e.clientX - startX)
-              let newHeight = startHeight + (e.clientY - startY)
-
-              // 对齐到网格（最小为1个网格）
-              newWidth = Math.max(CELL_SIZE, Math.round(newWidth / CELL_SIZE) * CELL_SIZE)
-              newHeight = Math.max(CELL_SIZE, Math.round(newHeight / CELL_SIZE) * CELL_SIZE)
+              let newX = Math.round(startLeft + deltaX)
+              let newY = Math.round(startTop + deltaY)
 
               // 边界检查
-              const maxWidth = kanbanRect.width - startLeft
-              const maxHeight = kanbanRect.height - startTop
-              newWidth = Math.min(maxWidth, newWidth)
-              newHeight = Math.min(maxHeight, newHeight)
+              newX = Math.max(0, Math.min(24 - parseInt(activeItem.dataset.width), newX))
+              newY = Math.max(0, Math.min(24 - parseInt(activeItem.dataset.height), newY))
 
-              // 检查是否重叠（考虑间隙）
-              if (!isOverlapping(startLeft, startTop, newWidth, newHeight, activeItem)) {
-                // 应用新尺寸
-                activeItem.style.width = newWidth + 'px'
-                activeItem.style.height = newHeight + 'px'
-                activeItem.classList.remove('overlapping')
-                status.textContent = `位置: (${startLeft / UNIT_SIZE}, ${startTop / UNIT_SIZE}), 大小: (${newWidth / CELL_SIZE}×${newHeight / CELL_SIZE})`
-              } else {
-                // 显示重叠警告
-                activeItem.classList.add('overlapping')
-                status.textContent = '无法调整大小: 与现有组件重叠'
-                status.classList.add('overlap-warning')
-              }
-            }
-          })
+              !isOverlapping(
+                newX,
+                newY,
+                parseInt(activeItem.dataset.width),
+                parseInt(activeItem.dataset.height),
+                activeItem,
+              )
+                ) {
+            // 应用新位置
+            activeItem.dataset.x = newX
+            activeItem.dataset.y = newY
+            activeItem.style.left = `calc(${newX} * ${GRID_UNIT}%)`
+            activeItem.style.top = `calc(${newY} * ${GRID_UNIT}%)`
+            activeItem.classList.remove('overlapping')
+            status.textContent = `位置: (${newX}, ${newY}), 大小: (${activeItem.dataset.width}×${activeItem.dataset.height})`
+          } else {
+            // 显示重叠警告
+            activeItem.classList.add('overlapping')
+            status.textContent = '无法移动: 与现有组件重叠'
+            status.classList.add('overlap-warning')
+          }
+        } else if (isResizing) {
+          // 计算新尺寸（网格单位）
+          const deltaX = (e.clientX - startX) / gridSizePx
+          const deltaY = (e.clientY - startY) / gridSizePx
 
-          // 鼠标释放事件
-          document.addEventListener('mouseup', function () {
-            if (activeItem) {
-              activeItem.style.zIndex = ''
-              activeItem.classList.remove('resizing')
+          let newWidth = Math.round(startWidth + deltaX)
+          let newHeight = Math.round(startHeight + deltaY)
 
-              if (activeItem.classList.contains('overlapping')) {
-                // 恢复原始位置或大小
-                if (isDragging) {
-                  activeItem.style.left = startLeft + 'px'
-                  activeItem.style.top = startTop + 'px'
-                } else if (isResizing) {
-                  activeItem.style.width = startWidth + 'px'
-                  activeItem.style.height = startHeight + 'px'
-                }
-                activeItem.classList.remove('overlapping')
+          // 最小尺寸和边界检查
+          newWidth = Math.max(1, Math.min(24 - startLeft, newWidth))
+          newHeight = Math.max(1, Math.min(24 - startTop, newHeight))
 
-                setTimeout(() => {
-                  status.classList.remove('overlap-warning')
-                  status.textContent = '操作已取消: 重叠检测'
-                }, 1000)
-              } else {
-                status.textContent = '操作完成'
-              }
-
-              activeItem = null
-            }
-            isDragging = false
-            isResizing = false
-          })
+          // 检查是否重叠
+          if (!isOverlapping(startLeft, startTop, newWidth, newHeight, activeItem)) {
+            // 应用新尺寸
+            activeItem.dataset.width = newWidth
+            activeItem.dataset.height = newHeight
+            activeItem.style.width = `calc(${newWidth} * ${GRID_UNIT}% - 2px)`
+            activeItem.style.height = `calc(${newHeight} * ${GRID_UNIT}% - 2px)`
+            activeItem.querySelector('.grid-size-info').textContent = `${newWidth}×${newHeight}`
+            activeItem.classList.remove('overlapping')
+            status.textContent = `位置: (${startLeft}, ${startTop}), 大小: (${newWidth}×${newHeight})`
+          } else {
+            // 显示重叠警告
+            activeItem.classList.add('overlapping')
+            status.textContent = '无法调整大小: 与现有组件重叠'
+            status.classList.add('overlap-warning')
+          }
         }
-
-        // 添加一些示例组件
-        createComponent('chart', 1 * UNIT_SIZE, 1 * UNIT_SIZE, 4 * CELL_SIZE, 3 * CELL_SIZE)
-        createComponent('metric', 6 * UNIT_SIZE, 2 * UNIT_SIZE, 3 * CELL_SIZE, 3 * CELL_SIZE)
-        createComponent('table', 2 * UNIT_SIZE, 7 * UNIT_SIZE, 5 * CELL_SIZE, 4 * CELL_SIZE)
       })
+
+      // 鼠标释放事件
+      document.addEventListener('mouseup', function () {
+        if (activeItem) {
+          activeItem.style.zIndex = ''
+          activeItem.classList.remove('resizing')
+
+          if (activeItem.classList.contains('overlapping')) {
+            // 恢复原始位置或大小
+            if (isDragging) {
+              activeItem.dataset.x = startLeft
+              activeItem.dataset.y = startTop
+              activeItem.style.left = `calc(${startLeft} * ${GRID_UNIT}%)`
+              activeItem.style.top = `calc(${startTop} * ${GRID_UNIT}%)`
+            } else if (isResizing) {
+              activeItem.dataset.width = startWidth
+              activeItem.dataset.height = startHeight
+              activeItem.style.width = `calc(${startWidth} * ${GRID_UNIT}% - 2px)`
+              activeItem.style.height = `calc(${startHeight} * ${GRID_UNIT}% - 2px)`
+              activeItem.querySelector('.grid-size-info').textContent = `${startWidth}×${startHeight}`
+            }
+            activeItem.classList.remove('overlapping')
+
+            setTimeout(() => {
+              status.classList.remove('overlap-warning')
+              status.textContent = '操作已取消: 重叠检测'
+            }, 1000)
+          } else {
+            status.textContent = '操作完成'
+          }
+
+          activeItem = null
+        }
+        isDragging = false
+        isResizing = false
+      })
+          }
+
+      // 添加一些示例组件
+      createComponent('chart', 1, 1, 4, 3)
+      createComponent('metric', 6, 2, 2, 2)
+      createComponent('table', 2, 7, 6, 4)
+
+      // 窗口大小变化时重新计算位置
+      window.addEventListener('resize', function () {
+        // 所有组件的位置和大小已经是基于百分比的，不需要额外处理
+        // 这里只是触发重绘
+        kanban.style.display = 'none'
+        kanban.offsetHeight // 触发重绘
+        kanban.style.display = 'block'
+      })
+        })
     </script>
   </body>
 </html>
