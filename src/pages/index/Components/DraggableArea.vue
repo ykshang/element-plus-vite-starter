@@ -3,7 +3,7 @@ import { ref } from 'vue'
 import draggable from 'vuedraggable'
 
 const gridList = ref<{ id: number, num: number }[]>([])
-for (let i = 0; i < 40; i++) {
+for (let i = 0; i < 50; i++) {
   gridList.value.push({ id: i + 1, num: i + 1 })
 }
 </script>
@@ -11,7 +11,7 @@ for (let i = 0; i < 40; i++) {
 <template>
   <draggable
     v-model="gridList"
-    class="card grid grid-cols-8 grid-rows-5 mb-10px flex-1 gap-10px bg-[--ep-bg-color] p-10px"
+    class="card grid grid-cols-10 grid-rows-5 mb-10px flex-1 gap-10px bg-[--ep-bg-color] p-10px"
     item-key="id"
     animation="300"
     chosen-class="chosen"
