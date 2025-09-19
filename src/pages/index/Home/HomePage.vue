@@ -1,6 +1,14 @@
 <script setup lang="ts">
 </script>
 
+<script lang="ts" setup>
+definePage({
+  meta: router => ({
+    title: `项目: ${router.currentRoute.value.query.code || '默认标题'}`,
+  }),
+})
+</script>
+
 <template>
   <div flex-1>
     <el-row>

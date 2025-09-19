@@ -1,6 +1,13 @@
 <script setup>
 import { ref } from 'vue'
 
+definePage({
+  meta: {
+    requiresAuth: true,
+    ssss: 1113123,
+  },
+})
+
 const list = ref([1, 2, 3])
 
 function handlePush() {
