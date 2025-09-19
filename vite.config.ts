@@ -27,7 +27,6 @@ export default defineConfig({
   },
 
   plugins: [
-    Vue(),
 
     // https://github.com/posva/unplugin-vue-router
     // 自动解析并生成路由
@@ -61,6 +60,7 @@ export default defineConfig({
     // https://github.com/antfu/unocss
     // see uno.config.ts for config
     UnoCSS(),
+    Vue(),
   ],
   server: {
     proxy: {
