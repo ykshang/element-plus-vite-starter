@@ -3,7 +3,7 @@ import { Lock, User } from '@element-plus/icons-vue'
 import { ElNotification } from 'element-plus'
 import { nextTick, reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { login } from '~/composables/services/loginService'
+import { login } from '~/api/loginService'
 
 const router = useRouter()
 const showRegisterFlg = ref(false)

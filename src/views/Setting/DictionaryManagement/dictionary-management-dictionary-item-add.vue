@@ -2,7 +2,7 @@
 import type { FormInstance, FormRules } from 'element-plus'
 import { ElNotification } from 'element-plus'
 import { reactive, ref, toRaw } from 'vue'
-import dictionaryService from '~/composables/services/dictionaryService'
+import dictionaryService from '~/api/dictionaryService'
 
 interface RuleForm {
   dictionaryItemkey: string

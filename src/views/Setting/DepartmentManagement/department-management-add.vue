@@ -2,7 +2,7 @@
 import type { FormInstance, FormRules } from 'element-plus'
 import { ElNotification } from 'element-plus'
 import { reactive, ref, toRaw } from 'vue'
-import departmentService from '~/composables/services/departmentService'
+import departmentService from '~/api/departmentService'
 
 interface RuleForm {
   departmentCode: string

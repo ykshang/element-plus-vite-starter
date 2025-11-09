@@ -3,7 +3,7 @@ import { Plus, Refresh } from '@element-plus/icons-vue'
 import dayjs from 'dayjs'
 import { ElMessageBox, ElNotification } from 'element-plus'
 import { nextTick, reactive, ref } from 'vue'
-import dictionaryService from '~/composables/services/dictionaryService'
+import dictionaryService from '~/api/dictionaryService'
 
 // 控制弹窗显示
 const dialogVisible = ref(false)

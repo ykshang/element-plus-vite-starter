@@ -3,7 +3,7 @@ import type { FilterNodeMethodFunction, FilterValue, TreeInstance, TreeNodeData 
 import type { Department, DepartmentTree } from '~/types/Department'
 
 import { onMounted, ref, watch } from 'vue'
-import departmentService from '~/composables/services/departmentService'
+import departmentService from '~/api/departmentService'
 
 // 部门树实例
 const departmentTreeRef = ref<TreeInstance>()

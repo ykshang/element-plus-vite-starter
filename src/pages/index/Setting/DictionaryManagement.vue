@@ -3,7 +3,7 @@ import { Plus, Search } from '@element-plus/icons-vue'
 import dayjs from 'dayjs'
 import { ElMessageBox, ElNotification } from 'element-plus'
 import { nextTick, onMounted, reactive, ref } from 'vue'
-import dictionaryService from '~/composables/services/dictionaryService'
+import dictionaryService from '~/api/dictionaryService'
 
 // 分页组件初始化数据
 const pagination: Pagenation = reactive({

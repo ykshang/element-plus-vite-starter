@@ -3,7 +3,7 @@ import { Plus } from '@element-plus/icons-vue'
 import dayjs from 'dayjs'
 import { ElMessageBox, ElNotification } from 'element-plus'
 import { nextTick, onMounted, ref } from 'vue'
-import departmentService from '~/composables/services/departmentService'
+import departmentService from '~/api/departmentService'
 
 // 字典列表
 const tableData = ref<Dictionary[]>([])

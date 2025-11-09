@@ -2,7 +2,7 @@
 import dayjs from 'dayjs'
 import { ElMessageBox, ElNotification } from 'element-plus'
 import { nextTick, onMounted, ref } from 'vue'
-import departmentService from '~/composables/services/departmentService'
+import departmentService from '~/api/departmentService'
 
 const departmentName = ref('')
 const tableData = ref([])
