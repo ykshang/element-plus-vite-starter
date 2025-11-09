@@ -8,7 +8,7 @@ import { getMethod, postMethod } from '~/config/axios'
  * @returns 创建结果
  */
 export async function createDepartment(params: any) {
-  return await postMethod('/api/department/createDepartment', params)
+  return await postMethod('/api/v1/department/createDepartment', params)
 }
 /**
  * 获取部门列表
@@ -16,7 +16,7 @@ export async function createDepartment(params: any) {
  * @returns 部门列表
  */
 export async function getDepartmentList(params: any) {
-  return await postMethod('/api/department/getDepartmentList', params)
+  return await postMethod('/api/v1/department/getDepartmentList', params)
 }
 /**
  * 部门管理页面主表格列表方法
@@ -24,7 +24,7 @@ export async function getDepartmentList(params: any) {
  * @returns
  */
 export async function mainSearch(params: any) {
-  return await postMethod('/api/department/main', params)
+  return await postMethod('/api/v1/department/main', params)
 }
 /**
  * 删除部门
@@ -32,7 +32,7 @@ export async function mainSearch(params: any) {
  * @returns
  */
 export async function deleteDepartment(departmentCode: string) {
-  return await postMethod(`/api/department/delete/${departmentCode}`)
+  return await postMethod(`/api/v1/department/delete/${departmentCode}`)
 }
 /**
  * 获取部门下的子部门列表
@@ -40,14 +40,14 @@ export async function deleteDepartment(departmentCode: string) {
  * @returns 子部门列表
  */
 export async function getSubDepartments(params: string) {
-  return await getMethod(`/api/department/getSubDepartments/${params}`)
+  return await getMethod(`/api/v1/department/getSubDepartments/${params}`)
 }
 /**
  * 获取所有部门
  * @returns 部门列表
  */
 export async function getAllDepartments() {
-  return await getMethod(`/api/department/all`)
+  return await getMethod(`/api/v1/department/all`)
 }
 export default {
   createDepartment,

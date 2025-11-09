@@ -2,15 +2,10 @@
 
 import { postMethod } from '~/config/axios'
 
-const api = {
-  login: '/api/user/login',
-  users: '/api/user/info',
-  register: '/api/user/register',
-}
 // 登录
 export function login(params: any) {
   // console.log('登录参数', params)
-  return postMethod(api.login, params).then((res) => {
+  return postMethod('/api/user/login', params).then((res) => {
     // console.log('登录成功', res)
     return Promise.resolve(res)
   })
@@ -18,7 +13,7 @@ export function login(params: any) {
 // 注册
 export function register(params: any) {
   // console.log('注册参数', params)
-  return postMethod(api.register, params).then((res) => {
+  return postMethod('/api/user/info', params).then((res) => {
     // console.log('注册成功', res)
     return Promise.resolve(res)
   })
