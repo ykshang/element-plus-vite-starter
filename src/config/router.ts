@@ -15,9 +15,8 @@ const router = createRouter({
 /**
  * 路由守卫
  */
-router.beforeEach((to) => {
-  // eslint-disable-next-line no-console
-  console.log(to)
+router.beforeEach(() => {
+  // console.log(to)
   NProgress.start() // 启动进度条
 })
 
