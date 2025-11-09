@@ -49,6 +49,15 @@ export async function getSubDepartments(params: string) {
 export async function getAllDepartments() {
   return await getMethod(`/api/v1/department/all`)
 }
+/**
+ * 更新部门
+ * @param params 部门信息
+ * @returns 更新结果
+ */
+export async function updateDepartment(params: any) {
+  return await postMethod('/api/v1/department/updateDepartment', params)
+}
+
 export default {
   createDepartment,
   getDepartmentList,
@@ -56,4 +65,5 @@ export default {
   getAllDepartments,
   deleteDepartment,
   getSubDepartments,
+  updateDepartment,
 }

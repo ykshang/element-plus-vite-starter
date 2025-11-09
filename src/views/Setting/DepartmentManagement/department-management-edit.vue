@@ -5,6 +5,7 @@ import { reactive, ref, toRaw } from 'vue'
 import departmentService from '~/api/departmentService'
 
 interface RuleForm {
+  id: string
   departmentName: string
   departmentShortName: string
   description: string
@@ -15,6 +16,7 @@ const loading = ref(false)
 const dialogVisible = ref(false)
 // 初始化注册表单
 const formData = reactive<RuleForm>({
+  id: '',
   departmentName: '',
   departmentShortName: '',
   description: '',
@@ -36,7 +38,7 @@ async function onSubmit(formEl: FormInstance | undefined) {
   await formEl.validate((valid) => {
     if (valid) {
       loading.value = true
-      departmentService.createDepartment(toRaw(formData)).then((res: any) => {
+      departmentService.updateDepartment(toRaw(formData)).then((res: any) => {
         loading.value = false
         if (res.success) {
           ElNotification.success('操作成功')
@@ -55,6 +57,7 @@ async function onSubmit(formEl: FormInstance | undefined) {
 function handleOpen(row: any) {
   // console.log('注册弹窗2233', row)
   parentDepartment.value = row
+  formData.id = row.id
   formData.departmentName = row.departmentName
   formData.departmentShortName = row.departmentShortName
   formData.description = row.description
