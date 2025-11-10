@@ -3,7 +3,7 @@
   "type": "module",
   "version": "0.1.0",
   "private": true,
-  "packageManager": "pnpm@10.15.1",
+  "packageManager": "pnpm@10.21.0",
   "license": "MIT",
   "homepage": "https://vite-starter.element-plus.org",
   "repository": {
@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.3.1",
+    "@iconify/vue": "^5.0.0",
     "@vueuse/core": "^13.6.0",
     "axios": "^1.11.0",
     "dayjs": "^1.11.18",
