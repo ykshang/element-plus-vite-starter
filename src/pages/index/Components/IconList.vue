@@ -5,7 +5,7 @@
     <template #header>
       图标选择组件
     </template>
-    <Selecticon />
+    <SelectIcon />
   </el-card>
   <el-card mb-10px shadow="never">
     <template #header>
