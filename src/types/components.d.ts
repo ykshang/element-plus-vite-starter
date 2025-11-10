@@ -111,6 +111,8 @@ declare module 'vue' {
     ProfileManagementRight: typeof import('./../views/Setting/ProfileManagement/profile-management-right.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    Selecticon: typeof import('./../components/SelectIcon/Selecticon.vue')['default']
+    Selecticon1: typeof import('./../components/SelectIcon/Selecticon1.vue')['default']
     TablePagination: typeof import('./../components/base/table-pagination.vue')['default']
     UserRegister: typeof import('./../views/Login/user-register.vue')['default']
   }

@@ -3,6 +3,12 @@
 <template>
   <el-card mb-10px shadow="never">
     <template #header>
+      图标选择组件
+    </template>
+    <Selecticon />
+  </el-card>
+  <el-card mb-10px shadow="never">
+    <template #header>
       @element-plus/icons-vue
     </template>
     <div leading-normal>
